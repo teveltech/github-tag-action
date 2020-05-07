@@ -147,7 +147,7 @@ async function run() {
       return;
     }
 
-    core.info("dry_run: " + dry_run + " (" + typeof(dry_run) + ")");
+    core.info("dry_run: " + dryRun + " (" + typeof(dryRun) + ") -> " + (false || dryRun));
     if (dryRun) {
       core.info("Dry run: not performing tag action.");
       return;
