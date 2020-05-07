@@ -147,10 +147,13 @@ async function run() {
       return;
     }
 
-    core.info("dry_run: " + dryRun + " (" + typeof(dryRun) + ") -> " + (false || dryRun));
-    if (dryRun) {
-      core.info("Dry run: not performing tag action.");
-      return;
+    switch (dryRun) {
+      case "true":
+      case "on":
+        core.info("Dry run: not performing tag action.");
+        return;
+      default:
+        break;
     }
 
     const octokit = new GitHub(core.getInput("github_token"));
