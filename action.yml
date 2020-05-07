@@ -1,6 +1,6 @@
-name: "Github Tag"
+name: "Github Tag with semantic versioning"
 description: "Bump and push git tag on merge"
-author: "Mathieu Dutour"
+author: "Mathieu Dutour (hacked by Jörg Henne)"
 outputs:
   new_tag:
     description: "Generated tag"
