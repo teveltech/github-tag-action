@@ -5,7 +5,8 @@
   "description": "A Github Action to automatically bump and tag master, on merge, with the latest SemVer formatted version.",
   "main": "lib/main.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -27,8 +28,22 @@
     "semver": "^6.3.0"
   },
   "devDependencies": {
-    "@types/node": "^12.12.14",
-    "@types/semver": "^6.2.0",
-    "typescript": "^3.7.2"
+    "@types/jest": "^26.0.7",
+    "@types/node": "^14.0.25",
+    "@typescript-eslint/parser": "^3.7.0",
+    "@zeit/ncc": "^0.22.3",
+    "@types/intercept-stdout": "^0.1.0",
+    "intercept-stdout": "^0.1.2",
+    "capture-stdout": "^1.0.0",
+    "eslint": "^7.5.0",
+    "eslint-plugin-github": "^4.1.1",
+    "eslint-plugin-jest": "^23.18.0",
+    "fs": "0.0.1-security",
+    "jest": "^24.9.0",
+    "jest-circus": "^26.1.0",
+    "js-yaml": "^3.14.0",
+    "prettier": "2.0.5",
+    "ts-jest": "^24.3.0",
+    "typescript": "^3.9.7"
   }
 }
