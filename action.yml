@@ -25,11 +25,26 @@ inputs:
   create_annotated_tag:
     description: "Boolean to create an annotated tag rather than lightweight"
     required: false
-    default: false
+    default: "false"
   dry_run:
     description: "Do not perform taging, just calculate next version and changelog, then exit"
     required: false
-    default: false
+    default: "false"
+  message_parser_preset:
+    description: >
+      The name of a (commit-analyzer preset)[https://github.com/semantic-release/commit-analyzer#options] to be used
+      to parse the commit messages. Possible values are
+      * (angular)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-angular]
+      * (atom)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-atom]
+      * (codemirror)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-codemirror]
+      * (ember)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-ember]
+      * (eslint)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-eslint]
+      * (express)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-express]
+      * (jquery)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jquery]
+      * (jshint)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jshint]
+      * (conventionalcommits)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-conventionalcommits]
+    required: false
+    default: conventionalcommits
 
 runs:
   using: "node12"

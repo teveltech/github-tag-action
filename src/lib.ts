@@ -43,6 +43,7 @@ async function exec(command: string, args?: string[]) {
 export async function run() {
   try {
     const defaultBump = core.getInput("default_bump") as ReleaseType;
+    const messageParserPreset = core.getInput("message_parser_preset");
     const tagPrefix = core.getInput("tag_prefix");
     const releaseBranches = core.getInput("release_branches");
     const createAnnotatedTag = core.getInput("create_annotated_tag");
@@ -108,14 +109,14 @@ export async function run() {
     core.debug(`Commits: ${commits}`);
 
     var bump = await analyzeCommits(
-      {},
+      { preset: messageParserPreset || 'conventionalcommits' },
       { commits, logger: { log: console.info.bind(console) } }
-    );
+    ) as ReleaseType;
     core.debug(`Bump type from commits: ${bump}`);
 
     bump = bump || defaultBump;
 
-    core.debug(`Effective bump type: ${bump}`);
+    core.info(`Effective bump type: ${bump}`);
 
     if (!bump) {
       core.setFailed(`Nothing to bump - not building release`);
