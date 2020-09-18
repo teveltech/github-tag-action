@@ -6851,7 +6851,7 @@ module.exports = function (source) {
 /* 164 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
-const {isUndefined} = __webpack_require__(557);
+const { isUndefined } = __webpack_require__(557);
 const parser = __webpack_require__(549).sync;
 const filter = __webpack_require__(304);
 const debug = __webpack_require__(784)('semantic-release:commit-analyzer');
@@ -6877,14 +6877,14 @@ const DEFAULT_RELEASE_RULES = __webpack_require__(914);
  * @returns {String|null} the type of release to create based on the list of commits or `null` if no release has to be done.
  */
 async function analyzeCommits(pluginConfig, context) {
-  const {commits, logger} = context;
+  const { commits, logger } = context;
   const releaseRules = loadReleaseRules(pluginConfig, context);
   const config = await loadParserConfig(pluginConfig, context);
   let releaseType = null;
 
   filter(
     commits
-      .filter(({message, hash}) => {
+      .filter(({ message, hash }) => {
         if (!message.trim()) {
           debug('Skip commit %s with empty message', hash);
           return false;
@@ -6892,8 +6892,8 @@ async function analyzeCommits(pluginConfig, context) {
 
         return true;
       })
-      .map(({message, ...commitProps}) => ({rawMsg: message, message, ...commitProps, ...parser(message, config)}))
-  ).every(({rawMsg, ...commit}) => {
+      .map(({ message, ...commitProps }) => ({ rawMsg: message, message, ...commitProps, ...parser(message, config) }))
+  ).every(({ rawMsg, ...commit }) => {
     logger.log(`Analyzing commit: %s`, rawMsg);
     let commitReleaseType;
 
@@ -6932,7 +6932,7 @@ async function analyzeCommits(pluginConfig, context) {
   return releaseType;
 }
 
-module.exports = {analyzeCommits};
+module.exports = { analyzeCommits };
 
 
 /***/ }),

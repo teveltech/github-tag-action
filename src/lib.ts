@@ -2,7 +2,7 @@ import * as core from "@actions/core";
 import { exec as _exec } from "@actions/exec";
 import { context, GitHub } from "@actions/github";
 import semver, { ReleaseType } from "semver";
-import { analyzeCommits } from "@semantic-release/commit-analyzer";
+import { analyzeCommits } from "./myCommitAnalyzer";
 import { generateNotes } from "@semantic-release/release-notes-generator";
 
 const SEPARATOR = "==============================================";
