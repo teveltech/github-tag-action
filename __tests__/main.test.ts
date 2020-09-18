@@ -81,6 +81,21 @@ test('builds patch release', async () => {
     expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-1.0.1");
 });
 
+test('does not build patch release due to dry_run', async () => {
+    process.env.GITHUB_SHA = "8fe0159ec6ed3bb669765fbce6ed42a0b4adede5";
+    cp.execSync("git checkout 8fe0159ec6ed3bb669765fbce6ed42a0b4adede5");
+
+    process.env.INPUT_dry_run = "true";
+
+    const cap = new StdoutCapture();
+
+    await run();
+
+    cap.stopCapture();
+
+    expect(cap.captured).toContain("::set-output name=dry_run,::true");
+});
+
 test('builds no release due to missing keyword', async () => {
     process.env.GITHUB_SHA = "3e039e60919e4ad573e11b508be57fb13919f330";
     cp.execSync("git checkout 3e039e60919e4ad573e11b508be57fb13919f330");

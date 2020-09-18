@@ -171,7 +171,8 @@ export async function run() {
     }
 
     core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
-    if (dryRun === "true) {
+    if (dryRun === "true") {
+      core.setOutput("dry_run", "true");
       core.info("Dry run: not performing tag action.");
       return;
     }
