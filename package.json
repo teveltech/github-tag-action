@@ -3,9 +3,9 @@
   "version": "4.1.0",
   "private": true,
   "description": "A Github Action to automatically bump and tag master, on merge, with the latest SemVer formatted version.",
-  "main": "lib/main.js",
+  "main": "src/main.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "ncc build --source-map",
     "test": "jest",
     "package": "ncc build --source-map"
   },

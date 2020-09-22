@@ -40,7 +40,7 @@ require('./sourcemap-register.js');module.exports =
 /******/ 	// the startup function
 /******/ 	function startup() {
 /******/ 		// Load entry module and return exports
-/******/ 		return __webpack_require__(198);
+/******/ 		return __webpack_require__(131);
 /******/ 	};
 /******/ 	// initialize runtime
 /******/ 	runtime(__webpack_require__);
@@ -4342,48 +4342,7 @@ exports.SourceNode = __webpack_require__(54).SourceNode;
 /* 97 */,
 /* 98 */,
 /* 99 */,
-/* 100 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-const {promisify} = __webpack_require__(669);
-const {isPlainObject} = __webpack_require__(557);
-const importFrom = __webpack_require__(121);
-const conventionalChangelogAngular = __webpack_require__(746);
-
-/**
- * Load `conventional-changelog-parser` options. Handle presets that return either a `Promise<Array>` or a `Promise<Function>`.
- *
- * @param {Object} pluginConfig The plugin configuration.
- * @param {Object} pluginConfig.preset conventional-changelog preset ('angular', 'atom', 'codemirror', 'ember', 'eslint', 'express', 'jquery', 'jscs', 'jshint')
- * @param {String} pluginConfig.config Requierable npm package with a custom conventional-changelog preset
- * @param {Object} pluginConfig.parserOpts Additionnal `conventional-changelog-parser` options that will overwrite ones loaded by `preset` or `config`.
- * @param {Object} context The semantic-release context.
- * @param {String} context.cwd The current working directory.
- * @return {Promise<Object>} a `Promise` that resolve to the `conventional-changelog-parser` options.
- */
-module.exports = async ({preset, config, parserOpts, presetConfig}, {cwd}) => {
-  let loadedConfig;
-
-  if (preset) {
-    const presetPackage = `conventional-changelog-${preset.toLowerCase()}`;
-    loadedConfig = importFrom.silent(__dirname, presetPackage) || importFrom(cwd, presetPackage);
-  } else if (config) {
-    loadedConfig = importFrom.silent(__dirname, config) || importFrom(cwd, config);
-  } else {
-    loadedConfig = conventionalChangelogAngular;
-  }
-
-  loadedConfig = await (typeof loadedConfig === 'function'
-    ? isPlainObject(presetConfig)
-      ? loadedConfig(presetConfig)
-      : promisify(loadedConfig)()
-    : loadedConfig);
-
-  return {...loadedConfig.parserOpts, ...parserOpts};
-};
-
-
-/***/ }),
+/* 100 */,
 /* 101 */,
 /* 102 */,
 /* 103 */,
@@ -5122,9 +5081,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template6.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header6.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit6.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template5.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header5.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit5.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
@@ -6163,75 +6122,14 @@ module.exports = require("child_process");
 /***/ }),
 /* 130 */,
 /* 131 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
 
-
-exports.__esModule = true;
-// istanbul ignore next
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
-
-// istanbul ignore next
-
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
-
-var _handlebarsBase = __webpack_require__(354);
-
-var base = _interopRequireWildcard(_handlebarsBase);
-
-// Each of these augment the Handlebars object. No need to setup here.
-// (This is done to easily share code between commonjs and browse envs)
-
-var _handlebarsSafeString = __webpack_require__(474);
-
-var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
-
-var _handlebarsException = __webpack_require__(311);
-
-var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
-
-var _handlebarsUtils = __webpack_require__(423);
-
-var Utils = _interopRequireWildcard(_handlebarsUtils);
-
-var _handlebarsRuntime = __webpack_require__(984);
-
-var runtime = _interopRequireWildcard(_handlebarsRuntime);
-
-var _handlebarsNoConflict = __webpack_require__(352);
-
-var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
-
-// For compatibility and usage outside of module systems, make the Handlebars object a namespace
-function create() {
-  var hb = new base.HandlebarsEnvironment();
-
-  Utils.extend(hb, base);
-  hb.SafeString = _handlebarsSafeString2['default'];
-  hb.Exception = _handlebarsException2['default'];
-  hb.Utils = Utils;
-  hb.escapeExpression = Utils.escapeExpression;
-
-  hb.VM = runtime;
-  hb.template = function (spec) {
-    return runtime.template(spec, hb);
-  };
-
-  return hb;
-}
-
-var inst = create();
-inst.create = create;
-
-_handlebarsNoConflict2['default'](inst);
-
-inst['default'] = inst;
-
-exports['default'] = inst;
-module.exports = exports['default'];
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2xpYi9oYW5kbGViYXJzLnJ1bnRpbWUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7OEJBQXNCLG1CQUFtQjs7SUFBN0IsSUFBSTs7Ozs7b0NBSU8sMEJBQTBCOzs7O21DQUMzQix3QkFBd0I7Ozs7K0JBQ3ZCLG9CQUFvQjs7SUFBL0IsS0FBSzs7aUNBQ1Esc0JBQXNCOztJQUFuQyxPQUFPOztvQ0FFSSwwQkFBMEI7Ozs7O0FBR2pELFNBQVMsTUFBTSxHQUFHO0FBQ2hCLE1BQUksRUFBRSxHQUFHLElBQUksSUFBSSxDQUFDLHFCQUFxQixFQUFFLENBQUM7O0FBRTFDLE9BQUssQ0FBQyxNQUFNLENBQUMsRUFBRSxFQUFFLElBQUksQ0FBQyxDQUFDO0FBQ3ZCLElBQUUsQ0FBQyxVQUFVLG9DQUFhLENBQUM7QUFDM0IsSUFBRSxDQUFDLFNBQVMsbUNBQVksQ0FBQztBQUN6QixJQUFFLENBQUMsS0FBSyxHQUFHLEtBQUssQ0FBQztBQUNqQixJQUFFLENBQUMsZ0JBQWdCLEdBQUcsS0FBSyxDQUFDLGdCQUFnQixDQUFDOztBQUU3QyxJQUFFLENBQUMsRUFBRSxHQUFHLE9BQU8sQ0FBQztBQUNoQixJQUFFLENBQUMsUUFBUSxHQUFHLFVBQVMsSUFBSSxFQUFFO0FBQzNCLFdBQU8sT0FBTyxDQUFDLFFBQVEsQ0FBQyxJQUFJLEVBQUUsRUFBRSxDQUFDLENBQUM7R0FDbkMsQ0FBQzs7QUFFRixTQUFPLEVBQUUsQ0FBQztDQUNYOztBQUVELElBQUksSUFBSSxHQUFHLE1BQU0sRUFBRSxDQUFDO0FBQ3BCLElBQUksQ0FBQyxNQUFNLEdBQUcsTUFBTSxDQUFDOztBQUVyQixrQ0FBVyxJQUFJLENBQUMsQ0FBQzs7QUFFakIsSUFBSSxDQUFDLFNBQVMsQ0FBQyxHQUFHLElBQUksQ0FBQzs7cUJBRVIsSUFBSSIsImZpbGUiOiJoYW5kbGViYXJzLnJ1bnRpbWUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBiYXNlIGZyb20gJy4vaGFuZGxlYmFycy9iYXNlJztcblxuLy8gRWFjaCBvZiB0aGVzZSBhdWdtZW50IHRoZSBIYW5kbGViYXJzIG9iamVjdC4gTm8gbmVlZCB0byBzZXR1cCBoZXJlLlxuLy8gKFRoaXMgaXMgZG9uZSB0byBlYXNpbHkgc2hhcmUgY29kZSBiZXR3ZWVuIGNvbW1vbmpzIGFuZCBicm93c2UgZW52cylcbmltcG9ydCBTYWZlU3RyaW5nIGZyb20gJy4vaGFuZGxlYmFycy9zYWZlLXN0cmluZyc7XG5pbXBvcnQgRXhjZXB0aW9uIGZyb20gJy4vaGFuZGxlYmFycy9leGNlcHRpb24nO1xuaW1wb3J0ICogYXMgVXRpbHMgZnJvbSAnLi9oYW5kbGViYXJzL3V0aWxzJztcbmltcG9ydCAqIGFzIHJ1bnRpbWUgZnJvbSAnLi9oYW5kbGViYXJzL3J1bnRpbWUnO1xuXG5pbXBvcnQgbm9Db25mbGljdCBmcm9tICcuL2hhbmRsZWJhcnMvbm8tY29uZmxpY3QnO1xuXG4vLyBGb3IgY29tcGF0aWJpbGl0eSBhbmQgdXNhZ2Ugb3V0c2lkZSBvZiBtb2R1bGUgc3lzdGVtcywgbWFrZSB0aGUgSGFuZGxlYmFycyBvYmplY3QgYSBuYW1lc3BhY2VcbmZ1bmN0aW9uIGNyZWF0ZSgpIHtcbiAgbGV0IGhiID0gbmV3IGJhc2UuSGFuZGxlYmFyc0Vudmlyb25tZW50KCk7XG5cbiAgVXRpbHMuZXh0ZW5kKGhiLCBiYXNlKTtcbiAgaGIuU2FmZVN0cmluZyA9IFNhZmVTdHJpbmc7XG4gIGhiLkV4Y2VwdGlvbiA9IEV4Y2VwdGlvbjtcbiAgaGIuVXRpbHMgPSBVdGlscztcbiAgaGIuZXNjYXBlRXhwcmVzc2lvbiA9IFV0aWxzLmVzY2FwZUV4cHJlc3Npb247XG5cbiAgaGIuVk0gPSBydW50aW1lO1xuICBoYi50ZW1wbGF0ZSA9IGZ1bmN0aW9uKHNwZWMpIHtcbiAgICByZXR1cm4gcnVudGltZS50ZW1wbGF0ZShzcGVjLCBoYik7XG4gIH07XG5cbiAgcmV0dXJuIGhiO1xufVxuXG5sZXQgaW5zdCA9IGNyZWF0ZSgpO1xuaW5zdC5jcmVhdGUgPSBjcmVhdGU7XG5cbm5vQ29uZmxpY3QoaW5zdCk7XG5cbmluc3RbJ2RlZmF1bHQnXSA9IGluc3Q7XG5cbmV4cG9ydCBkZWZhdWx0IGluc3Q7XG4iXX0=
+Object.defineProperty(exports, "__esModule", { value: true });
+const lib_1 = __webpack_require__(795);
+// just delegate for testability
+lib_1.run();
 
 
 /***/ }),
@@ -6917,9 +6815,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template4.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header4.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit4.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template6.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header6.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit6.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
@@ -9111,14 +9009,19 @@ function checkMode (stat, options) {
 
 /***/ }),
 /* 198 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
+/***/ (function(module, __unusedexports, __webpack_require__) {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const lib_1 = __webpack_require__(646);
-// just delegate for testability
-lib_1.run();
+
+const Q = __webpack_require__(216)
+const parserOpts = __webpack_require__(139)
+const writerOpts = __webpack_require__(976)
+
+module.exports = Q.all([parserOpts, writerOpts])
+  .spread((parserOpts, writerOpts) => {
+    return { parserOpts, writerOpts }
+  })
 
 
 /***/ }),
@@ -13214,112 +13117,7 @@ module.exports = {
 /* 235 */,
 /* 236 */,
 /* 237 */,
-/* 238 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __rest = (this && this.__rest) || function (s, e) {
-    var t = {};
-    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
-        t[p] = s[p];
-    if (s != null && typeof Object.getOwnPropertySymbols === "function")
-        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
-            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
-                t[p[i]] = s[p[i]];
-        }
-    return t;
-};
-const { isUndefined } = __webpack_require__(557);
-const parser = __webpack_require__(549).sync;
-const filter = __webpack_require__(304);
-const debug = __webpack_require__(784)('semantic-release:commit-analyzer');
-const loadParserConfig = __webpack_require__(100);
-const loadReleaseRules = __webpack_require__(306);
-const analyzeCommit = __webpack_require__(179);
-const compareReleaseTypes = __webpack_require__(938);
-const RELEASE_TYPES = __webpack_require__(275);
-const DEFAULT_RELEASE_RULES = __webpack_require__(914);
-function resolvePreset(presetName) {
-    switch (presetName) {
-        case 'atom': return __webpack_require__(795);
-        case 'codemirror': return __webpack_require__(195);
-        case 'conventionalcommits': return __webpack_require__(851);
-        case 'eslint': return __webpack_require__(596);
-        case 'express': return __webpack_require__(643);
-        case 'jquery': return __webpack_require__(341);
-        case 'jshint': return __webpack_require__(973);
-        default: return __webpack_require__(746);
-    }
-}
-/**
- * A clone of @semantic-release/commit-analyzer::analyzeCommits that allows the parser config to be passed directly instead of referencing
- * a preset name as the standard loading mechanismn isn't amenable to packing with tss.
- */
-function analyzeCommits(pluginConfig, context) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const { commits, logger } = context;
-        const releaseRules = loadReleaseRules(pluginConfig, context);
-        const config = resolvePreset(pluginConfig.preset);
-        let releaseType = null;
-        filter(commits
-            .filter(({ message, hash }) => {
-            if (!message.trim()) {
-                debug('Skip commit %s with empty message', hash);
-                return false;
-            }
-            return true;
-        })
-            .map((_a) => {
-            var { message } = _a, commitProps = __rest(_a, ["message"]);
-            return (Object.assign(Object.assign({ rawMsg: message, message }, commitProps), parser(message, config)));
-        })).every((_a) => {
-            var { rawMsg } = _a, commit = __rest(_a, ["rawMsg"]);
-            logger.log(`Analyzing commit: %s`, rawMsg);
-            let commitReleaseType;
-            // Determine release type based on custom releaseRules
-            if (releaseRules) {
-                debug('Analyzing with custom rules');
-                commitReleaseType = analyzeCommit(releaseRules, commit);
-            }
-            // If no custom releaseRules or none matched the commit, try with default releaseRules
-            if (isUndefined(commitReleaseType)) {
-                debug('Analyzing with default rules');
-                commitReleaseType = analyzeCommit(DEFAULT_RELEASE_RULES, commit);
-            }
-            if (commitReleaseType) {
-                logger.log('The release type for the commit is %s', commitReleaseType);
-            }
-            else {
-                logger.log('The commit should not trigger a release');
-            }
-            // Set releaseType if commit's release type is higher
-            if (commitReleaseType && compareReleaseTypes(releaseType, commitReleaseType)) {
-                releaseType = commitReleaseType;
-            }
-            // Break loop if releaseType is the highest
-            if (releaseType === RELEASE_TYPES[0]) {
-                return false;
-            }
-            return true;
-        });
-        logger.log('Analysis of %s commits complete: %s release', commits.length, releaseType || 'no');
-        return releaseType;
-    });
-}
-module.exports = { analyzeCommits };
-
-
-/***/ }),
+/* 238 */,
 /* 239 */
 /***/ (function(module) {
 
@@ -18557,7 +18355,7 @@ exports.computeSourceURL = computeSourceURL;
 "use strict";
 
 const Q = __webpack_require__(216)
-const conventionalChangelog = __webpack_require__(918)
+const conventionalChangelog = __webpack_require__(198)
 const parserOpts = __webpack_require__(139)
 const recommendedBumpOpts = __webpack_require__(982)
 const writerOpts = __webpack_require__(976)
@@ -20369,7 +20167,7 @@ exports.__esModule = true;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 
-var _handlebarsRuntime = __webpack_require__(131);
+var _handlebarsRuntime = __webpack_require__(595);
 
 var _handlebarsRuntime2 = _interopRequireDefault(_handlebarsRuntime);
 
@@ -23715,7 +23513,45 @@ function authenticationBeforeRequest(state, options) {
 
 /***/ }),
 /* 472 */,
-/* 473 */,
+/* 473 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+"use strict";
+
+
+const parserOpts = __webpack_require__(64)
+
+module.exports = {
+  parserOpts,
+
+  whatBump: commits => {
+    let level = 2
+    let breakings = 0
+    let features = 0
+
+    commits.forEach(commit => {
+      if (!commit.tag) return
+
+      if (commit.tag.toLowerCase() === 'breaking') {
+        breakings += 1
+        level = 0
+      } else if (commit.tag.toLowerCase() === 'new') {
+        features += 1
+        if (level === 2) {
+          level = 1
+        }
+      }
+    })
+
+    return {
+      level: level,
+      reason: `There are ${breakings} breaking changes and ${features} features`
+    }
+  }
+}
+
+
+/***/ }),
 /* 474 */
 /***/ (function(module, exports) {
 
@@ -44702,9 +44538,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template7.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header7.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit7.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template4.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header4.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit4.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
@@ -45098,10 +44934,10 @@ module.exports = function (config) {
   })
 
   return Q.all([
-    readFile(__webpack_require__.ab + "template.hbs", 'utf-8'),
-    readFile(__webpack_require__.ab + "header.hbs", 'utf-8'),
-    readFile(__webpack_require__.ab + "commit.hbs", 'utf-8'),
-    readFile(__webpack_require__.ab + "footer.hbs", 'utf-8')
+    readFile(__webpack_require__.ab + "template7.hbs", 'utf-8'),
+    readFile(__webpack_require__.ab + "header7.hbs", 'utf-8'),
+    readFile(__webpack_require__.ab + "commit7.hbs", 'utf-8'),
+    readFile(__webpack_require__.ab + "footer2.hbs", 'utf-8')
   ])
     .spread((template, header, commit, footer) => {
       const writerOpts = getWriterOpts(config)
@@ -45760,7 +45596,79 @@ module.exports = {
 
 /***/ }),
 /* 594 */,
-/* 595 */,
+/* 595 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+// istanbul ignore next
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+
+// istanbul ignore next
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj['default'] = obj; return newObj; } }
+
+var _handlebarsBase = __webpack_require__(354);
+
+var base = _interopRequireWildcard(_handlebarsBase);
+
+// Each of these augment the Handlebars object. No need to setup here.
+// (This is done to easily share code between commonjs and browse envs)
+
+var _handlebarsSafeString = __webpack_require__(474);
+
+var _handlebarsSafeString2 = _interopRequireDefault(_handlebarsSafeString);
+
+var _handlebarsException = __webpack_require__(311);
+
+var _handlebarsException2 = _interopRequireDefault(_handlebarsException);
+
+var _handlebarsUtils = __webpack_require__(423);
+
+var Utils = _interopRequireWildcard(_handlebarsUtils);
+
+var _handlebarsRuntime = __webpack_require__(984);
+
+var runtime = _interopRequireWildcard(_handlebarsRuntime);
+
+var _handlebarsNoConflict = __webpack_require__(352);
+
+var _handlebarsNoConflict2 = _interopRequireDefault(_handlebarsNoConflict);
+
+// For compatibility and usage outside of module systems, make the Handlebars object a namespace
+function create() {
+  var hb = new base.HandlebarsEnvironment();
+
+  Utils.extend(hb, base);
+  hb.SafeString = _handlebarsSafeString2['default'];
+  hb.Exception = _handlebarsException2['default'];
+  hb.Utils = Utils;
+  hb.escapeExpression = Utils.escapeExpression;
+
+  hb.VM = runtime;
+  hb.template = function (spec) {
+    return runtime.template(spec, hb);
+  };
+
+  return hb;
+}
+
+var inst = create();
+inst.create = create;
+
+_handlebarsNoConflict2['default'](inst);
+
+inst['default'] = inst;
+
+exports['default'] = inst;
+module.exports = exports['default'];
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL2xpYi9oYW5kbGViYXJzLnJ1bnRpbWUuanMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7OEJBQXNCLG1CQUFtQjs7SUFBN0IsSUFBSTs7Ozs7b0NBSU8sMEJBQTBCOzs7O21DQUMzQix3QkFBd0I7Ozs7K0JBQ3ZCLG9CQUFvQjs7SUFBL0IsS0FBSzs7aUNBQ1Esc0JBQXNCOztJQUFuQyxPQUFPOztvQ0FFSSwwQkFBMEI7Ozs7O0FBR2pELFNBQVMsTUFBTSxHQUFHO0FBQ2hCLE1BQUksRUFBRSxHQUFHLElBQUksSUFBSSxDQUFDLHFCQUFxQixFQUFFLENBQUM7O0FBRTFDLE9BQUssQ0FBQyxNQUFNLENBQUMsRUFBRSxFQUFFLElBQUksQ0FBQyxDQUFDO0FBQ3ZCLElBQUUsQ0FBQyxVQUFVLG9DQUFhLENBQUM7QUFDM0IsSUFBRSxDQUFDLFNBQVMsbUNBQVksQ0FBQztBQUN6QixJQUFFLENBQUMsS0FBSyxHQUFHLEtBQUssQ0FBQztBQUNqQixJQUFFLENBQUMsZ0JBQWdCLEdBQUcsS0FBSyxDQUFDLGdCQUFnQixDQUFDOztBQUU3QyxJQUFFLENBQUMsRUFBRSxHQUFHLE9BQU8sQ0FBQztBQUNoQixJQUFFLENBQUMsUUFBUSxHQUFHLFVBQVMsSUFBSSxFQUFFO0FBQzNCLFdBQU8sT0FBTyxDQUFDLFFBQVEsQ0FBQyxJQUFJLEVBQUUsRUFBRSxDQUFDLENBQUM7R0FDbkMsQ0FBQzs7QUFFRixTQUFPLEVBQUUsQ0FBQztDQUNYOztBQUVELElBQUksSUFBSSxHQUFHLE1BQU0sRUFBRSxDQUFDO0FBQ3BCLElBQUksQ0FBQyxNQUFNLEdBQUcsTUFBTSxDQUFDOztBQUVyQixrQ0FBVyxJQUFJLENBQUMsQ0FBQzs7QUFFakIsSUFBSSxDQUFDLFNBQVMsQ0FBQyxHQUFHLElBQUksQ0FBQzs7cUJBRVIsSUFBSSIsImZpbGUiOiJoYW5kbGViYXJzLnJ1bnRpbWUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgKiBhcyBiYXNlIGZyb20gJy4vaGFuZGxlYmFycy9iYXNlJztcblxuLy8gRWFjaCBvZiB0aGVzZSBhdWdtZW50IHRoZSBIYW5kbGViYXJzIG9iamVjdC4gTm8gbmVlZCB0byBzZXR1cCBoZXJlLlxuLy8gKFRoaXMgaXMgZG9uZSB0byBlYXNpbHkgc2hhcmUgY29kZSBiZXR3ZWVuIGNvbW1vbmpzIGFuZCBicm93c2UgZW52cylcbmltcG9ydCBTYWZlU3RyaW5nIGZyb20gJy4vaGFuZGxlYmFycy9zYWZlLXN0cmluZyc7XG5pbXBvcnQgRXhjZXB0aW9uIGZyb20gJy4vaGFuZGxlYmFycy9leGNlcHRpb24nO1xuaW1wb3J0ICogYXMgVXRpbHMgZnJvbSAnLi9oYW5kbGViYXJzL3V0aWxzJztcbmltcG9ydCAqIGFzIHJ1bnRpbWUgZnJvbSAnLi9oYW5kbGViYXJzL3J1bnRpbWUnO1xuXG5pbXBvcnQgbm9Db25mbGljdCBmcm9tICcuL2hhbmRsZWJhcnMvbm8tY29uZmxpY3QnO1xuXG4vLyBGb3IgY29tcGF0aWJpbGl0eSBhbmQgdXNhZ2Ugb3V0c2lkZSBvZiBtb2R1bGUgc3lzdGVtcywgbWFrZSB0aGUgSGFuZGxlYmFycyBvYmplY3QgYSBuYW1lc3BhY2VcbmZ1bmN0aW9uIGNyZWF0ZSgpIHtcbiAgbGV0IGhiID0gbmV3IGJhc2UuSGFuZGxlYmFyc0Vudmlyb25tZW50KCk7XG5cbiAgVXRpbHMuZXh0ZW5kKGhiLCBiYXNlKTtcbiAgaGIuU2FmZVN0cmluZyA9IFNhZmVTdHJpbmc7XG4gIGhiLkV4Y2VwdGlvbiA9IEV4Y2VwdGlvbjtcbiAgaGIuVXRpbHMgPSBVdGlscztcbiAgaGIuZXNjYXBlRXhwcmVzc2lvbiA9IFV0aWxzLmVzY2FwZUV4cHJlc3Npb247XG5cbiAgaGIuVk0gPSBydW50aW1lO1xuICBoYi50ZW1wbGF0ZSA9IGZ1bmN0aW9uKHNwZWMpIHtcbiAgICByZXR1cm4gcnVudGltZS50ZW1wbGF0ZShzcGVjLCBoYik7XG4gIH07XG5cbiAgcmV0dXJuIGhiO1xufVxuXG5sZXQgaW5zdCA9IGNyZWF0ZSgpO1xuaW5zdC5jcmVhdGUgPSBjcmVhdGU7XG5cbm5vQ29uZmxpY3QoaW5zdCk7XG5cbmluc3RbJ2RlZmF1bHQnXSA9IGluc3Q7XG5cbmV4cG9ydCBkZWZhdWx0IGluc3Q7XG4iXX0=
+
+
+/***/ }),
 /* 596 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -45769,7 +45677,7 @@ module.exports = {
 const Q = __webpack_require__(216)
 const conventionalChangelog = __webpack_require__(949)
 const parserOpts = __webpack_require__(64)
-const recommendedBumpOpts = __webpack_require__(738)
+const recommendedBumpOpts = __webpack_require__(473)
 const writerOpts = __webpack_require__(566)
 
 module.exports = presetOpts
@@ -48791,9 +48699,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template5.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header5.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit5.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template3.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header3.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit3.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
@@ -48850,196 +48758,7 @@ function presetOpts (cb) {
 /***/ }),
 /* 644 */,
 /* 645 */,
-/* 646 */
-/***/ (function(__unusedmodule, exports, __webpack_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.run = void 0;
-const core = __importStar(__webpack_require__(470));
-const exec_1 = __webpack_require__(986);
-const github_1 = __webpack_require__(469);
-const semver_1 = __importDefault(__webpack_require__(864));
-const myCommitAnalyzer_1 = __webpack_require__(238);
-const release_notes_generator_1 = __webpack_require__(559);
-const SEPARATOR = "==============================================";
-function exec(command, args) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let stdout = "";
-        let stderr = "";
-        try {
-            const options = {
-                listeners: {
-                    stdout: (data) => {
-                        stdout += data.toString();
-                    },
-                    stderr: (data) => {
-                        stderr += data.toString();
-                    }
-                }
-            };
-            const code = yield exec_1.exec(command, args, options);
-            return {
-                code,
-                stdout,
-                stderr
-            };
-        }
-        catch (err) {
-            return {
-                code: 1,
-                stdout,
-                stderr,
-                error: err
-            };
-        }
-    });
-}
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const defaultBump = core.getInput("default_bump");
-            const messageParserPreset = core.getInput("message_parser_preset");
-            const tagPrefix = core.getInput("tag_prefix");
-            const releaseBranches = core.getInput("release_branches");
-            const createAnnotatedTag = core.getInput("create_annotated_tag");
-            const dryRun = core.getInput("dry_run");
-            const { GITHUB_REF, GITHUB_SHA } = process.env;
-            if (!GITHUB_REF) {
-                core.setFailed("Missing GITHUB_REF");
-                return;
-            }
-            if (!GITHUB_SHA) {
-                core.setFailed("Missing GITHUB_SHA");
-                return;
-            }
-            const preRelease = releaseBranches
-                .split(",")
-                .every(branch => !GITHUB_REF.replace("refs/heads/", "").match(branch));
-            yield exec("git fetch --tags");
-            const hasTag = !!(yield exec("git tag")).stdout.trim();
-            let tag = "";
-            let logs = "";
-            if (hasTag) {
-                console.log(yield exec('pwd'));
-                const previousTagSha = (yield exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim();
-                tag = (yield exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
-                logs = (yield exec(`git log ${tag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
-                if (previousTagSha === GITHUB_SHA) {
-                    core.debug("No new commits since previous tag. Skipping...");
-                    core.setOutput("previous_tag", tag);
-                    return;
-                }
-            }
-            else {
-                tag = "0.0.0";
-                logs = (yield exec(`git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
-                core.setOutput("previous_tag", tag);
-            }
-            console.info(`Current tag is ${tag}`);
-            // for some reason the commits start with a `'` on the CI so we ignore it
-            const commits = logs
-                .split(SEPARATOR)
-                .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
-                .filter(x => !!x.message);
-            core.debug(`Commits: ${commits}`);
-            var bump = yield myCommitAnalyzer_1.analyzeCommits({ preset: messageParserPreset || 'conventionalcommits' }, { commits, logger: { log: console.info.bind(console) } });
-            core.debug(`Bump type from commits: ${bump}`);
-            bump = bump || defaultBump;
-            core.info(`Effective bump type: ${bump}`);
-            if (!bump) {
-                core.setFailed(`Nothing to bump - not building release`);
-                return;
-            }
-            const rawVersion = tag.replace(tagPrefix, '');
-            const incResult = semver_1.default.inc(rawVersion, bump || defaultBump);
-            core.debug(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-            if (!incResult) {
-                core.setFailed(`SemVer inc rejected tag ${tag}`);
-                return;
-            }
-            const newVersion = `${incResult}${preRelease ? `-${GITHUB_SHA.slice(0, 7)}` : ""}`;
-            const newTag = `${tagPrefix}${newVersion}`;
-            core.setOutput("new_version", newVersion);
-            core.setOutput("new_tag", newTag);
-            core.debug(`New tag: ${newTag}`);
-            const changelog = yield release_notes_generator_1.generateNotes({}, {
-                commits,
-                logger: { log: console.info.bind(console) },
-                options: {
-                    repositoryUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}`
-                },
-                lastRelease: { gitTag: tag },
-                nextRelease: { gitTag: newTag, version: newVersion }
-            });
-            core.setOutput("changelog", changelog);
-            if (preRelease) {
-                core.debug("This branch is not a release branch. Skipping the tag creation.");
-                return;
-            }
-            const tagAlreadyExists = !!(yield exec(`git tag -l "${newTag}"`)).stdout.trim();
-            if (tagAlreadyExists) {
-                core.debug("This tag already exists. Skipping the tag creation.");
-                return;
-            }
-            core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
-            if (dryRun === "true") {
-                core.setOutput("dry_run", "true");
-                core.info("Dry run: not performing tag action.");
-                return;
-            }
-            const octokit = new github_1.GitHub(core.getInput("github_token"));
-            if (createAnnotatedTag === "true") {
-                core.debug(`Creating annotated tag`);
-                const tagCreateResponse = yield octokit.git.createTag(Object.assign(Object.assign({}, github_1.context.repo), { tag: newTag, message: newTag, object: GITHUB_SHA, type: "commit" }));
-                core.debug(`Pushing annotated tag to the repo`);
-                yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${newTag}`, sha: tagCreateResponse.data.sha }));
-                return;
-            }
-            core.debug(`Pushing new tag to the repo`);
-            yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${newTag}`, sha: GITHUB_SHA }));
-        }
-        catch (error) {
-            core.setFailed(error.message);
-        }
-    });
-}
-exports.run = run;
-
-
-/***/ }),
+/* 646 */,
 /* 647 */,
 /* 648 */,
 /* 649 */
@@ -49892,7 +49611,106 @@ module.exports = function btoa(str) {
 /* 685 */,
 /* 686 */,
 /* 687 */,
-/* 688 */,
+/* 688 */
+/***/ (function(module, __unusedexports, __webpack_require__) {
+
+const { isUndefined } = __webpack_require__(557);
+const parser = __webpack_require__(549).sync;
+const filter = __webpack_require__(304);
+const debug = __webpack_require__(784)('semantic-release:commit-analyzer');
+const loadReleaseRules = __webpack_require__(306);
+const analyzeCommit = __webpack_require__(179);
+const compareReleaseTypes = __webpack_require__(938);
+const RELEASE_TYPES = __webpack_require__(275);
+const DEFAULT_RELEASE_RULES = __webpack_require__(914);
+const { isPlainObject } = __webpack_require__(557);
+const { promisify } = __webpack_require__(669);
+
+async function resolvePreset({ preset, config, parserOpts, presetConfig }, { cwd }) {
+    let loadedConfig;
+    switch (preset) {
+        case 'atom': loadedConfig = __webpack_require__(738); break;
+        case 'codemirror': loadedConfig = __webpack_require__(195); break;
+        case 'conventionalcommits': loadedConfig = __webpack_require__(851); break;
+        case 'eslint': loadedConfig = __webpack_require__(596); break;
+        case 'express': loadedConfig = __webpack_require__(643); break;
+        case 'jquery': loadedConfig = __webpack_require__(341); break;
+        case 'jshint': loadedConfig = __webpack_require__(973); break;
+        default: loadedConfig = __webpack_require__(746); break;
+    }
+
+    loadedConfig = await (typeof loadedConfig === 'function'
+        ? isPlainObject(presetConfig)
+            ? loadedConfig(presetConfig)
+            : promisify(loadedConfig)()
+        : loadedConfig);
+
+    return { ...loadedConfig.parserOpts, ...parserOpts };
+}
+
+/**
+ * A clone of @semantic-release/commit-analyzer::analyzeCommits that allows the parser config to be passed directly instead of referencing
+ * a preset name as the standard loading mechanismn isn't amenable to packing with tss.
+ */
+async function analyzeCommits(pluginConfig, context) {
+    const { commits, logger } = context;
+    const releaseRules = loadReleaseRules(pluginConfig, context);
+    const config = await resolvePreset(pluginConfig, context);
+    let releaseType = null;
+
+    filter(
+        commits
+            .filter(({ message, hash }) => {
+                if (!message.trim()) {
+                    debug('Skip commit %s with empty message', hash);
+                    return false;
+                }
+
+                return true;
+            })
+            .map(({ message, ...commitProps }) => ({ rawMsg: message, message, ...commitProps, ...parser(message, config) }))
+    ).every(({ rawMsg, ...commit }) => {
+        logger.log(`Analyzing commit: %s`, rawMsg);
+        let commitReleaseType;
+
+        // Determine release type based on custom releaseRules
+        if (releaseRules) {
+            debug('Analyzing with custom rules');
+            commitReleaseType = analyzeCommit(releaseRules, commit);
+        }
+
+        // If no custom releaseRules or none matched the commit, try with default releaseRules
+        if (isUndefined(commitReleaseType)) {
+            debug('Analyzing with default rules');
+            commitReleaseType = analyzeCommit(DEFAULT_RELEASE_RULES, commit);
+        }
+
+        if (commitReleaseType) {
+            logger.log('The release type for the commit is %s', commitReleaseType);
+        } else {
+            logger.log('The commit should not trigger a release');
+        }
+
+        // Set releaseType if commit's release type is higher
+        if (commitReleaseType && compareReleaseTypes(releaseType, commitReleaseType)) {
+            releaseType = commitReleaseType;
+        }
+
+        // Break loop if releaseType is the highest
+        if (releaseType === RELEASE_TYPES[0]) {
+            return false;
+        }
+
+        return true;
+    });
+    logger.log('Analysis of %s commits complete: %s release', commits.length, releaseType || 'no');
+
+    return releaseType;
+}
+
+module.exports = { analyzeCommits };
+
+/***/ }),
 /* 689 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -51624,36 +51442,19 @@ module.exports = exports["default"];
 
 "use strict";
 
+const Q = __webpack_require__(216)
+const conventionalChangelog = __webpack_require__(397)
+const parserOpts = __webpack_require__(967)
+const recommendedBumpOpts = __webpack_require__(919)
+const writerOpts = __webpack_require__(114)
 
-const parserOpts = __webpack_require__(64)
+module.exports = presetOpts
 
-module.exports = {
-  parserOpts,
-
-  whatBump: commits => {
-    let level = 2
-    let breakings = 0
-    let features = 0
-
-    commits.forEach(commit => {
-      if (!commit.tag) return
-
-      if (commit.tag.toLowerCase() === 'breaking') {
-        breakings += 1
-        level = 0
-      } else if (commit.tag.toLowerCase() === 'new') {
-        features += 1
-        if (level === 2) {
-          level = 1
-        }
-      }
+function presetOpts (cb) {
+  Q.all([conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts])
+    .spread((conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts) => {
+      cb(null, { conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts })
     })
-
-    return {
-      level: level,
-      reason: `There are ${breakings} breaking changes and ${features} features`
-    }
-  }
 }
 
 
@@ -53128,24 +52929,192 @@ formatters.j = function (v) {
 
 /***/ }),
 /* 795 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
+/***/ (function(__unusedmodule, exports, __webpack_require__) {
 
 "use strict";
 
-const Q = __webpack_require__(216)
-const conventionalChangelog = __webpack_require__(397)
-const parserOpts = __webpack_require__(967)
-const recommendedBumpOpts = __webpack_require__(919)
-const writerOpts = __webpack_require__(114)
-
-module.exports = presetOpts
-
-function presetOpts (cb) {
-  Q.all([conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts])
-    .spread((conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts) => {
-      cb(null, { conventionalChangelog, parserOpts, recommendedBumpOpts, writerOpts })
-    })
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.run = void 0;
+const core = __importStar(__webpack_require__(470));
+const exec_1 = __webpack_require__(986);
+const github_1 = __webpack_require__(469);
+const semver_1 = __importDefault(__webpack_require__(864));
+const myCommitAnalyzer_1 = __webpack_require__(688);
+const release_notes_generator_1 = __webpack_require__(559);
+const SEPARATOR = "==============================================";
+function exec(command, args) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let stdout = "";
+        let stderr = "";
+        try {
+            const options = {
+                listeners: {
+                    stdout: (data) => {
+                        stdout += data.toString();
+                    },
+                    stderr: (data) => {
+                        stderr += data.toString();
+                    }
+                }
+            };
+            const code = yield exec_1.exec(command, args, options);
+            return {
+                code,
+                stdout,
+                stderr
+            };
+        }
+        catch (err) {
+            return {
+                code: 1,
+                stdout,
+                stderr,
+                error: err
+            };
+        }
+    });
 }
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const defaultBump = core.getInput("default_bump");
+            const messageParserPreset = core.getInput("message_parser_preset");
+            const tagPrefix = core.getInput("tag_prefix");
+            const releaseBranches = core.getInput("release_branches");
+            const createAnnotatedTag = core.getInput("create_annotated_tag");
+            const dryRun = core.getInput("dry_run");
+            const { GITHUB_REF, GITHUB_SHA } = process.env;
+            if (!GITHUB_REF) {
+                core.setFailed("Missing GITHUB_REF");
+                return;
+            }
+            if (!GITHUB_SHA) {
+                core.setFailed("Missing GITHUB_SHA");
+                return;
+            }
+            const preRelease = releaseBranches
+                .split(",")
+                .every(branch => !GITHUB_REF.replace("refs/heads/", "").match(branch));
+            yield exec("git fetch --tags");
+            const hasTag = !!(yield exec("git tag")).stdout.trim();
+            let tag = "";
+            let logs = "";
+            if (hasTag) {
+                console.log(yield exec('pwd'));
+                const previousTagSha = (yield exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim();
+                tag = (yield exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
+                logs = (yield exec(`git log ${tag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+                if (previousTagSha === GITHUB_SHA) {
+                    core.debug("No new commits since previous tag. Skipping...");
+                    core.setOutput("previous_tag", tag);
+                    return;
+                }
+            }
+            else {
+                tag = "0.0.0";
+                logs = (yield exec(`git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+                core.setOutput("previous_tag", tag);
+            }
+            console.info(`Current tag is ${tag}`);
+            // for some reason the commits start with a `'` on the CI so we ignore it
+            const commits = logs
+                .split(SEPARATOR)
+                .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
+                .filter(x => !!x.message);
+            core.debug(`Commits: ${commits}`);
+            var bump = yield myCommitAnalyzer_1.analyzeCommits({ preset: messageParserPreset || 'conventionalcommits' }, { commits, logger: { log: console.info.bind(console) } });
+            core.debug(`Bump type from commits: ${bump}`);
+            bump = bump || defaultBump;
+            core.info(`Effective bump type: ${bump}`);
+            if (!bump) {
+                core.setFailed(`Nothing to bump - not building release`);
+                return;
+            }
+            const rawVersion = tag.replace(tagPrefix, '');
+            const incResult = semver_1.default.inc(rawVersion, bump || defaultBump);
+            core.debug(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
+            if (!incResult) {
+                core.setFailed(`SemVer inc rejected tag ${tag}`);
+                return;
+            }
+            const newVersion = `${incResult}${preRelease ? `-${GITHUB_SHA.slice(0, 7)}` : ""}`;
+            const newTag = `${tagPrefix}${newVersion}`;
+            core.setOutput("new_version", newVersion);
+            core.setOutput("new_tag", newTag);
+            core.debug(`New tag: ${newTag}`);
+            const changelog = yield release_notes_generator_1.generateNotes({}, {
+                commits,
+                logger: { log: console.info.bind(console) },
+                options: {
+                    repositoryUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}`
+                },
+                lastRelease: { gitTag: tag },
+                nextRelease: { gitTag: newTag, version: newVersion }
+            });
+            core.setOutput("changelog", changelog);
+            if (preRelease) {
+                core.debug("This branch is not a release branch. Skipping the tag creation.");
+                return;
+            }
+            const tagAlreadyExists = !!(yield exec(`git tag -l "${newTag}"`)).stdout.trim();
+            if (tagAlreadyExists) {
+                core.debug("This tag already exists. Skipping the tag creation.");
+                return;
+            }
+            core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
+            if (dryRun === "true") {
+                core.setOutput("dry_run", "true");
+                core.info("Dry run: not performing tag action.");
+                return;
+            }
+            const octokit = new github_1.GitHub(core.getInput("github_token"));
+            if (createAnnotatedTag === "true") {
+                core.debug(`Creating annotated tag`);
+                const tagCreateResponse = yield octokit.git.createTag(Object.assign(Object.assign({}, github_1.context.repo), { tag: newTag, message: newTag, object: GITHUB_SHA, type: "commit" }));
+                core.debug(`Pushing annotated tag to the repo`);
+                yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${newTag}`, sha: tagCreateResponse.data.sha }));
+                return;
+            }
+            core.debug(`Pushing new tag to the repo`);
+            yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${newTag}`, sha: GITHUB_SHA }));
+        }
+        catch (error) {
+            core.setFailed(error.message);
+        }
+    });
+}
+exports.run = run;
 
 
 /***/ }),
@@ -59663,10 +59632,10 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template2.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header2.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit2.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "footer2.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "footer.hbs", 'utf-8')
 ])
   .spread((template, header, commit, footer) => {
     const writerOpts = getWriterOpts()
@@ -60034,23 +60003,7 @@ module.exports = __webpack_require__(669).deprecate;
 
 
 /***/ }),
-/* 918 */
-/***/ (function(module, __unusedexports, __webpack_require__) {
-
-"use strict";
-
-
-const Q = __webpack_require__(216)
-const parserOpts = __webpack_require__(139)
-const writerOpts = __webpack_require__(976)
-
-module.exports = Q.all([parserOpts, writerOpts])
-  .spread((parserOpts, writerOpts) => {
-    return { parserOpts, writerOpts }
-  })
-
-
-/***/ }),
+/* 918 */,
 /* 919 */
 /***/ (function(module, __unusedexports, __webpack_require__) {
 
@@ -61984,9 +61937,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template3.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header3.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit3.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template2.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header2.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit2.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
