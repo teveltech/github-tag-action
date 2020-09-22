@@ -6815,9 +6815,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template6.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header6.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit6.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template4.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header4.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit4.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
@@ -44538,9 +44538,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template4.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header4.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit4.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template3.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header3.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit3.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
@@ -44934,10 +44934,10 @@ module.exports = function (config) {
   })
 
   return Q.all([
-    readFile(__webpack_require__.ab + "template7.hbs", 'utf-8'),
-    readFile(__webpack_require__.ab + "header7.hbs", 'utf-8'),
-    readFile(__webpack_require__.ab + "commit7.hbs", 'utf-8'),
-    readFile(__webpack_require__.ab + "footer2.hbs", 'utf-8')
+    readFile(__webpack_require__.ab + "template1.hbs", 'utf-8'),
+    readFile(__webpack_require__.ab + "header1.hbs", 'utf-8'),
+    readFile(__webpack_require__.ab + "commit1.hbs", 'utf-8'),
+    readFile(__webpack_require__.ab + "footer1.hbs", 'utf-8')
   ])
     .spread((template, header, commit, footer) => {
       const writerOpts = getWriterOpts(config)
@@ -48699,9 +48699,9 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template3.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header3.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit3.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template7.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header7.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit7.hbs", 'utf-8')
 ])
   .spread((template, header, commit) => {
     const writerOpts = getWriterOpts()
@@ -53026,6 +53026,12 @@ function run() {
             const preRelease = releaseBranches
                 .split(",")
                 .every(branch => !GITHUB_REF.replace("refs/heads/", "").match(branch));
+            // if directory is shallow, unshallow it
+            const shallow = (yield exec("git rev-parse --is-shallow-repository")).stdout.trim();
+            if (shallow.match("true")) {
+                yield exec("git fetch --unshallow");
+            }
+            // fetch tags
             yield exec("git fetch --tags");
             const hasTag = !!(yield exec("git tag")).stdout.trim();
             let tag = "";
@@ -53132,10 +53138,10 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template1.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header1.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit1.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "footer1.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "footer.hbs", 'utf-8')
 ])
   .spread((template, header, commit, footer) => {
     const writerOpts = getWriterOpts()
@@ -59632,10 +59638,10 @@ const readFile = Q.denodeify(__webpack_require__(747).readFile)
 const resolve = __webpack_require__(622).resolve
 
 module.exports = Q.all([
-  readFile(__webpack_require__.ab + "template.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "header.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "commit.hbs", 'utf-8'),
-  readFile(__webpack_require__.ab + "footer.hbs", 'utf-8')
+  readFile(__webpack_require__.ab + "template6.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "header6.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "commit6.hbs", 'utf-8'),
+  readFile(__webpack_require__.ab + "footer2.hbs", 'utf-8')
 ])
   .spread((template, header, commit, footer) => {
     const writerOpts = getWriterOpts()
