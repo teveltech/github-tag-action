@@ -29,22 +29,8 @@ class StdoutCapture {
     }
 }
 
-// test('builds major release', async () => {
-//     process.env.GITHUB_SHA = "7f42496b3e66a58642227e2200e6405c07537e5d";
-//     cp.execSync("git checkout 7f42496b3e66a58642227e2200e6405c07537e5d");
-
-//     const cap = new StdoutCapture();
-
-//     await run();
-
-//     cap.stopCapture();
-
-//     expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-2.0.0");
-// });
-
-test('builds major release based on exclamation mark', async () => {
-    process.env.GITHUB_SHA = "ca5452210e047aa2e81021db45562f0b1c85a56c";
-    cp.execSync("git checkout ca5452210e047aa2e81021db45562f0b1c85a56c");
+test('builds major release', async () => {
+    prepare("7f42496b3e66a58642227e2200e6405c07537e5d", "master");
 
     const cap = new StdoutCapture();
 
@@ -55,75 +41,91 @@ test('builds major release based on exclamation mark', async () => {
     expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-2.0.0");
 });
 
-// test('builds minor release', async () => {
-//     process.env.GITHUB_SHA = "5b6c18f88b275b9654ea6f0448126c743133b5ff";
-//     cp.execSync("git checkout 5b6c18f88b275b9654ea6f0448126c743133b5ff");
+test('builds major release based on exclamation mark', async () => {
+    prepare("ca5452210e047aa2e81021db45562f0b1c85a56c", "a-different-breaking-change");
 
-//     const cap = new StdoutCapture();
+    const cap = new StdoutCapture();
 
-//     await run();
+    await run();
 
-//     cap.stopCapture();
+    cap.stopCapture();
 
-//     expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-1.1.0");
-// });
+    expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-2.0.0");
+});
 
-// test('builds patch release', async () => {
-//     process.env.GITHUB_SHA = "8fe0159ec6ed3bb669765fbce6ed42a0b4adede5";
-//     cp.execSync("git checkout 8fe0159ec6ed3bb669765fbce6ed42a0b4adede5");
+test('builds minor release', async () => {
+    prepare("5b6c18f88b275b9654ea6f0448126c743133b5ff", null);
 
-//     const cap = new StdoutCapture();
+    const cap = new StdoutCapture();
 
-//     await run();
+    await run();
 
-//     cap.stopCapture();
+    cap.stopCapture();
 
-//     expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-1.0.1");
-// });
+    expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-1.1.0");
+});
 
-// test('does not build patch release due to dry_run', async () => {
-//     process.env.GITHUB_SHA = "8fe0159ec6ed3bb669765fbce6ed42a0b4adede5";
-//     cp.execSync("git checkout 8fe0159ec6ed3bb669765fbce6ed42a0b4adede5");
+test('builds patch release', async () => {
+    prepare("8fe0159ec6ed3bb669765fbce6ed42a0b4adede5", null);
 
-//     process.env.INPUT_dry_run = "true";
+    const cap = new StdoutCapture();
 
-//     const cap = new StdoutCapture();
+    await run();
 
-//     await run();
+    cap.stopCapture();
 
-//     cap.stopCapture();
+    expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-1.0.1");
+});
 
-//     expect(cap.captured).toContain("::set-output name=dry_run,::true");
-// });
+test('does not build patch release due to dry_run', async () => {
+    prepare("8fe0159ec6ed3bb669765fbce6ed42a0b4adede5", null);
 
-// test('builds no release due to missing keyword', async () => {
-//     process.env.GITHUB_SHA = "3e039e60919e4ad573e11b508be57fb13919f330";
-//     cp.execSync("git checkout 3e039e60919e4ad573e11b508be57fb13919f330");
+    process.env.INPUT_dry_run = "true";
 
-//     const cap = new StdoutCapture();
+    const cap = new StdoutCapture();
 
-//     await run();
+    await run();
 
-//     cap.stopCapture();
+    cap.stopCapture();
 
-//     expect(cap.captured).not.toContain("::set-output name=new_tag");
-//     expect(cap.captured).toContain("::error::Nothing to bump - not building release");
-// });
+    expect(cap.captured).toContain("::set-output name=dry_run,::true");
+});
 
-// test('builds release due to default_bump', async () => {
-//     process.env.GITHUB_SHA = "3e039e60919e4ad573e11b508be57fb13919f330";
-//     cp.execSync("git checkout 3e039e60919e4ad573e11b508be57fb13919f330");
+test('builds no release due to missing keyword', async () => {
+    prepare("3e039e60919e4ad573e11b508be57fb13919f330", "a-no-release-change");
 
-//     process.env.INPUT_default_bump = "patch";
+    const cap = new StdoutCapture();
 
-//     const cap = new StdoutCapture();
+    await run();
 
-//     await run();
+    cap.stopCapture();
 
-//     cap.stopCapture();
+    expect(cap.captured).not.toContain("::set-output name=new_tag");
+    expect(cap.captured).toContain("::error::Nothing to bump - not building release");
+});
 
-//     expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-1.0.1");
-// });
+test('builds release due to default_bump', async () => {
+    prepare("3e039e60919e4ad573e11b508be57fb13919f330", "a-no-release-change");
+
+    process.env.INPUT_default_bump = "patch";
+
+    const cap = new StdoutCapture();
+
+    await run();
+
+    cap.stopCapture();
+
+    expect(cap.captured).toContain("set-output name=new_tag,::my-prefix-1.0.1");
+});
+
+function prepare(rev, branch) {
+    process.env.GITHUB_SHA = rev;
+    if (branch) {
+        cp.execSync(`git fetch origin ${branch} --depth=1`);
+    }
+
+    cp.execSync(`git checkout ${rev}`);
+}
 
 function prepareMockRepo() {
     if (!fs.existsSync("tmp")) {
@@ -132,27 +134,15 @@ function prepareMockRepo() {
 
     process.chdir("tmp");
 
-    if (!fs.existsSync("github-tag-action-mock-repo")) {
-        console.log("Cloning https://github.com/hennejg/github-tag-action-mock-repo.git");
-        cp.execSync("git clone https://github.com/hennejg/github-tag-action-mock-repo.git");
+    const name = "github-tag-action-mock-repo";
+    if (!fs.existsSync(name)) {
+        console.log(`Cloning https://github.com/hennejg/${name}`);
+        cp.execSync(`git init ${name}`);
+
+        process.chdir(name);
+
+        cp.execSync(`git remote add origin https://github.com/hennejg/${name}.git`);
+        cp.execSync("git fetch origin --no-tags --prune --depth=1 --no-recurse-submodules");
     }
 
-    process.chdir("github-tag-action-mock-repo");
 }
-// test('wait 500 ms', async () => {
-//     const start = new Date();
-//     await wait(500);
-//     const end = new Date();
-//     var delta = Math.abs(end.getTime() - start.getTime());
-//     expect(delta).toBeGreaterThan(450);
-// });
-
-// // shows how the runner will run a javascript action with env / stdout protocol
-// test('test runs', () => {
-//     process.env['INPUT_MILLISECONDS'] = '500';
-//     const ip = path.join(__dirname, '..', 'lib', 'main.js');
-//     const options: cp.ExecSyncOptions = {
-//         env: process.env
-//     };
-//     console.log(cp.execSync(`node ${ip}`, options).toString());
-// });

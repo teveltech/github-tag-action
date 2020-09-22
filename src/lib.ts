@@ -65,6 +65,13 @@ export async function run() {
       .split(",")
       .every(branch => !GITHUB_REF.replace("refs/heads/", "").match(branch));
 
+    // if directory is shallow, unshallow it
+    const shallow = (await exec("git rev-parse --is-shallow-repository")).stdout.trim();
+    if (shallow.match("true")) {
+      await exec("git fetch --unshallow");
+    }
+
+    // fetch tags
     await exec("git fetch --tags");
 
     const hasTag = !!(await exec("git tag")).stdout.trim();
