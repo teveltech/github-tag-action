@@ -2,24 +2,34 @@ const { isUndefined } = require('lodash');
 const parser = require('conventional-commits-parser').sync;
 const filter = require('conventional-commits-filter');
 const debug = require('debug')('semantic-release:commit-analyzer');
-const loadParserConfig = require('@semantic-release/commit-analyzer/lib/load-parser-config');
 const loadReleaseRules = require('@semantic-release/commit-analyzer/lib/load-release-rules');
 const analyzeCommit = require('@semantic-release/commit-analyzer/lib/analyze-commit');
 const compareReleaseTypes = require('@semantic-release/commit-analyzer/lib/compare-release-types');
 const RELEASE_TYPES = require('@semantic-release/commit-analyzer/lib/default-release-types');
 const DEFAULT_RELEASE_RULES = require('@semantic-release/commit-analyzer/lib/default-release-rules');
+const { isPlainObject } = require('lodash');
+const { promisify } = require('util');
 
-function resolvePreset(presetName) {
-    switch (presetName) {
-        case 'atom': return require('conventional-changelog-atom');
-        case 'codemirror': return require('conventional-changelog-codemirror');
-        case 'conventionalcommits': return require('conventional-changelog-conventionalcommits');
-        case 'eslint': return require('conventional-changelog-eslint');
-        case 'express': return require('conventional-changelog-express');
-        case 'jquery': return require('conventional-changelog-jquery');
-        case 'jshint': return require('conventional-changelog-jshint');
-        default: return require('conventional-changelog-angular');
+async function resolvePreset({ preset, config, parserOpts, presetConfig }, { cwd }) {
+    let loadedConfig;
+    switch (preset) {
+        case 'atom': loadedConfig = require('conventional-changelog-atom'); break;
+        case 'codemirror': loadedConfig = require('conventional-changelog-codemirror'); break;
+        case 'conventionalcommits': loadedConfig = require('conventional-changelog-conventionalcommits'); break;
+        case 'eslint': loadedConfig = require('conventional-changelog-eslint'); break;
+        case 'express': loadedConfig = require('conventional-changelog-express'); break;
+        case 'jquery': loadedConfig = require('conventional-changelog-jquery'); break;
+        case 'jshint': loadedConfig = require('conventional-changelog-jshint'); break;
+        default: loadedConfig = require('conventional-changelog-angular'); break;
     }
+
+    loadedConfig = await (typeof loadedConfig === 'function'
+        ? isPlainObject(presetConfig)
+            ? loadedConfig(presetConfig)
+            : promisify(loadedConfig)()
+        : loadedConfig);
+
+    return { ...loadedConfig.parserOpts, ...parserOpts };
 }
 
 /**
@@ -29,7 +39,7 @@ function resolvePreset(presetName) {
 async function analyzeCommits(pluginConfig, context) {
     const { commits, logger } = context;
     const releaseRules = loadReleaseRules(pluginConfig, context);
-    const config = resolvePreset(pluginConfig.preset);
+    const config = await resolvePreset(pluginConfig, context);
     let releaseType = null;
 
     filter(
