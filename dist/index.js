@@ -14,7 +14,7 @@ module.exports = {"i8":"2.1.3"};
 /***/ ((module) => {
 
 "use strict";
-module.exports = JSON.parse("{\"name\":\"@octokit/rest\",\"version\":\"16.34.1\",\"publishConfig\":{\"access\":\"public\"},\"description\":\"GitHub REST API client for Node.js\",\"keywords\":[\"octokit\",\"github\",\"rest\",\"api-client\"],\"author\":\"Gregor Martynus (https://github.com/gr2m)\",\"contributors\":[{\"name\":\"Mike de Boer\",\"email\":\"info@mikedeboer.nl\"},{\"name\":\"Fabian Jakobs\",\"email\":\"fabian@c9.io\"},{\"name\":\"Joe Gallo\",\"email\":\"joe@brassafrax.com\"},{\"name\":\"Gregor Martynus\",\"url\":\"https://github.com/gr2m\"}],\"repository\":\"https://github.com/octokit/rest.js\",\"dependencies\":{\"@octokit/request\":\"^5.2.0\",\"@octokit/request-error\":\"^1.0.2\",\"atob-lite\":\"^2.0.0\",\"before-after-hook\":\"^2.0.0\",\"btoa-lite\":\"^1.0.0\",\"deprecation\":\"^2.0.0\",\"lodash.get\":\"^4.4.2\",\"lodash.set\":\"^4.3.2\",\"lodash.uniq\":\"^4.5.0\",\"octokit-pagination-methods\":\"^1.1.0\",\"once\":\"^1.4.0\",\"universal-user-agent\":\"^4.0.0\"},\"devDependencies\":{\"@gimenete/type-writer\":\"^0.1.3\",\"@octokit/fixtures-server\":\"^5.0.6\",\"@octokit/graphql\":\"^4.2.0\",\"@types/node\":\"^12.0.0\",\"bundlesize\":\"^0.18.0\",\"chai\":\"^4.1.2\",\"compression-webpack-plugin\":\"^3.0.0\",\"cypress\":\"^3.0.0\",\"glob\":\"^7.1.2\",\"http-proxy-agent\":\"^2.1.0\",\"lodash.camelcase\":\"^4.3.0\",\"lodash.merge\":\"^4.6.1\",\"lodash.upperfirst\":\"^4.3.1\",\"mkdirp\":\"^0.5.1\",\"mocha\":\"^6.0.0\",\"mustache\":\"^3.0.0\",\"nock\":\"^11.3.3\",\"npm-run-all\":\"^4.1.2\",\"nyc\":\"^14.0.0\",\"prettier\":\"^1.14.2\",\"proxy\":\"^1.0.0\",\"semantic-release\":\"^15.0.0\",\"sinon\":\"^7.2.4\",\"sinon-chai\":\"^3.0.0\",\"sort-keys\":\"^4.0.0\",\"string-to-arraybuffer\":\"^1.0.0\",\"string-to-jsdoc-comment\":\"^1.0.0\",\"typescript\":\"^3.3.1\",\"webpack\":\"^4.0.0\",\"webpack-bundle-analyzer\":\"^3.0.0\",\"webpack-cli\":\"^3.0.0\"},\"types\":\"index.d.ts\",\"scripts\":{\"coverage\":\"nyc report --reporter=html && open coverage/index.html\",\"lint\":\"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json\",\"lint:fix\":\"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json\",\"pretest\":\"npm run -s lint\",\"test\":\"nyc mocha test/mocha-node-setup.js \\\"test/*/**/*-test.js\\\"\",\"test:browser\":\"cypress run --browser chrome\",\"build\":\"npm-run-all build:*\",\"build:ts\":\"npm run -s update-endpoints:typescript\",\"prebuild:browser\":\"mkdirp dist/\",\"build:browser\":\"npm-run-all build:browser:*\",\"build:browser:development\":\"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json\",\"build:browser:production\":\"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map\",\"generate-bundle-report\":\"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html\",\"update-endpoints\":\"npm-run-all update-endpoints:*\",\"update-endpoints:fetch-json\":\"node scripts/update-endpoints/fetch-json\",\"update-endpoints:code\":\"node scripts/update-endpoints/code\",\"update-endpoints:typescript\":\"node scripts/update-endpoints/typescript\",\"prevalidate:ts\":\"npm run -s build:ts\",\"validate:ts\":\"tsc --target es6 --noImplicitAny index.d.ts\",\"postvalidate:ts\":\"tsc --noEmit --target es6 test/typescript-validate.ts\",\"start-fixtures-server\":\"octokit-fixtures-server\"},\"license\":\"MIT\",\"files\":[\"index.js\",\"index.d.ts\",\"lib\",\"plugins\"],\"nyc\":{\"ignore\":[\"test\"]},\"release\":{\"publish\":[\"@semantic-release/npm\",{\"path\":\"@semantic-release/github\",\"assets\":[\"dist/*\",\"!dist/*.map.gz\"]}]},\"bundlesize\":[{\"path\":\"./dist/octokit-rest.min.js.gz\",\"maxSize\":\"33 kB\"}],\"_resolved\":\"https://registry.npmjs.org/@octokit/rest/-/rest-16.34.1.tgz\",\"_integrity\":\"sha512-JUoS12cdktf1fv86rgrjC/RvYLuL+o7p57W7zX1x7ANFJ7OvdV8emvUNkFlcidEaOkYrxK3SoWgQFt3FhNmabA==\",\"_from\":\"@octokit/rest@16.34.1\"}");
+module.exports = JSON.parse("{\"_args\":[[\"@octokit/rest@16.34.1\",\"/Users/orshefi/workspace/ci/github-tag-action\"]],\"_from\":\"@octokit/rest@16.34.1\",\"_id\":\"@octokit/rest@16.34.1\",\"_inBundle\":false,\"_integrity\":\"sha512-JUoS12cdktf1fv86rgrjC/RvYLuL+o7p57W7zX1x7ANFJ7OvdV8emvUNkFlcidEaOkYrxK3SoWgQFt3FhNmabA==\",\"_location\":\"/@octokit/rest\",\"_phantomChildren\":{\"os-name\":\"3.1.0\"},\"_requested\":{\"type\":\"version\",\"registry\":true,\"raw\":\"@octokit/rest@16.34.1\",\"name\":\"@octokit/rest\",\"escapedName\":\"@octokit%2frest\",\"scope\":\"@octokit\",\"rawSpec\":\"16.34.1\",\"saveSpec\":null,\"fetchSpec\":\"16.34.1\"},\"_requiredBy\":[\"/@actions/github\"],\"_resolved\":\"https://registry.npmjs.org/@octokit/rest/-/rest-16.34.1.tgz\",\"_spec\":\"16.34.1\",\"_where\":\"/Users/orshefi/workspace/ci/github-tag-action\",\"author\":{\"name\":\"Gregor Martynus\",\"url\":\"https://github.com/gr2m\"},\"bugs\":{\"url\":\"https://github.com/octokit/rest.js/issues\"},\"bundlesize\":[{\"path\":\"./dist/octokit-rest.min.js.gz\",\"maxSize\":\"33 kB\"}],\"contributors\":[{\"name\":\"Mike de Boer\",\"email\":\"info@mikedeboer.nl\"},{\"name\":\"Fabian Jakobs\",\"email\":\"fabian@c9.io\"},{\"name\":\"Joe Gallo\",\"email\":\"joe@brassafrax.com\"},{\"name\":\"Gregor Martynus\",\"url\":\"https://github.com/gr2m\"}],\"dependencies\":{\"@octokit/request\":\"^5.2.0\",\"@octokit/request-error\":\"^1.0.2\",\"atob-lite\":\"^2.0.0\",\"before-after-hook\":\"^2.0.0\",\"btoa-lite\":\"^1.0.0\",\"deprecation\":\"^2.0.0\",\"lodash.get\":\"^4.4.2\",\"lodash.set\":\"^4.3.2\",\"lodash.uniq\":\"^4.5.0\",\"octokit-pagination-methods\":\"^1.1.0\",\"once\":\"^1.4.0\",\"universal-user-agent\":\"^4.0.0\"},\"description\":\"GitHub REST API client for Node.js\",\"devDependencies\":{\"@gimenete/type-writer\":\"^0.1.3\",\"@octokit/fixtures-server\":\"^5.0.6\",\"@octokit/graphql\":\"^4.2.0\",\"@types/node\":\"^12.0.0\",\"bundlesize\":\"^0.18.0\",\"chai\":\"^4.1.2\",\"compression-webpack-plugin\":\"^3.0.0\",\"cypress\":\"^3.0.0\",\"glob\":\"^7.1.2\",\"http-proxy-agent\":\"^2.1.0\",\"lodash.camelcase\":\"^4.3.0\",\"lodash.merge\":\"^4.6.1\",\"lodash.upperfirst\":\"^4.3.1\",\"mkdirp\":\"^0.5.1\",\"mocha\":\"^6.0.0\",\"mustache\":\"^3.0.0\",\"nock\":\"^11.3.3\",\"npm-run-all\":\"^4.1.2\",\"nyc\":\"^14.0.0\",\"prettier\":\"^1.14.2\",\"proxy\":\"^1.0.0\",\"semantic-release\":\"^15.0.0\",\"sinon\":\"^7.2.4\",\"sinon-chai\":\"^3.0.0\",\"sort-keys\":\"^4.0.0\",\"string-to-arraybuffer\":\"^1.0.0\",\"string-to-jsdoc-comment\":\"^1.0.0\",\"typescript\":\"^3.3.1\",\"webpack\":\"^4.0.0\",\"webpack-bundle-analyzer\":\"^3.0.0\",\"webpack-cli\":\"^3.0.0\"},\"files\":[\"index.js\",\"index.d.ts\",\"lib\",\"plugins\"],\"homepage\":\"https://github.com/octokit/rest.js#readme\",\"keywords\":[\"octokit\",\"github\",\"rest\",\"api-client\"],\"license\":\"MIT\",\"name\":\"@octokit/rest\",\"nyc\":{\"ignore\":[\"test\"]},\"publishConfig\":{\"access\":\"public\"},\"release\":{\"publish\":[\"@semantic-release/npm\",{\"path\":\"@semantic-release/github\",\"assets\":[\"dist/*\",\"!dist/*.map.gz\"]}]},\"repository\":{\"type\":\"git\",\"url\":\"git+https://github.com/octokit/rest.js.git\"},\"scripts\":{\"build\":\"npm-run-all build:*\",\"build:browser\":\"npm-run-all build:browser:*\",\"build:browser:development\":\"webpack --mode development --entry . --output-library=Octokit --output=./dist/octokit-rest.js --profile --json > dist/bundle-stats.json\",\"build:browser:production\":\"webpack --mode production --entry . --plugin=compression-webpack-plugin --output-library=Octokit --output-path=./dist --output-filename=octokit-rest.min.js --devtool source-map\",\"build:ts\":\"npm run -s update-endpoints:typescript\",\"coverage\":\"nyc report --reporter=html && open coverage/index.html\",\"generate-bundle-report\":\"webpack-bundle-analyzer dist/bundle-stats.json --mode=static --no-open --report dist/bundle-report.html\",\"lint\":\"prettier --check '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json\",\"lint:fix\":\"prettier --write '{lib,plugins,scripts,test}/**/*.{js,json,ts}' 'docs/*.{js,json}' 'docs/src/**/*' index.js README.md package.json\",\"postvalidate:ts\":\"tsc --noEmit --target es6 test/typescript-validate.ts\",\"prebuild:browser\":\"mkdirp dist/\",\"pretest\":\"npm run -s lint\",\"prevalidate:ts\":\"npm run -s build:ts\",\"start-fixtures-server\":\"octokit-fixtures-server\",\"test\":\"nyc mocha test/mocha-node-setup.js \\\"test/*/**/*-test.js\\\"\",\"test:browser\":\"cypress run --browser chrome\",\"update-endpoints\":\"npm-run-all update-endpoints:*\",\"update-endpoints:code\":\"node scripts/update-endpoints/code\",\"update-endpoints:fetch-json\":\"node scripts/update-endpoints/fetch-json\",\"update-endpoints:typescript\":\"node scripts/update-endpoints/typescript\",\"validate:ts\":\"tsc --target es6 --noImplicitAny index.d.ts\"},\"types\":\"index.d.ts\",\"version\":\"16.34.1\"}");
 
 /***/ }),
 
@@ -71,350 +71,6 @@ module.exports = JSON.parse("[\"AGPL-1.0\",\"AGPL-3.0\",\"GFDL-1.1\",\"GFDL-1.2\
 
 "use strict";
 module.exports = JSON.parse("[\"0BSD\",\"AAL\",\"ADSL\",\"AFL-1.1\",\"AFL-1.2\",\"AFL-2.0\",\"AFL-2.1\",\"AFL-3.0\",\"AGPL-1.0-only\",\"AGPL-1.0-or-later\",\"AGPL-3.0-only\",\"AGPL-3.0-or-later\",\"AMDPLPA\",\"AML\",\"AMPAS\",\"ANTLR-PD\",\"APAFML\",\"APL-1.0\",\"APSL-1.0\",\"APSL-1.1\",\"APSL-1.2\",\"APSL-2.0\",\"Abstyles\",\"Adobe-2006\",\"Adobe-Glyph\",\"Afmparse\",\"Aladdin\",\"Apache-1.0\",\"Apache-1.1\",\"Apache-2.0\",\"Artistic-1.0\",\"Artistic-1.0-Perl\",\"Artistic-1.0-cl8\",\"Artistic-2.0\",\"BSD-1-Clause\",\"BSD-2-Clause\",\"BSD-2-Clause-FreeBSD\",\"BSD-2-Clause-NetBSD\",\"BSD-2-Clause-Patent\",\"BSD-3-Clause\",\"BSD-3-Clause-Attribution\",\"BSD-3-Clause-Clear\",\"BSD-3-Clause-LBNL\",\"BSD-3-Clause-No-Nuclear-License\",\"BSD-3-Clause-No-Nuclear-License-2014\",\"BSD-3-Clause-No-Nuclear-Warranty\",\"BSD-3-Clause-Open-MPI\",\"BSD-4-Clause\",\"BSD-4-Clause-UC\",\"BSD-Protection\",\"BSD-Source-Code\",\"BSL-1.0\",\"Bahyph\",\"Barr\",\"Beerware\",\"BitTorrent-1.0\",\"BitTorrent-1.1\",\"BlueOak-1.0.0\",\"Borceux\",\"CATOSL-1.1\",\"CC-BY-1.0\",\"CC-BY-2.0\",\"CC-BY-2.5\",\"CC-BY-3.0\",\"CC-BY-4.0\",\"CC-BY-NC-1.0\",\"CC-BY-NC-2.0\",\"CC-BY-NC-2.5\",\"CC-BY-NC-3.0\",\"CC-BY-NC-4.0\",\"CC-BY-NC-ND-1.0\",\"CC-BY-NC-ND-2.0\",\"CC-BY-NC-ND-2.5\",\"CC-BY-NC-ND-3.0\",\"CC-BY-NC-ND-4.0\",\"CC-BY-NC-SA-1.0\",\"CC-BY-NC-SA-2.0\",\"CC-BY-NC-SA-2.5\",\"CC-BY-NC-SA-3.0\",\"CC-BY-NC-SA-4.0\",\"CC-BY-ND-1.0\",\"CC-BY-ND-2.0\",\"CC-BY-ND-2.5\",\"CC-BY-ND-3.0\",\"CC-BY-ND-4.0\",\"CC-BY-SA-1.0\",\"CC-BY-SA-2.0\",\"CC-BY-SA-2.5\",\"CC-BY-SA-3.0\",\"CC-BY-SA-4.0\",\"CC-PDDC\",\"CC0-1.0\",\"CDDL-1.0\",\"CDDL-1.1\",\"CDLA-Permissive-1.0\",\"CDLA-Sharing-1.0\",\"CECILL-1.0\",\"CECILL-1.1\",\"CECILL-2.0\",\"CECILL-2.1\",\"CECILL-B\",\"CECILL-C\",\"CERN-OHL-1.1\",\"CERN-OHL-1.2\",\"CNRI-Jython\",\"CNRI-Python\",\"CNRI-Python-GPL-Compatible\",\"CPAL-1.0\",\"CPL-1.0\",\"CPOL-1.02\",\"CUA-OPL-1.0\",\"Caldera\",\"ClArtistic\",\"Condor-1.1\",\"Crossword\",\"CrystalStacker\",\"Cube\",\"D-FSL-1.0\",\"DOC\",\"DSDP\",\"Dotseqn\",\"ECL-1.0\",\"ECL-2.0\",\"EFL-1.0\",\"EFL-2.0\",\"EPL-1.0\",\"EPL-2.0\",\"EUDatagrid\",\"EUPL-1.0\",\"EUPL-1.1\",\"EUPL-1.2\",\"Entessa\",\"ErlPL-1.1\",\"Eurosym\",\"FSFAP\",\"FSFUL\",\"FSFULLR\",\"FTL\",\"Fair\",\"Frameworx-1.0\",\"FreeImage\",\"GFDL-1.1-only\",\"GFDL-1.1-or-later\",\"GFDL-1.2-only\",\"GFDL-1.2-or-later\",\"GFDL-1.3-only\",\"GFDL-1.3-or-later\",\"GL2PS\",\"GPL-1.0-only\",\"GPL-1.0-or-later\",\"GPL-2.0-only\",\"GPL-2.0-or-later\",\"GPL-3.0-only\",\"GPL-3.0-or-later\",\"Giftware\",\"Glide\",\"Glulxe\",\"HPND\",\"HPND-sell-variant\",\"HaskellReport\",\"IBM-pibs\",\"ICU\",\"IJG\",\"IPA\",\"IPL-1.0\",\"ISC\",\"ImageMagick\",\"Imlib2\",\"Info-ZIP\",\"Intel\",\"Intel-ACPI\",\"Interbase-1.0\",\"JPNIC\",\"JSON\",\"JasPer-2.0\",\"LAL-1.2\",\"LAL-1.3\",\"LGPL-2.0-only\",\"LGPL-2.0-or-later\",\"LGPL-2.1-only\",\"LGPL-2.1-or-later\",\"LGPL-3.0-only\",\"LGPL-3.0-or-later\",\"LGPLLR\",\"LPL-1.0\",\"LPL-1.02\",\"LPPL-1.0\",\"LPPL-1.1\",\"LPPL-1.2\",\"LPPL-1.3a\",\"LPPL-1.3c\",\"Latex2e\",\"Leptonica\",\"LiLiQ-P-1.1\",\"LiLiQ-R-1.1\",\"LiLiQ-Rplus-1.1\",\"Libpng\",\"Linux-OpenIB\",\"MIT\",\"MIT-0\",\"MIT-CMU\",\"MIT-advertising\",\"MIT-enna\",\"MIT-feh\",\"MITNFA\",\"MPL-1.0\",\"MPL-1.1\",\"MPL-2.0\",\"MPL-2.0-no-copyleft-exception\",\"MS-PL\",\"MS-RL\",\"MTLL\",\"MakeIndex\",\"MirOS\",\"Motosoto\",\"Multics\",\"Mup\",\"NASA-1.3\",\"NBPL-1.0\",\"NCSA\",\"NGPL\",\"NLOD-1.0\",\"NLPL\",\"NOSL\",\"NPL-1.0\",\"NPL-1.1\",\"NPOSL-3.0\",\"NRL\",\"NTP\",\"Naumen\",\"Net-SNMP\",\"NetCDF\",\"Newsletr\",\"Nokia\",\"Noweb\",\"OCCT-PL\",\"OCLC-2.0\",\"ODC-By-1.0\",\"ODbL-1.0\",\"OFL-1.0\",\"OFL-1.1\",\"OGL-UK-1.0\",\"OGL-UK-2.0\",\"OGL-UK-3.0\",\"OGTSL\",\"OLDAP-1.1\",\"OLDAP-1.2\",\"OLDAP-1.3\",\"OLDAP-1.4\",\"OLDAP-2.0\",\"OLDAP-2.0.1\",\"OLDAP-2.1\",\"OLDAP-2.2\",\"OLDAP-2.2.1\",\"OLDAP-2.2.2\",\"OLDAP-2.3\",\"OLDAP-2.4\",\"OLDAP-2.5\",\"OLDAP-2.6\",\"OLDAP-2.7\",\"OLDAP-2.8\",\"OML\",\"OPL-1.0\",\"OSET-PL-2.1\",\"OSL-1.0\",\"OSL-1.1\",\"OSL-2.0\",\"OSL-2.1\",\"OSL-3.0\",\"OpenSSL\",\"PDDL-1.0\",\"PHP-3.0\",\"PHP-3.01\",\"Parity-6.0.0\",\"Plexus\",\"PostgreSQL\",\"Python-2.0\",\"QPL-1.0\",\"Qhull\",\"RHeCos-1.1\",\"RPL-1.1\",\"RPL-1.5\",\"RPSL-1.0\",\"RSA-MD\",\"RSCPL\",\"Rdisc\",\"Ruby\",\"SAX-PD\",\"SCEA\",\"SGI-B-1.0\",\"SGI-B-1.1\",\"SGI-B-2.0\",\"SHL-0.5\",\"SHL-0.51\",\"SISSL\",\"SISSL-1.2\",\"SMLNJ\",\"SMPPL\",\"SNIA\",\"SPL-1.0\",\"SSPL-1.0\",\"SWL\",\"Saxpath\",\"Sendmail\",\"Sendmail-8.23\",\"SimPL-2.0\",\"Sleepycat\",\"Spencer-86\",\"Spencer-94\",\"Spencer-99\",\"SugarCRM-1.1.3\",\"TAPR-OHL-1.0\",\"TCL\",\"TCP-wrappers\",\"TMate\",\"TORQUE-1.1\",\"TOSL\",\"TU-Berlin-1.0\",\"TU-Berlin-2.0\",\"UPL-1.0\",\"Unicode-DFS-2015\",\"Unicode-DFS-2016\",\"Unicode-TOU\",\"Unlicense\",\"VOSTROM\",\"VSL-1.0\",\"Vim\",\"W3C\",\"W3C-19980720\",\"W3C-20150513\",\"WTFPL\",\"Watcom-1.0\",\"Wsuipa\",\"X11\",\"XFree86-1.1\",\"XSkat\",\"Xerox\",\"Xnet\",\"YPL-1.0\",\"YPL-1.1\",\"ZPL-1.1\",\"ZPL-2.0\",\"ZPL-2.1\",\"Zed\",\"Zend-2.0\",\"Zimbra-1.3\",\"Zimbra-1.4\",\"Zlib\",\"blessing\",\"bzip2-1.0.5\",\"bzip2-1.0.6\",\"copyleft-next-0.3.0\",\"copyleft-next-0.3.1\",\"curl\",\"diffmark\",\"dvipdfm\",\"eGenix\",\"gSOAP-1.3b\",\"gnuplot\",\"iMatix\",\"libpng-2.0\",\"libtiff\",\"mpich2\",\"psfrag\",\"psutils\",\"xinetd\",\"xpp\",\"zlib-acknowledgement\"]");
-
-/***/ }),
-
-/***/ 3256:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.gitDescribe = exports.createTag = exports.checkTagExists = exports.getCommits = exports.getTag = exports.getPreviousTagSha = void 0;
-const utils_1 = __nccwpck_require__(3400);
-const github_1 = __nccwpck_require__(5016);
-const SEPARATOR = "==============================================";
-function getPreviousTagSha(tagPrefix) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return (yield utils_1.exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim();
-    });
-}
-exports.getPreviousTagSha = getPreviousTagSha;
-function getTag(previousTagSha) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return (yield utils_1.exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
-    });
-}
-exports.getTag = getTag;
-function getCommits(fromTag) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let logs = "";
-        if (fromTag) {
-            logs = (yield utils_1.exec(`git log ${fromTag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
-        }
-        else {
-            logs = (yield utils_1.exec(`git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
-        }
-        return logs.split(SEPARATOR)
-            .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
-            .filter(x => !!x.message);
-    });
-}
-exports.getCommits = getCommits;
-function checkTagExists(tag) {
-    return __awaiter(this, void 0, void 0, function* () {
-        return !!(yield utils_1.exec(`git tag -l "${tag}"`)).stdout.trim();
-    });
-}
-exports.checkTagExists = checkTagExists;
-function createTag(github_token, GITHUB_SHA, tagName, annotated) {
-    return __awaiter(this, void 0, void 0, function* () {
-        const octokit = new github_1.GitHub(github_token);
-        if (annotated) {
-            console.log(`Creating annotated tag`);
-            const tagCreateResponse = yield octokit.git.createTag(Object.assign(Object.assign({}, github_1.context.repo), { tag: tagName, message: tagName, object: GITHUB_SHA, type: "commit" }));
-            console.log(`Pushing annotated tag to the repo`);
-            yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${tagName}`, sha: tagCreateResponse.data.sha }));
-            return;
-        }
-        else {
-            console.log(`Pushing new lightweight tag to the repo`);
-            yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${tagName}`, sha: GITHUB_SHA }));
-        }
-    });
-}
-exports.createTag = createTag;
-function gitDescribe() {
-    return __awaiter(this, void 0, void 0, function* () {
-        return (yield utils_1.exec(`git describe --tags`)).stdout.trim();
-    });
-}
-exports.gitDescribe = gitDescribe;
-
-
-/***/ }),
-
-/***/ 2871:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
-    Object.defineProperty(o, "default", { enumerable: true, value: v });
-}) : function(o, v) {
-    o["default"] = v;
-});
-var __importStar = (this && this.__importStar) || function (mod) {
-    if (mod && mod.__esModule) return mod;
-    var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
-    __setModuleDefault(result, mod);
-    return result;
-};
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.run = void 0;
-const core = __importStar(__nccwpck_require__(6024));
-const commit_analyzer_1 = __nccwpck_require__(272);
-const release_notes_generator_1 = __nccwpck_require__(2726);
-const utils_1 = __nccwpck_require__(3400);
-const git_1 = __nccwpck_require__(3256);
-function run() {
-    return __awaiter(this, void 0, void 0, function* () {
-        try {
-            const defaultBump = core.getInput("default_bump");
-            const messageParserPreset = core.getInput("message_parser_preset");
-            const tagPrefix = core.getInput("tag_prefix");
-            const releaseBranches = core.getInput("release_branches");
-            const createAnnotatedTag = core.getInput("create_annotated_tag");
-            const dryRun = core.getInput("dry_run");
-            const { GITHUB_REF, GITHUB_SHA } = process.env;
-            if (!GITHUB_REF) {
-                core.setFailed("Missing GITHUB_REF");
-                return;
-            }
-            if (!GITHUB_SHA) {
-                core.setFailed("Missing GITHUB_SHA");
-                return;
-            }
-            const branch = GITHUB_REF.replace("refs/heads/", "");
-            const preRelease = releaseBranches
-                .split(",")
-                .every(releaseBranch => !branch.match(releaseBranch));
-            yield utils_1.exec("git fetch --tags");
-            const hasTag = !!(yield utils_1.exec("git tag")).stdout.trim();
-            let tag = "";
-            let commits = [];
-            if (hasTag) {
-                console.log(yield utils_1.exec('pwd'));
-                const previousTagSha = yield git_1.getPreviousTagSha(tagPrefix);
-                tag = yield git_1.getTag(previousTagSha);
-                commits = yield git_1.getCommits(tag);
-                if (previousTagSha === GITHUB_SHA) {
-                    core.debug("No new commits since previous tag. Skipping...");
-                    core.setOutput("previous_tag", tag);
-                    return;
-                }
-            }
-            else {
-                tag = "0.0.0";
-                commits = yield git_1.getCommits();
-                core.setOutput("previous_tag", tag);
-            }
-            console.info(`Current tag is ${tag}`);
-            core.debug(`Commits: ${commits}`);
-            var bump = yield commit_analyzer_1.analyzeCommits({ preset: messageParserPreset || 'conventionalcommits' }, { commits, logger: { log: console.info.bind(console) } });
-            core.debug(`Bump type from commits: ${bump}`);
-            bump = bump || defaultBump;
-            core.info(`Effective bump type: ${bump}`);
-            if (!bump) {
-                core.setFailed(`Nothing to bump - not building release`);
-                return;
-            }
-            // const rawVersion = tag.replace(tagPrefix, '');
-            // const incResult = semver.inc(rawVersion, bump || defaultBump);
-            // core.debug(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-            // if (!incResult) {
-            //   core.setFailed(`SemVer inc rejected tag ${tag}`);
-            //   return;
-            // }
-            // const newVersion = `${incResult}${preRelease ? `-${GITHUB_SHA.slice(0, 7)}` : ""}`;
-            // const newTag = `${tagPrefix}${newVersion}`;
-            const { newVersion, newTag } = yield utils_1.calculateVersion(tag, branch, bump, preRelease, defaultBump);
-            core.setOutput("new_version", newVersion);
-            core.setOutput("new_tag", newTag);
-            core.debug(`New tag: ${newTag}`);
-            const changelog = yield release_notes_generator_1.generateNotes({}, {
-                commits,
-                logger: { log: console.info.bind(console) },
-                options: {
-                    repositoryUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}`
-                },
-                lastRelease: { gitTag: tag },
-                nextRelease: { gitTag: newTag, version: newVersion }
-            });
-            core.setOutput("changelog", changelog);
-            if (preRelease) {
-                core.debug("This branch is not a release branch. Skipping the tag creation.");
-                return;
-            }
-            if (yield git_1.checkTagExists(newTag)) {
-                core.debug("This tag already exists. Skipping the tag creation.");
-                return;
-            }
-            core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
-            if (dryRun === "true") {
-                core.setOutput("dry_run", "true");
-                core.info("Dry run: not performing tag action.");
-                return;
-            }
-            if (createAnnotatedTag === "true") {
-                core.debug(`Creating annotated tag`);
-                yield git_1.createTag(core.getInput("github_token"), GITHUB_SHA, newTag, true);
-            }
-            else {
-                core.debug(`Pushing new tag to the repo`);
-                yield git_1.createTag(core.getInput("github_token"), GITHUB_SHA, newTag, false);
-            }
-        }
-        catch (error) {
-            core.setFailed(error.message);
-        }
-    });
-}
-exports.run = run;
-
-
-/***/ }),
-
-/***/ 8366:
-/***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-const lib_1 = __nccwpck_require__(2871);
-// just delegate for testability
-lib_1.run();
-
-
-/***/ }),
-
-/***/ 6715:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.BranchePrefix = void 0;
-var BranchePrefix;
-(function (BranchePrefix) {
-    BranchePrefix["master"] = "v";
-    BranchePrefix["stage"] = "s";
-    BranchePrefix["dev"] = "d";
-})(BranchePrefix = exports.BranchePrefix || (exports.BranchePrefix = {}));
-
-
-/***/ }),
-
-/***/ 3400:
-/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
-
-"use strict";
-
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.calculateVersion = exports.exec = void 0;
-const exec_1 = __nccwpck_require__(2423);
-const semver_1 = __importDefault(__nccwpck_require__(1554));
-const git_1 = __nccwpck_require__(6715);
-const git_2 = __nccwpck_require__(3256);
-function exec(command, args) {
-    return __awaiter(this, void 0, void 0, function* () {
-        let stdout = "";
-        let stderr = "";
-        try {
-            const options = {
-                listeners: {
-                    stdout: (data) => {
-                        stdout += data.toString();
-                    },
-                    stderr: (data) => {
-                        stderr += data.toString();
-                    }
-                }
-            };
-            const code = yield exec_1.exec(command, args, options);
-            return {
-                code,
-                stdout,
-                stderr
-            };
-        }
-        catch (err) {
-            return {
-                code: 1,
-                stdout,
-                stderr,
-                error: err
-            };
-        }
-    });
-}
-exports.exec = exec;
-function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
-    return __awaiter(this, void 0, void 0, function* () {
-        let newVersion = '';
-        let newTag = '';
-        if (preRelease) {
-            const describe = yield git_2.gitDescribe();
-            const dissect = describe.split('-');
-            const tag = dissect[0];
-            const inc = dissect[1];
-            const hash = dissect[2];
-            newTag = `${tag}-${branch}-${inc}-${hash}`;
-        }
-        else {
-            let prefix = (git_1.BranchePrefix[branch]) ? git_1.BranchePrefix[branch] : branch[0];
-            const rawVersion = tag.replace(prefix, '');
-            const incResult = semver_1.default.inc(rawVersion, bump || defaultBump);
-            console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-            if (!incResult) {
-                throw new Error("`SemVer inc rejected tag ${tag}`");
-            }
-            newVersion = `${incResult}`;
-            newTag = `${prefix}${newVersion}`;
-        }
-        return { newVersion, newTag };
-    });
-}
-exports.calculateVersion = calculateVersion;
-
 
 /***/ }),
 
@@ -61275,6 +60931,337 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
+/***/ 5831:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.gitDescribe = exports.createTag = exports.checkTagExists = exports.getCommits = exports.getTag = exports.getPreviousTagSha = void 0;
+const utils_1 = __nccwpck_require__(6077);
+const github_1 = __nccwpck_require__(5016);
+const SEPARATOR = "==============================================";
+function getPreviousTagSha(tagPrefix) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return (yield utils_1.exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim();
+    });
+}
+exports.getPreviousTagSha = getPreviousTagSha;
+function getTag(previousTagSha) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return (yield utils_1.exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
+    });
+}
+exports.getTag = getTag;
+function getCommits(fromTag) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let logs = "";
+        if (fromTag) {
+            logs = (yield utils_1.exec(`git log ${fromTag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+        }
+        else {
+            logs = (yield utils_1.exec(`git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+        }
+        return logs.split(SEPARATOR)
+            .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
+            .filter(x => !!x.message);
+    });
+}
+exports.getCommits = getCommits;
+function checkTagExists(tag) {
+    return __awaiter(this, void 0, void 0, function* () {
+        return !!(yield utils_1.exec(`git tag -l "${tag}"`)).stdout.trim();
+    });
+}
+exports.checkTagExists = checkTagExists;
+function createTag(github_token, GITHUB_SHA, tagName, annotated) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const octokit = new github_1.GitHub(github_token);
+        if (annotated) {
+            console.log(`Creating annotated tag`);
+            const tagCreateResponse = yield octokit.git.createTag(Object.assign(Object.assign({}, github_1.context.repo), { tag: tagName, message: tagName, object: GITHUB_SHA, type: "commit" }));
+            console.log(`Pushing annotated tag to the repo`);
+            yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${tagName}`, sha: tagCreateResponse.data.sha }));
+            return;
+        }
+        else {
+            console.log(`Pushing new lightweight tag to the repo`);
+            yield octokit.git.createRef(Object.assign(Object.assign({}, github_1.context.repo), { ref: `refs/tags/${tagName}`, sha: GITHUB_SHA }));
+        }
+    });
+}
+exports.createTag = createTag;
+function gitDescribe() {
+    return __awaiter(this, void 0, void 0, function* () {
+        return (yield utils_1.exec(`git describe --tags`)).stdout.trim();
+    });
+}
+exports.gitDescribe = gitDescribe;
+
+
+/***/ }),
+
+/***/ 4215:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (function(o, v) {
+    Object.defineProperty(o, "default", { enumerable: true, value: v });
+}) : function(o, v) {
+    o["default"] = v;
+});
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    __setModuleDefault(result, mod);
+    return result;
+};
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.run = void 0;
+const core = __importStar(__nccwpck_require__(6024));
+const commit_analyzer_1 = __nccwpck_require__(272);
+const release_notes_generator_1 = __nccwpck_require__(2726);
+const utils_1 = __nccwpck_require__(6077);
+const git_1 = __nccwpck_require__(5831);
+function run() {
+    return __awaiter(this, void 0, void 0, function* () {
+        try {
+            const defaultBump = core.getInput("default_bump");
+            const messageParserPreset = core.getInput("message_parser_preset");
+            const tagPrefix = core.getInput("tag_prefix");
+            const releaseBranches = core.getInput("release_branches");
+            const createAnnotatedTag = core.getInput("create_annotated_tag");
+            const dryRun = core.getInput("dry_run");
+            const { GITHUB_REF, GITHUB_SHA } = process.env;
+            if (!GITHUB_REF) {
+                core.setFailed("Missing GITHUB_REF");
+                return;
+            }
+            if (!GITHUB_SHA) {
+                core.setFailed("Missing GITHUB_SHA");
+                return;
+            }
+            const branch = GITHUB_REF.replace("refs/heads/", "");
+            const preRelease = releaseBranches
+                .split(",")
+                .every(releaseBranch => !branch.match(releaseBranch));
+            yield utils_1.exec("git fetch --tags");
+            const hasTag = !!(yield utils_1.exec("git tag")).stdout.trim();
+            let tag = "";
+            let commits = [];
+            if (hasTag) {
+                console.log(yield utils_1.exec('pwd'));
+                const previousTagSha = yield git_1.getPreviousTagSha(tagPrefix);
+                tag = yield git_1.getTag(previousTagSha);
+                commits = yield git_1.getCommits(tag);
+                if (previousTagSha === GITHUB_SHA) {
+                    core.debug("No new commits since previous tag. Skipping...");
+                    core.setOutput("previous_tag", tag);
+                    return;
+                }
+            }
+            else {
+                tag = "0.0.0";
+                commits = yield git_1.getCommits();
+                core.setOutput("previous_tag", tag);
+            }
+            console.info(`Current tag is ${tag}`);
+            core.debug(`Commits: ${commits}`);
+            var bump = yield commit_analyzer_1.analyzeCommits({ preset: messageParserPreset || 'conventionalcommits' }, { commits, logger: { log: console.info.bind(console) } });
+            core.debug(`Bump type from commits: ${bump}`);
+            bump = bump || defaultBump;
+            core.info(`Effective bump type: ${bump}`);
+            if (!bump) {
+                core.setFailed(`Nothing to bump - not building release`);
+                return;
+            }
+            // const rawVersion = tag.replace(tagPrefix, '');
+            // const incResult = semver.inc(rawVersion, bump || defaultBump);
+            // core.debug(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
+            // if (!incResult) {
+            //   core.setFailed(`SemVer inc rejected tag ${tag}`);
+            //   return;
+            // }
+            // const newVersion = `${incResult}${preRelease ? `-${GITHUB_SHA.slice(0, 7)}` : ""}`;
+            // const newTag = `${tagPrefix}${newVersion}`;
+            const { newVersion, newTag } = yield utils_1.calculateVersion(tag, branch, bump, preRelease, defaultBump);
+            core.setOutput("new_version", newVersion);
+            core.setOutput("new_tag", newTag);
+            core.debug(`New tag: ${newTag}`);
+            const changelog = yield release_notes_generator_1.generateNotes({}, {
+                commits,
+                logger: { log: console.info.bind(console) },
+                options: {
+                    repositoryUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}`
+                },
+                lastRelease: { gitTag: tag },
+                nextRelease: { gitTag: newTag, version: newVersion }
+            });
+            core.setOutput("changelog", changelog);
+            if (preRelease) {
+                core.debug("This branch is not a release branch. Skipping the tag creation.");
+                return;
+            }
+            if (yield git_1.checkTagExists(newTag)) {
+                core.debug("This tag already exists. Skipping the tag creation.");
+                return;
+            }
+            core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
+            if (dryRun === "true") {
+                core.setOutput("dry_run", "true");
+                core.info("Dry run: not performing tag action.");
+                return;
+            }
+            if (createAnnotatedTag === "true") {
+                core.debug(`Creating annotated tag`);
+                yield git_1.createTag(core.getInput("github_token"), GITHUB_SHA, newTag, true);
+            }
+            else {
+                core.debug(`Pushing new tag to the repo`);
+                yield git_1.createTag(core.getInput("github_token"), GITHUB_SHA, newTag, false);
+            }
+        }
+        catch (error) {
+            core.setFailed(error.message);
+        }
+    });
+}
+exports.run = run;
+
+
+/***/ }),
+
+/***/ 8719:
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.BranchePrefix = void 0;
+var BranchePrefix;
+(function (BranchePrefix) {
+    BranchePrefix["master"] = "v";
+    BranchePrefix["stage"] = "s";
+    BranchePrefix["dev"] = "d";
+})(BranchePrefix = exports.BranchePrefix || (exports.BranchePrefix = {}));
+
+
+/***/ }),
+
+/***/ 6077:
+/***/ (function(__unused_webpack_module, exports, __nccwpck_require__) {
+
+"use strict";
+
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.calculateVersion = exports.exec = void 0;
+const exec_1 = __nccwpck_require__(2423);
+const semver_1 = __importDefault(__nccwpck_require__(1554));
+const git_1 = __nccwpck_require__(8719);
+const git_2 = __nccwpck_require__(5831);
+function exec(command, args) {
+    return __awaiter(this, void 0, void 0, function* () {
+        let stdout = "";
+        let stderr = "";
+        try {
+            const options = {
+                listeners: {
+                    stdout: (data) => {
+                        stdout += data.toString();
+                    },
+                    stderr: (data) => {
+                        stderr += data.toString();
+                    }
+                }
+            };
+            const code = yield exec_1.exec(command, args, options);
+            return {
+                code,
+                stdout,
+                stderr
+            };
+        }
+        catch (err) {
+            return {
+                code: 1,
+                stdout,
+                stderr,
+                error: err
+            };
+        }
+    });
+}
+exports.exec = exec;
+function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
+    return __awaiter(this, void 0, void 0, function* () {
+        let newVersion = '';
+        let newTag = '';
+        if (preRelease) {
+            const describe = yield git_2.gitDescribe();
+            const dissect = describe.split('-');
+            const tag = dissect[0];
+            const inc = dissect[1];
+            const hash = dissect[2];
+            newTag = `${tag}-${branch}-${inc}-${hash}`;
+        }
+        else {
+            let prefix = (git_1.BranchePrefix[branch]) ? git_1.BranchePrefix[branch] : branch[0];
+            const rawVersion = tag.replace(prefix, '');
+            const incResult = semver_1.default.inc(rawVersion, bump || defaultBump);
+            console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
+            if (!incResult) {
+                throw new Error("`SemVer inc rejected tag ${tag}`");
+            }
+            newVersion = `${incResult}`;
+            newTag = `${prefix}${newVersion}`;
+        }
+        return { newVersion, newTag };
+    });
+}
+exports.calculateVersion = calculateVersion;
+
+
+/***/ }),
+
 /***/ 5347:
 /***/ ((module) => {
 
@@ -61453,6 +61440,6 @@ module.exports = require("zlib");;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(8366);
+/******/ 	return __nccwpck_require__(4215);
 /******/ })()
 ;
