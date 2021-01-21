@@ -4,7 +4,7 @@ const { generateNotes } = require("@semantic-release/release-notes-generator");
 const { calculateVersion, exec } = require('./src/utils');
 const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } = require('./src/git');
 
-export async function run() {
+async function run() {
   try {
     const defaultBump = core.getInput("default_bump");
     const messageParserPreset = core.getInput("message_parser_preset");
