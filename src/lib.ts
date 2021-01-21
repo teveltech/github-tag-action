@@ -13,7 +13,6 @@ export async function run() {
     const messageParserPreset = core.getInput("message_parser_preset");
     const tagPrefix = core.getInput("tag_prefix");
     const releaseBranches = core.getInput("release_branches");
-    // const releaseBranches = "master, main"
     const createAnnotatedTag = core.getInput("create_annotated_tag");
     const dryRun = core.getInput("dry_run");
 
