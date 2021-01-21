@@ -17818,7 +17818,7 @@ module.exports.stop = stop;
 
 var fs = __nccwpck_require__(5747);
 var path = __nccwpck_require__(5622);
-var isGlob = __nccwpck_require__(1517);
+var isGlob = __nccwpck_require__(1877);
 var resolveDir = __nccwpck_require__(7749);
 var detect = __nccwpck_require__(8441);
 var mm = __nccwpck_require__(8504);
@@ -19640,38 +19640,6 @@ function assign(a, b) {
 function hasOwn(obj, key) {
   return Object.prototype.hasOwnProperty.call(obj, key);
 }
-
-
-/***/ }),
-
-/***/ 1517:
-/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
-
-/*!
- * is-glob <https://github.com/jonschlinkert/is-glob>
- *
- * Copyright (c) 2014-2016, Jon Schlinkert.
- * Licensed under the MIT License.
- */
-
-var isExtglob = __nccwpck_require__(1627);
-
-module.exports = function isGlob(str) {
-  if (typeof str !== 'string' || str === '') {
-    return false;
-  }
-
-  if (isExtglob(str)) return true;
-
-  var regex = /(\\).|([*?]|\[.*\]|\{.*\}|\(.*\|.*\)|^!)/;
-  var match;
-
-  while ((match = regex.exec(str))) {
-    if (match[2]) return true;
-    str = str.slice(match.index + match[0].length);
-  }
-  return false;
-};
 
 
 /***/ }),
@@ -28891,6 +28859,38 @@ module.exports = function isExtglob(str) {
     str = str.slice(match.index + match[0].length);
   }
 
+  return false;
+};
+
+
+/***/ }),
+
+/***/ 1877:
+/***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
+
+/*!
+ * is-glob <https://github.com/jonschlinkert/is-glob>
+ *
+ * Copyright (c) 2014-2016, Jon Schlinkert.
+ * Licensed under the MIT License.
+ */
+
+var isExtglob = __nccwpck_require__(1627);
+
+module.exports = function isGlob(str) {
+  if (typeof str !== 'string' || str === '') {
+    return false;
+  }
+
+  if (isExtglob(str)) return true;
+
+  var regex = /(\\).|([*?]|\[.*\]|\{.*\}|\(.*\|.*\)|^!)/;
+  var match;
+
+  while ((match = regex.exec(str))) {
+    if (match[2]) return true;
+    str = str.slice(match.index + match[0].length);
+  }
   return false;
 };
 
