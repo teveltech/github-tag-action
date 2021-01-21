@@ -37,4 +37,4 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
   return {newVersion, newTag}
 }
 
-module.exports = { exec, calculateVersion }
+module.exports = { calculateVersion }
