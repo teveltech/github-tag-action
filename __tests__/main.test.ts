@@ -1,15 +1,13 @@
 import * as process from 'process';
 import * as cp from 'child_process';
-import * as path from 'path';
-import * as core from "@actions/core";
 import { run } from "../src/lib";
 import * as fs from "fs";
 import intercept from 'intercept-stdout';
 
 jest.setTimeout(30000000);
 prepareMockRepo();
-process.env.INPUT_tag_prefix = "my-prefix-";
-process.env.INPUT_release_branches = "master";
+process.env.INPUT_TAG_PREFIX = "my-prefix-";
+process.env.INPUT_RELEASE_BRANCHES = "master";
 process.env.GITHUB_REF = "refs/heads/master";
 
 class StdoutCapture {
@@ -85,7 +83,7 @@ test('does not build patch release due to dry_run', async () => {
     process.env.GITHUB_SHA = "8fe0159ec6ed3bb669765fbce6ed42a0b4adede5";
     cp.execSync("git checkout 8fe0159ec6ed3bb669765fbce6ed42a0b4adede5");
 
-    process.env.INPUT_dry_run = "true";
+    process.env.INPUT_DRY_RUN = "true";
 
     const cap = new StdoutCapture();
 
@@ -114,7 +112,7 @@ test('builds release due to default_bump', async () => {
     process.env.GITHUB_SHA = "3e039e60919e4ad573e11b508be57fb13919f330";
     cp.execSync("git checkout 3e039e60919e4ad573e11b508be57fb13919f330");
 
-    process.env.INPUT_default_bump = "patch";
+    process.env.INPUT_DEFAULT_BUMP = "patch";
 
     const cap = new StdoutCapture();
 
