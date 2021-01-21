@@ -33,7 +33,7 @@ async function run() {
 
     
 
-    const hasTag = !!(fetchTags).stdout.trim();
+    const hasTag = !!(await fetchTags()).stdout.trim();
     let tag = "";
     let commits = [];
 
