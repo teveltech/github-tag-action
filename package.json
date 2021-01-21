@@ -27,8 +27,8 @@
     "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/release-notes-generator": "^9.0.1",
     "conventional-changelog-conventionalcommits": "^4.4.0",
-    "esbuild": "^0.8.33",
     "git-branch": "^2.0.1",
+    "lodash": "^4.17.20",
     "semver": "^6.3.0"
   },
   "devDependencies": {
