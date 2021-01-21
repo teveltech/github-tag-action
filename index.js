@@ -33,6 +33,7 @@ async function run() {
       .split(",")
       .every(releaseBranch => !branch.match(releaseBranch));
 
+    core.info(`Pre release branch: ${preRelease}`)
     core.setOutput('preRelease', preRelease);
 
     const hasTag = !!(await fetchTags()).stdout.trim();
