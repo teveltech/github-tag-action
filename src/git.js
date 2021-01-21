@@ -3,15 +3,15 @@ const { context, GitHub } = require("@actions/github");
 
 const SEPARATOR = "==============================================";
 
-export async function getPreviousTagSha(tagPrefix) {
+async function getPreviousTagSha(tagPrefix) {
     return (await exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim()
 }
 
-export async function getTag(previousTagSha) {
+async function getTag(previousTagSha) {
     return (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim()
 }
 
-export async function getCommits(fromTag) {
+async function getCommits(fromTag) {
     let logs = ""
     if(fromTag){
         logs = (await exec(`git log ${fromTag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
@@ -24,11 +24,11 @@ export async function getCommits(fromTag) {
       .filter(x => !!x.message);
 }
 
-export async function checkTagExists(tag) {
+async function checkTagExists(tag) {
     return !!(await exec(`git tag -l "${tag}"`)).stdout.trim();
 }
 
-export async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
+async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
     const octokit = new GitHub(github_token);
     if(annotated){
         console.log(`Creating annotated tag`);
@@ -60,6 +60,15 @@ export async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
     }
 }
 
-export async function gitDescribe() {
+async function gitDescribe() {
     return (await exec(`git describe --tags`)).stdout.trim();
+}
+
+module.exports = {
+    createTag,
+    checkTagExists,
+    getCommits,
+    getTag,
+    getPreviousTagSha,
+    gitDescribe
 }

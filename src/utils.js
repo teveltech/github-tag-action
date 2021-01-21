@@ -8,7 +8,7 @@ const BranchePrefix  = {
   dev: 'd'
 }
 
-export async function exec(command, args) {
+async function exec(command, args) {
     let stdout = "";
     let stderr = "";
   
@@ -41,7 +41,7 @@ export async function exec(command, args) {
     }
 }
 
-export async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
+async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
   let newVersion = '';
   let newTag = '';
   if (preRelease) {
@@ -68,3 +68,5 @@ export async function calculateVersion(tag, branch, bump, preRelease, defaultBum
 
   return {newVersion, newTag}
 }
+
+module.exports = { exec, calculateVersion }
