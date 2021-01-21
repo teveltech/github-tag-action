@@ -1,8 +1,8 @@
 import * as core from "@actions/core";
 import { analyzeCommits } from "@semantic-release/commit-analyzer";
 import { generateNotes } from "@semantic-release/release-notes-generator";
-import { calculateVersion, exec } from './utils';
-import { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } from './git';
+import { calculateVersion, exec } from './src/utils';
+import { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } from './src/git';
 
 export async function run() {
   try {

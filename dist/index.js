@@ -74,6 +74,302 @@ module.exports = JSON.parse("[\"0BSD\",\"AAL\",\"ADSL\",\"AFL-1.1\",\"AFL-1.2\",
 
 /***/ }),
 
+/***/ 4134:
+/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__nccwpck_require__.r(__webpack_exports__);
+
+// EXPORTS
+__nccwpck_require__.d(__webpack_exports__, {
+  "run": () => /* binding */ run
+});
+
+// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
+var core = __nccwpck_require__(6024);
+// EXTERNAL MODULE: ./node_modules/@semantic-release/commit-analyzer/index.js
+var commit_analyzer = __nccwpck_require__(272);
+// EXTERNAL MODULE: ./node_modules/@semantic-release/release-notes-generator/index.js
+var release_notes_generator = __nccwpck_require__(2726);
+// EXTERNAL MODULE: ./node_modules/@actions/exec/lib/exec.js
+var exec = __nccwpck_require__(2423);
+// EXTERNAL MODULE: ./node_modules/semver/semver.js
+var semver = __nccwpck_require__(1554);
+var semver_default = /*#__PURE__*/__nccwpck_require__.n(semver);
+
+// EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
+var github = __nccwpck_require__(5016);
+// CONCATENATED MODULE: ./src/git.js
+
+
+
+const SEPARATOR = "==============================================";
+
+async function getPreviousTagSha(tagPrefix) {
+    return (await utils_exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim()
+}
+
+async function getTag(previousTagSha) {
+    return (await utils_exec(`git describe --tags ${previousTagSha}`)).stdout.trim()
+}
+
+async function getCommits(fromTag) {
+    let logs = ""
+    if(fromTag){
+        logs = (await utils_exec(`git log ${fromTag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+    } else {
+        logs = (await utils_exec(`git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+    }
+
+    return logs.split(SEPARATOR)
+      .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
+      .filter(x => !!x.message);
+}
+
+async function checkTagExists(tag) {
+    return !!(await utils_exec(`git tag -l "${tag}"`)).stdout.trim();
+}
+
+async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
+    const octokit = new github.GitHub(github_token);
+    if(annotated){
+        console.log(`Creating annotated tag`);
+
+        const tagCreateResponse = await octokit.git.createTag({
+            ...github.context.repo,
+            tag: tagName,
+            message: tagName,
+            object: GITHUB_SHA,
+            type: "commit"
+        });
+
+        console.log(`Pushing annotated tag to the repo`);
+
+        await octokit.git.createRef({
+            ...github.context.repo,
+            ref: `refs/tags/${tagName}`,
+            sha: tagCreateResponse.data.sha
+        });
+        return;
+    } else {
+        console.log(`Pushing new lightweight tag to the repo`);
+
+        await octokit.git.createRef({
+            ...github.context.repo,
+            ref: `refs/tags/${tagName}`,
+            sha: GITHUB_SHA
+        });
+    }
+}
+
+async function gitDescribe() {
+    return (await utils_exec(`git describe --tags`)).stdout.trim();
+}
+// CONCATENATED MODULE: ./src/utils.js
+
+
+
+
+const BranchePrefix  = {
+  master:'v',
+  stage: 's',
+  dev: 'd'
+}
+
+async function utils_exec(command, args) {
+    let stdout = "";
+    let stderr = "";
+  
+    try {
+      const options = {
+        listeners: {
+          stdout: (data) => {
+            stdout += data.toString();
+          },
+          stderr: (data) => {
+            stderr += data.toString();
+          }
+        }
+      };
+  
+      const code = await (0,exec.exec)(command, args, options);
+  
+      return {
+        code,
+        stdout,
+        stderr
+      };
+    } catch (err) {
+      return {
+        code: 1,
+        stdout,
+        stderr,
+        error: err
+      };
+    }
+}
+
+async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
+  let newVersion = '';
+  let newTag = '';
+  if (preRelease) {
+    const describe = await gitDescribe();
+    const dissect = describe.split('-');
+    const tag = dissect[0];
+    const inc = dissect[1];
+    const hash = dissect[2];
+    newTag =`${tag}-${branch}-${inc}-${hash}`
+  } else {
+    let prefix = (BranchePrefix[branch]) ? BranchePrefix[branch] : branch[0];
+
+    const rawVersion = tag.replace(prefix, '');
+    const incResult = semver_default().inc(rawVersion, bump || defaultBump);
+
+    console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
+
+    if (!incResult) {
+      throw new Error("`SemVer inc rejected tag ${tag}`");
+    }
+    newVersion = `${incResult}`
+    newTag = `${prefix}${newVersion}`
+  }
+
+  return {newVersion, newTag}
+}
+// CONCATENATED MODULE: ./index.js
+
+
+
+
+
+
+async function run() {
+  try {
+    const defaultBump = core.getInput("default_bump");
+    const messageParserPreset = core.getInput("message_parser_preset");
+    const tagPrefix = core.getInput("tag_prefix");
+    const releaseBranches = core.getInput("release_branches");
+    const createAnnotatedTag = core.getInput("create_annotated_tag");
+    const dryRun = core.getInput("dry_run");
+
+    const { GITHUB_REF, GITHUB_SHA } = process.env;
+
+    if (!GITHUB_REF) {
+      core.setFailed("Missing GITHUB_REF");
+      return;
+    }
+
+    if (!GITHUB_SHA) {
+      core.setFailed("Missing GITHUB_SHA");
+      return;
+    }
+
+    const branch = GITHUB_REF.replace("refs/heads/", "")
+
+    const preRelease = releaseBranches
+      .split(",")
+      .every(releaseBranch => !branch.match(releaseBranch));
+
+    await utils_exec("git fetch --tags");
+
+    const hasTag = !!(await utils_exec("git tag")).stdout.trim();
+    let tag = "";
+    let commits = [];
+
+    if (hasTag) {
+      console.log(await utils_exec('pwd'));
+      const previousTagSha = await getPreviousTagSha(tagPrefix);
+      tag = await getTag(previousTagSha);
+      commits = await getCommits(tag);
+
+      if (previousTagSha === GITHUB_SHA) {
+        core.debug("No new commits since previous tag. Skipping...");
+        core.setOutput("previous_tag", tag);
+        return;
+      }
+    } else {
+      tag = "0.0.0";
+      commits = await getCommits();
+      core.setOutput("previous_tag", tag);
+    }
+
+    console.info(`Current tag is ${tag}`);
+
+    core.debug(`Commits: ${commits}`);
+
+    var bump = await (0,commit_analyzer.analyzeCommits)(
+      { preset: messageParserPreset || 'conventionalcommits' },
+      { commits, logger: { log: console.info.bind(console) } }
+    );
+    core.debug(`Bump type from commits: ${bump}`);
+
+    bump = bump || defaultBump;
+
+    core.info(`Effective bump type: ${bump}`);
+
+    if (!bump) {
+      core.setFailed(`Nothing to bump - not building release`);
+      return;
+    }
+    const {newVersion, newTag} = await calculateVersion(tag, branch, bump, preRelease, defaultBump)
+
+    core.setOutput("new_version", newVersion);
+    core.setOutput("new_tag", newTag);
+
+    core.debug(`New tag: ${newTag}`);
+
+    const changelog = await (0,release_notes_generator.generateNotes)(
+      {},
+      {
+        commits,
+        logger: { log: console.info.bind(console) },
+        options: {
+          repositoryUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}`
+        },
+        lastRelease: { gitTag: tag },
+        nextRelease: { gitTag: newTag, version: newVersion }
+      }
+    );
+
+    core.setOutput("changelog", changelog);
+
+    if (preRelease) {
+      core.debug(
+        "This branch is not a release branch. Skipping the tag creation."
+      );
+      return;
+    }
+
+    if (await checkTagExists(newTag)) {
+      core.debug("This tag already exists. Skipping the tag creation.");
+      return;
+    }
+
+    core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
+    if (dryRun === "true") {
+      core.setOutput("dry_run", "true");
+      core.info("Dry run: not performing tag action.");
+      return;
+    }
+
+    if (createAnnotatedTag === "true") {
+      core.debug(`Creating annotated tag`);
+      await createTag(core.getInput("github_token"), GITHUB_SHA, newTag, true)
+    } else {
+      core.debug(`Pushing new tag to the repo`);
+      await createTag(core.getInput("github_token"), GITHUB_SHA, newTag, false)
+    }
+
+  } catch (error) {
+    core.setFailed(error.message);
+  }
+}
+
+run()
+
+/***/ }),
+
 /***/ 5350:
 /***/ ((__unused_webpack_module, exports, __nccwpck_require__) => {
 
@@ -60931,302 +61227,6 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 305:
-/***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__nccwpck_require__.r(__webpack_exports__);
-
-// EXPORTS
-__nccwpck_require__.d(__webpack_exports__, {
-  "run": () => /* binding */ run
-});
-
-// EXTERNAL MODULE: ./node_modules/@actions/core/lib/core.js
-var core = __nccwpck_require__(6024);
-// EXTERNAL MODULE: ./node_modules/@semantic-release/commit-analyzer/index.js
-var commit_analyzer = __nccwpck_require__(272);
-// EXTERNAL MODULE: ./node_modules/@semantic-release/release-notes-generator/index.js
-var release_notes_generator = __nccwpck_require__(2726);
-// EXTERNAL MODULE: ./node_modules/@actions/exec/lib/exec.js
-var exec = __nccwpck_require__(2423);
-// EXTERNAL MODULE: ./node_modules/semver/semver.js
-var semver = __nccwpck_require__(1554);
-var semver_default = /*#__PURE__*/__nccwpck_require__.n(semver);
-
-// EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
-var github = __nccwpck_require__(5016);
-// CONCATENATED MODULE: ./src/git.js
-
-
-
-const SEPARATOR = "==============================================";
-
-async function getPreviousTagSha(tagPrefix) {
-    return (await utils_exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim()
-}
-
-async function getTag(previousTagSha) {
-    return (await utils_exec(`git describe --tags ${previousTagSha}`)).stdout.trim()
-}
-
-async function getCommits(fromTag) {
-    let logs = ""
-    if(fromTag){
-        logs = (await utils_exec(`git log ${fromTag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
-    } else {
-        logs = (await utils_exec(`git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
-    }
-
-    return logs.split(SEPARATOR)
-      .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
-      .filter(x => !!x.message);
-}
-
-async function checkTagExists(tag) {
-    return !!(await utils_exec(`git tag -l "${tag}"`)).stdout.trim();
-}
-
-async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
-    const octokit = new github.GitHub(github_token);
-    if(annotated){
-        console.log(`Creating annotated tag`);
-
-        const tagCreateResponse = await octokit.git.createTag({
-            ...github.context.repo,
-            tag: tagName,
-            message: tagName,
-            object: GITHUB_SHA,
-            type: "commit"
-        });
-
-        console.log(`Pushing annotated tag to the repo`);
-
-        await octokit.git.createRef({
-            ...github.context.repo,
-            ref: `refs/tags/${tagName}`,
-            sha: tagCreateResponse.data.sha
-        });
-        return;
-    } else {
-        console.log(`Pushing new lightweight tag to the repo`);
-
-        await octokit.git.createRef({
-            ...github.context.repo,
-            ref: `refs/tags/${tagName}`,
-            sha: GITHUB_SHA
-        });
-    }
-}
-
-async function gitDescribe() {
-    return (await utils_exec(`git describe --tags`)).stdout.trim();
-}
-// CONCATENATED MODULE: ./src/utils.js
-
-
-
-
-const BranchePrefix  = {
-  master:'v',
-  stage: 's',
-  dev: 'd'
-}
-
-async function utils_exec(command, args) {
-    let stdout = "";
-    let stderr = "";
-  
-    try {
-      const options = {
-        listeners: {
-          stdout: (data) => {
-            stdout += data.toString();
-          },
-          stderr: (data) => {
-            stderr += data.toString();
-          }
-        }
-      };
-  
-      const code = await (0,exec.exec)(command, args, options);
-  
-      return {
-        code,
-        stdout,
-        stderr
-      };
-    } catch (err) {
-      return {
-        code: 1,
-        stdout,
-        stderr,
-        error: err
-      };
-    }
-}
-
-async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
-  let newVersion = '';
-  let newTag = '';
-  if (preRelease) {
-    const describe = await gitDescribe();
-    const dissect = describe.split('-');
-    const tag = dissect[0];
-    const inc = dissect[1];
-    const hash = dissect[2];
-    newTag =`${tag}-${branch}-${inc}-${hash}`
-  } else {
-    let prefix = (BranchePrefix[branch]) ? BranchePrefix[branch] : branch[0];
-
-    const rawVersion = tag.replace(prefix, '');
-    const incResult = semver_default().inc(rawVersion, bump || defaultBump);
-
-    console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-
-    if (!incResult) {
-      throw new Error("`SemVer inc rejected tag ${tag}`");
-    }
-    newVersion = `${incResult}`
-    newTag = `${prefix}${newVersion}`
-  }
-
-  return {newVersion, newTag}
-}
-// CONCATENATED MODULE: ./src/index.js
-
-
-
-
-
-
-async function run() {
-  try {
-    const defaultBump = core.getInput("default_bump");
-    const messageParserPreset = core.getInput("message_parser_preset");
-    const tagPrefix = core.getInput("tag_prefix");
-    const releaseBranches = core.getInput("release_branches");
-    const createAnnotatedTag = core.getInput("create_annotated_tag");
-    const dryRun = core.getInput("dry_run");
-
-    const { GITHUB_REF, GITHUB_SHA } = process.env;
-
-    if (!GITHUB_REF) {
-      core.setFailed("Missing GITHUB_REF");
-      return;
-    }
-
-    if (!GITHUB_SHA) {
-      core.setFailed("Missing GITHUB_SHA");
-      return;
-    }
-
-    const branch = GITHUB_REF.replace("refs/heads/", "")
-
-    const preRelease = releaseBranches
-      .split(",")
-      .every(releaseBranch => !branch.match(releaseBranch));
-
-    await utils_exec("git fetch --tags");
-
-    const hasTag = !!(await utils_exec("git tag")).stdout.trim();
-    let tag = "";
-    let commits = [];
-
-    if (hasTag) {
-      console.log(await utils_exec('pwd'));
-      const previousTagSha = await getPreviousTagSha(tagPrefix);
-      tag = await getTag(previousTagSha);
-      commits = await getCommits(tag);
-
-      if (previousTagSha === GITHUB_SHA) {
-        core.debug("No new commits since previous tag. Skipping...");
-        core.setOutput("previous_tag", tag);
-        return;
-      }
-    } else {
-      tag = "0.0.0";
-      commits = await getCommits();
-      core.setOutput("previous_tag", tag);
-    }
-
-    console.info(`Current tag is ${tag}`);
-
-    core.debug(`Commits: ${commits}`);
-
-    var bump = await (0,commit_analyzer.analyzeCommits)(
-      { preset: messageParserPreset || 'conventionalcommits' },
-      { commits, logger: { log: console.info.bind(console) } }
-    );
-    core.debug(`Bump type from commits: ${bump}`);
-
-    bump = bump || defaultBump;
-
-    core.info(`Effective bump type: ${bump}`);
-
-    if (!bump) {
-      core.setFailed(`Nothing to bump - not building release`);
-      return;
-    }
-    const {newVersion, newTag} = await calculateVersion(tag, branch, bump, preRelease, defaultBump)
-
-    core.setOutput("new_version", newVersion);
-    core.setOutput("new_tag", newTag);
-
-    core.debug(`New tag: ${newTag}`);
-
-    const changelog = await (0,release_notes_generator.generateNotes)(
-      {},
-      {
-        commits,
-        logger: { log: console.info.bind(console) },
-        options: {
-          repositoryUrl: `https://github.com/${process.env.GITHUB_REPOSITORY}`
-        },
-        lastRelease: { gitTag: tag },
-        nextRelease: { gitTag: newTag, version: newVersion }
-      }
-    );
-
-    core.setOutput("changelog", changelog);
-
-    if (preRelease) {
-      core.debug(
-        "This branch is not a release branch. Skipping the tag creation."
-      );
-      return;
-    }
-
-    if (await checkTagExists(newTag)) {
-      core.debug("This tag already exists. Skipping the tag creation.");
-      return;
-    }
-
-    core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
-    if (dryRun === "true") {
-      core.setOutput("dry_run", "true");
-      core.info("Dry run: not performing tag action.");
-      return;
-    }
-
-    if (createAnnotatedTag === "true") {
-      core.debug(`Creating annotated tag`);
-      await createTag(core.getInput("github_token"), GITHUB_SHA, newTag, true)
-    } else {
-      core.debug(`Pushing new tag to the repo`);
-      await createTag(core.getInput("github_token"), GITHUB_SHA, newTag, false)
-    }
-
-  } catch (error) {
-    core.setFailed(error.message);
-  }
-}
-
-run()
-
-/***/ }),
-
 /***/ 5347:
 /***/ ((module) => {
 
@@ -61445,6 +61445,6 @@ module.exports = require("zlib");;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(305);
+/******/ 	return __nccwpck_require__(4134);
 /******/ })()
 ;
