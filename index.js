@@ -1,7 +1,7 @@
 const core = require('@actions/core');
 const { analyzeCommits } = require("@semantic-release/commit-analyzer");
 const { generateNotes } = require("@semantic-release/release-notes-generator");
-const { calculateVersion, exec } = require('./src/utils');
+const utils = require('./src/utils');
 const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } = require('./src/git');
 
 async function run() {
@@ -31,14 +31,14 @@ async function run() {
       .split(",")
       .every(releaseBranch => !branch.match(releaseBranch));
 
-    await exec("git fetch --tags");
+    await utils.exec("git fetch --tags");
 
-    const hasTag = !!(await exec("git tag")).stdout.trim();
+    const hasTag = !!(await utils.exec("git tag")).stdout.trim();
     let tag = "";
     let commits = [];
 
     if (hasTag) {
-      console.log(await exec('pwd'));
+      console.log(await utils.exec('pwd'));
       const previousTagSha = await getPreviousTagSha(tagPrefix);
       tag = await getTag(previousTagSha);
       commits = await getCommits(tag);
@@ -72,7 +72,7 @@ async function run() {
       core.setFailed(`Nothing to bump - not building release`);
       return;
     }
-    const {newVersion, newTag} = await calculateVersion(tag, branch, bump, preRelease, defaultBump)
+    const {newVersion, newTag} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
 
     core.setOutput("new_version", newVersion);
     core.setOutput("new_tag", newTag);
