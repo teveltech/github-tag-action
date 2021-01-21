@@ -1,7 +1,40 @@
-const { exec } = require('./utils');
 const { context, GitHub } = require("@actions/github");
+const { exec:_exec } = require("@actions/exec")
 
 const SEPARATOR = "==============================================";
+
+async function exec(command, args) {
+    let stdout = "";
+    let stderr = "";
+  
+    try {
+      const options = {
+        listeners: {
+          stdout: (data) => {
+            stdout += data.toString();
+          },
+          stderr: (data) => {
+            stderr += data.toString();
+          }
+        }
+      };
+  
+      const code = await _exec(command, args, options);
+  
+      return {
+        code,
+        stdout,
+        stderr
+      };
+    } catch (err) {
+      return {
+        code: 1,
+        stdout,
+        stderr,
+        error: err
+      };
+    }
+}
 
 async function getPreviousTagSha(tagPrefix) {
     return (await exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim()
@@ -9,6 +42,11 @@ async function getPreviousTagSha(tagPrefix) {
 
 async function getTag(previousTagSha) {
     return (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim()
+}
+
+async function fetchTags(){
+    await utils.exec("git fetch --tags");
+    return await utils.exec("git tag")
 }
 
 async function getCommits(fromTag) {
@@ -69,6 +107,7 @@ module.exports = {
     checkTagExists,
     getCommits,
     getTag,
+    fetchTags,
     getPreviousTagSha,
     gitDescribe
 }
