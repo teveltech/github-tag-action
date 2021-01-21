@@ -1,8 +1,8 @@
-import * as core from "@actions/core";
-import { analyzeCommits } from "@semantic-release/commit-analyzer";
-import { generateNotes } from "@semantic-release/release-notes-generator";
-import { calculateVersion, exec } from './src/utils';
-import { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } from './src/git';
+const core = require('@actions/core');
+const { analyzeCommits } = require("@semantic-release/commit-analyzer");
+const { generateNotes } = require("@semantic-release/release-notes-generator");
+const { calculateVersion, exec } = require('./src/utils');
+const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } = require('./src/git');
 
 export async function run() {
   try {
