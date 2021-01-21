@@ -45,8 +45,8 @@ async function getTag(previousTagSha) {
 }
 
 async function fetchTags(){
-    await utils.exec("git fetch --tags");
-    return await utils.exec("git tag")
+    await exec("git fetch --tags");
+    return await exec("git tag")
 }
 
 async function getCommits(fromTag) {
