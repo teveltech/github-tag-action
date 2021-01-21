@@ -1,7 +1,12 @@
 import { exec as _exec } from "@actions/exec";
 import semver from "semver";
-import { BranchePrefix } from "./types/git";
 import { gitDescribe } from "./git"
+
+const BranchePrefix  = {
+  master:'v',
+  stage: 's',
+  dev: 'd'
+}
 
 export async function exec(command, args) {
     let stdout = "";

@@ -51331,7 +51331,7 @@ Duplex.prototype._destroy = function (err, cb) {
 
 /***/ }),
 
-/***/ 7586:
+/***/ 4543:
 /***/ ((module, __unused_webpack_exports, __nccwpck_require__) => {
 
 "use strict";
@@ -53521,7 +53521,7 @@ if (process.env.READABLE_STREAM === 'disable' && Stream) {
   exports.Writable = __nccwpck_require__(8793);
   exports.Duplex = __nccwpck_require__(8035);
   exports.Transform = __nccwpck_require__(7240);
-  exports.PassThrough = __nccwpck_require__(7586);
+  exports.PassThrough = __nccwpck_require__(4543);
 }
 
 
@@ -60931,7 +60931,7 @@ function wrappy (fn, cb) {
 
 /***/ }),
 
-/***/ 4543:
+/***/ 305:
 /***/ ((__unused_webpack_module, __webpack_exports__, __nccwpck_require__) => {
 
 "use strict";
@@ -60955,13 +60955,6 @@ var exec = __nccwpck_require__(2423);
 var semver = __nccwpck_require__(1554);
 var semver_default = /*#__PURE__*/__nccwpck_require__.n(semver);
 
-// CONCATENATED MODULE: ./src/types/git.js
-
-const BranchePrefix  = {
-    master:'v',
-    stage: 's',
-    dev: 'd'
-}
 // EXTERNAL MODULE: ./node_modules/@actions/github/lib/github.js
 var github = __nccwpck_require__(5016);
 // CONCATENATED MODULE: ./src/git.js
@@ -61035,6 +61028,11 @@ async function gitDescribe() {
 
 
 
+const BranchePrefix  = {
+  master:'v',
+  stage: 's',
+  dev: 'd'
+}
 
 async function utils_exec(command, args) {
     let stdout = "";
@@ -61225,6 +61223,7 @@ async function run() {
   }
 }
 
+run()
 
 /***/ }),
 
@@ -61446,6 +61445,6 @@ module.exports = require("zlib");;
 /******/ 	// module exports must be returned from runtime so entry inlining is disabled
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
-/******/ 	return __nccwpck_require__(4543);
+/******/ 	return __nccwpck_require__(305);
 /******/ })()
 ;
