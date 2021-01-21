@@ -1,44 +1,11 @@
 import * as core from "@actions/core";
-import { exec as _exec } from "@actions/exec";
-import { context, GitHub } from "@actions/github";
 import semver, { ReleaseType } from "semver";
 import { analyzeCommits } from "@semantic-release/commit-analyzer";
 import { generateNotes } from "@semantic-release/release-notes-generator";
+import { exec } from './utils';
+import { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } from './git';
+import { Commit } from "./types/git";
 
-const SEPARATOR = "==============================================";
-
-async function exec(command: string, args?: string[]) {
-  let stdout = "";
-  let stderr = "";
-
-  try {
-    const options = {
-      listeners: {
-        stdout: (data: Buffer) => {
-          stdout += data.toString();
-        },
-        stderr: (data: Buffer) => {
-          stderr += data.toString();
-        }
-      }
-    };
-
-    const code = await _exec(command, args, options);
-
-    return {
-      code,
-      stdout,
-      stderr
-    };
-  } catch (err) {
-    return {
-      code: 1,
-      stdout,
-      stderr,
-      error: err
-    };
-  }
-}
 
 export async function run() {
   try {
@@ -46,6 +13,7 @@ export async function run() {
     const messageParserPreset = core.getInput("message_parser_preset");
     const tagPrefix = core.getInput("tag_prefix");
     const releaseBranches = core.getInput("release_branches");
+    // const releaseBranches = "master, main"
     const createAnnotatedTag = core.getInput("create_annotated_tag");
     const dryRun = core.getInput("dry_run");
 
@@ -69,19 +37,13 @@ export async function run() {
 
     const hasTag = !!(await exec("git tag")).stdout.trim();
     let tag = "";
-    let logs = "";
+    let commits: Array<Commit> = [];
 
     if (hasTag) {
       console.log(await exec('pwd'));
-      const previousTagSha = (
-        await exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)
-      ).stdout.trim();
-      tag = (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim();
-      logs = (
-        await exec(
-          `git log ${tag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`
-        )
-      ).stdout.trim();
+      const previousTagSha = await getPreviousTagSha(tagPrefix);
+      tag = await getTag(previousTagSha);
+      commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
         core.debug("No new commits since previous tag. Skipping...");
@@ -90,21 +52,11 @@ export async function run() {
       }
     } else {
       tag = "0.0.0";
-      logs = (
-        await exec(
-          `git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`
-        )
-      ).stdout.trim();
+      commits = await getCommits();
       core.setOutput("previous_tag", tag);
     }
 
     console.info(`Current tag is ${tag}`);
-
-    // for some reason the commits start with a `'` on the CI so we ignore it
-    const commits = logs
-      .split(SEPARATOR)
-      .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
-      .filter(x => !!x.message);
 
     core.debug(`Commits: ${commits}`);
 
@@ -161,11 +113,7 @@ export async function run() {
       return;
     }
 
-    const tagAlreadyExists = !!(
-      await exec(`git tag -l "${newTag}"`)
-    ).stdout.trim();
-
-    if (tagAlreadyExists) {
+    if (await checkTagExists(newTag)) {
       core.debug("This tag already exists. Skipping the tag creation.");
       return;
     }
@@ -177,36 +125,14 @@ export async function run() {
       return;
     }
 
-    const octokit = new GitHub(core.getInput("github_token"));
-
     if (createAnnotatedTag === "true") {
       core.debug(`Creating annotated tag`);
-
-      const tagCreateResponse = await octokit.git.createTag({
-        ...context.repo,
-        tag: newTag,
-        message: newTag,
-        object: GITHUB_SHA,
-        type: "commit"
-      });
-
-      core.debug(`Pushing annotated tag to the repo`);
-
-      await octokit.git.createRef({
-        ...context.repo,
-        ref: `refs/tags/${newTag}`,
-        sha: tagCreateResponse.data.sha
-      });
-      return;
+      await createTag(core.getInput("github_token"), GITHUB_SHA, newTag, true)
+    } else {
+      core.debug(`Pushing new tag to the repo`);
+      await createTag(core.getInput("github_token"), GITHUB_SHA, newTag, false)
     }
 
-    core.debug(`Pushing new tag to the repo`);
-
-    await octokit.git.createRef({
-      ...context.repo,
-      ref: `refs/tags/${newTag}`,
-      sha: GITHUB_SHA
-    });
   } catch (error) {
     core.setFailed(error.message);
   }
