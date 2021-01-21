@@ -2,9 +2,10 @@ import * as core from "@actions/core";
 import semver, { ReleaseType } from "semver";
 import { analyzeCommits } from "@semantic-release/commit-analyzer";
 import { generateNotes } from "@semantic-release/release-notes-generator";
-import { exec } from './utils';
+import { calculateVersion, exec } from './utils';
 import { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } from './git';
 import { Commit } from "./types/git";
+import { builtinModules } from "module";
 
 
 export async function run() {
@@ -28,9 +29,11 @@ export async function run() {
       return;
     }
 
+    const branch = GITHUB_REF.replace("refs/heads/", "")
+
     const preRelease = releaseBranches
       .split(",")
-      .every(branch => !GITHUB_REF.replace("refs/heads/", "").match(branch));
+      .every(releaseBranch => !branch.match(releaseBranch));
 
     await exec("git fetch --tags");
 
@@ -74,16 +77,18 @@ export async function run() {
       return;
     }
 
-    const rawVersion = tag.replace(tagPrefix, '');
-    const incResult = semver.inc(rawVersion, bump || defaultBump);
-    core.debug(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-    if (!incResult) {
-      core.setFailed(`SemVer inc rejected tag ${tag}`);
-      return;
-    }
+    // const rawVersion = tag.replace(tagPrefix, '');
+    // const incResult = semver.inc(rawVersion, bump || defaultBump);
+    // core.debug(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
+    // if (!incResult) {
+    //   core.setFailed(`SemVer inc rejected tag ${tag}`);
+    //   return;
+    // }
 
-    const newVersion = `${incResult}${preRelease ? `-${GITHUB_SHA.slice(0, 7)}` : ""}`;
-    const newTag = `${tagPrefix}${newVersion}`;
+    // const newVersion = `${incResult}${preRelease ? `-${GITHUB_SHA.slice(0, 7)}` : ""}`;
+    // const newTag = `${tagPrefix}${newVersion}`;
+
+    const {newVersion, newTag} = await calculateVersion(tag, branch, bump, preRelease, defaultBump)
 
     core.setOutput("new_version", newVersion);
     core.setOutput("new_tag", newTag);

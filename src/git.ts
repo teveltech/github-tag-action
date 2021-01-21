@@ -60,3 +60,7 @@ export async function createTag(github_token: string, GITHUB_SHA: string, tagNam
         });
     }
 }
+
+export async function gitDescribe() {
+    return (await exec(`git describe --tags`)).stdout.trim();
+}
