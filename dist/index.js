@@ -67099,7 +67099,7 @@ const fs = __webpack_require__(5747);
 
 const resolveFrom = (fromDirectory, moduleId, silent) => {
 	if (typeof fromDirectory !== 'string') {
-		throw new TypeError(`Expected \`fromDir\` to be of type \`string\`, got \`${typeof fromDirectory}\``);
+		throw new TypeError(`Expected \`fromDir\` to be of type \`string\`, got \`${typeof fromDirectory}\` && moduleId ${moduleId}`);
 	}
 
 	if (typeof moduleId !== 'string') {
