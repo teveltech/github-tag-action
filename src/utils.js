@@ -1,4 +1,4 @@
-const { exec } = require("@actions/exec")
+const { exec:_exec } = require("@actions/exec")
 const semver = require("semver");
 const { gitDescribe } = require("./git");
 
