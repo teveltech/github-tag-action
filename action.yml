@@ -6,6 +6,8 @@ outputs:
     description: "Generated tag"
   previous_tag:
     description: "Previous tag (or `0.0.0`)"
+  prerelease:
+    description: true is prerelease branch
 inputs:
   github_token:
     description: "Required for permission to tag the repo."
