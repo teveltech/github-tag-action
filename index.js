@@ -27,6 +27,7 @@ async function run() {
     }
 
     const branch = await branch.sync()
+    core.info(`Triggered on branch ${branch}`)
 
     const preRelease = releaseBranches
       .split(",")
