@@ -1,16 +1,12 @@
 import * as core from "@actions/core";
-import semver, { ReleaseType } from "semver";
 import { analyzeCommits } from "@semantic-release/commit-analyzer";
 import { generateNotes } from "@semantic-release/release-notes-generator";
 import { calculateVersion, exec } from './utils';
 import { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag } from './git';
-import { Commit } from "./types/git";
-import { builtinModules } from "module";
-
 
 export async function run() {
   try {
-    const defaultBump = core.getInput("default_bump") as ReleaseType;
+    const defaultBump = core.getInput("default_bump");
     const messageParserPreset = core.getInput("message_parser_preset");
     const tagPrefix = core.getInput("tag_prefix");
     const releaseBranches = core.getInput("release_branches");
@@ -39,7 +35,7 @@ export async function run() {
 
     const hasTag = !!(await exec("git tag")).stdout.trim();
     let tag = "";
-    let commits: Array<Commit> = [];
+    let commits = [];
 
     if (hasTag) {
       console.log(await exec('pwd'));
@@ -65,7 +61,7 @@ export async function run() {
     var bump = await analyzeCommits(
       { preset: messageParserPreset || 'conventionalcommits' },
       { commits, logger: { log: console.info.bind(console) } }
-    ) as ReleaseType;
+    );
     core.debug(`Bump type from commits: ${bump}`);
 
     bump = bump || defaultBump;
@@ -76,18 +72,6 @@ export async function run() {
       core.setFailed(`Nothing to bump - not building release`);
       return;
     }
-
-    // const rawVersion = tag.replace(tagPrefix, '');
-    // const incResult = semver.inc(rawVersion, bump || defaultBump);
-    // core.debug(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-    // if (!incResult) {
-    //   core.setFailed(`SemVer inc rejected tag ${tag}`);
-    //   return;
-    // }
-
-    // const newVersion = `${incResult}${preRelease ? `-${GITHUB_SHA.slice(0, 7)}` : ""}`;
-    // const newTag = `${tagPrefix}${newVersion}`;
-
     const {newVersion, newTag} = await calculateVersion(tag, branch, bump, preRelease, defaultBump)
 
     core.setOutput("new_version", newVersion);

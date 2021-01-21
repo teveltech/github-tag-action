@@ -1,20 +1,19 @@
 import { exec as _exec } from "@actions/exec";
-import { format } from "prettier";
-import semver, { ReleaseType } from "semver";
+import semver from "semver";
 import { BranchePrefix } from "./types/git";
 import { gitDescribe } from "./git"
 
-export async function exec(command: string, args?: string[]) {
+export async function exec(command, args) {
     let stdout = "";
     let stderr = "";
   
     try {
       const options = {
         listeners: {
-          stdout: (data: Buffer) => {
+          stdout: (data) => {
             stdout += data.toString();
           },
-          stderr: (data: Buffer) => {
+          stderr: (data) => {
             stderr += data.toString();
           }
         }
@@ -37,7 +36,7 @@ export async function exec(command: string, args?: string[]) {
     }
 }
 
-export async function calculateVersion(tag: string, branch: string, bump: ReleaseType, preRelease: boolean, defaultBump: ReleaseType = "patch") {
+export async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
   let newVersion = '';
   let newTag = '';
   if (preRelease) {
