@@ -1,6 +1,6 @@
-import { exec as _exec } from "@actions/exec";
-import semver from "semver";
-import { gitDescribe } from "./git"
+const { exec } = require("@actions/exec")
+const semver = require("semver");
+const { gitDescribe } = require("./git");
 
 const BranchePrefix  = {
   master:'v',

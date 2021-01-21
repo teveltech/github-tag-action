@@ -1,5 +1,5 @@
-import { exec } from './utils'
-import { context, GitHub } from "@actions/github";
+const { exec } = require('./utils');
+const { context, GitHub } = require("@actions/github");
 
 const SEPARATOR = "==============================================";
 
