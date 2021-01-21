@@ -23,7 +23,7 @@ inputs:
   release_branches:
     description: "Comma separated list of branches (bash reg exp accepted) that will generate the release tags. Other branches and pull-requests generate versions postfixed with the commit hash and do not generate any tag. Examples: `master` or `.*` or `release.*,hotfix.*,master`..."
     required: false
-    default: "master"
+    default: "master, stage, dev"
   create_annotated_tag:
     description: "Boolean to create an annotated tag rather than lightweight"
     required: false
