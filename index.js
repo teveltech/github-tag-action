@@ -1,7 +1,6 @@
 const core = require('@actions/core');
 const { analyzeCommits } = require("@semantic-release/commit-analyzer");
 const { generateNotes } = require("@semantic-release/release-notes-generator");
-const branch_fetcher = require('git-branch');
 const utils = require('./src/utils');
 const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
 
@@ -26,7 +25,7 @@ async function run() {
       return;
     }
 
-    const branch = branch_fetcher.sync()
+    const branch = GITHUB_REF.replace("refs/heads/", "")
     core.info(`Triggered on branch ${branch}`)
 
     const preRelease = releaseBranches
