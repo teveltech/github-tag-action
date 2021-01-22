@@ -46,7 +46,6 @@ inputs:
       * (jshint)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-jshint]
       * (conventionalcommits)[https://github.com/conventional-changelog/conventional-changelog/tree/master/packages/conventional-changelog-conventionalcommits]
     required: false
-    default: conventionalcommits
 
 runs:
   using: "node12"
