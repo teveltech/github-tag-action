@@ -60,7 +60,7 @@ async function run() {
     core.debug(`Commits: ${commits}`);
 
     var bump = await analyzeCommits(
-      { preset: messageParserPreset || 'conventionalcommits' },
+      // { preset: messageParserPreset || 'conventionalcommits' },
       { commits, logger: { log: console.info.bind(console) } }
     );
     core.debug(`Bump type from commits: ${bump}`);

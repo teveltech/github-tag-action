@@ -83,7 +83,7 @@ async function run() {
     core.debug(`Commits: ${commits}`);
 
     var bump = await analyzeCommits(
-      { preset: messageParserPreset || 'conventionalcommits' },
+      // { preset: messageParserPreset || 'conventionalcommits' },
       { commits, logger: { log: console.info.bind(console) } }
     );
     core.debug(`Bump type from commits: ${bump}`);
@@ -67099,7 +67099,7 @@ const fs = __webpack_require__(5747);
 
 const resolveFrom = (fromDirectory, moduleId, silent) => {
 	if (typeof fromDirectory !== 'string') {
-		throw new TypeError(`Expected \`fromDir\` to be of type \`string\`, got \`${typeof fromDirectory}\` && ${moduleId}`);
+		throw new TypeError(`Expected \`fromDir\` to be of type \`string\`, got \`${typeof fromDirectory}\``);
 	}
 
 	if (typeof moduleId !== 'string') {
