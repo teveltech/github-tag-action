@@ -61,7 +61,7 @@ async function run() {
 
     var bump = await analyzeCommits(
       // { preset: messageParserPreset || 'conventionalcommits' },
-      {},
+      {}, // dynamic imports of semantic release plugins is not supported with ncc bundler
       { commits, logger: { log: console.info.bind(console) } }
     );
     core.debug(`Bump type from commits: ${bump}`);
