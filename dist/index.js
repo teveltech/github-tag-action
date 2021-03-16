@@ -78244,29 +78244,34 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     console.log(`Prerelease on branch ${branch}`);
     const describe = await gitDescribe();
     const dissect = describe.split('-');
-    const tag = dissect[0];
+    let tag = dissect[0];
     const inc = dissect[1];
     const hash = dissect[2];
+    let prefix="";
+    while (!('0' <= tag[0] && tag[0] <= '9')) {
+      prefix += tag[0];
+      tag = tag.substring(1);
+    }
+    newVersion = `${tag}-${branch}-${inc}`;
+    newTag = `${prefix}${newVersion}`
     // newTag =`${tag}-${branch}-${inc}-${hash}`
-    newTag =`${tag}-${branch}-${inc}`;
-    newTag = newTag.replace(/_/g, '-');
-    newVersion = newTag;
   } else {
     let prefix = (BranchePrefix[branch]) ? BranchePrefix[branch] : branch[0];
-
+    
     const rawVersion = tag.replace(prefix, '');
     const incResult = semver.inc(rawVersion, bump || defaultBump);
-
+    
     console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-
+    
     if (!incResult) {
       throw new Error("`SemVer inc rejected tag ${tag}`");
     }
     newVersion = `${incResult}`
-    newVersion = newVersion.replace(/_/g, '-');
     newTag = `${prefix}${newVersion}`
   }
-
+  
+  newTag = newTag.replace(/_/g, '-');
+  newVersion = newVersion.replace(/_/g, '-');
   return {newVersion, newTag}
 }
 
