@@ -12,7 +12,6 @@ const BranchePrefix  = {
 async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "patch") {
   let newVersion = '';
   let newTag = '';
-  let prefix = (BranchePrefix[branch]) ? BranchePrefix[branch] : branch[0];
   if (preRelease) {
     console.log(`Prerelease on branch ${branch}`);
     const describe = await gitDescribe();
@@ -23,8 +22,9 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     // newTag =`${tag}-${branch}-${inc}-${hash}`
     newTag =`${tag}-${branch}-${inc}`;
     newTag = newTag.replace(/_/g, '-');
-    newVersion = newTag.replace(prefix, '');
+    newVersion = newTag;
   } else {
+    let prefix = (BranchePrefix[branch]) ? BranchePrefix[branch] : branch[0];
 
     const rawVersion = tag.replace(prefix, '');
     const incResult = semver.inc(rawVersion, bump || defaultBump);
