@@ -41,7 +41,7 @@ async function getPreviousTagSha(tagPrefix) {
 }
 
 async function getTag(previousTagSha) {
-    return (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim()
+    return (await exec(`git describe ${previousTagSha}`)).stdout.trim()
 }
 
 async function fetchTags(){
