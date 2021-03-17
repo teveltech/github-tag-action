@@ -98,6 +98,8 @@ async function run() {
       return;
     }
     const {newVersion, newTag} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
+    
+    core.info(`New version: ${newVersion}, New Tag: ${newTag}`)
 
     core.setOutput("new_version", newVersion);
     core.setOutput("new_tag", newTag);
@@ -152,6 +154,7 @@ async function run() {
 }
 
 run()
+
 
 /***/ }),
 
