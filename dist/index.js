@@ -78150,7 +78150,7 @@ async function getPreviousTagSha(tagPrefix) {
 }
 
 async function getTag(previousTagSha) {
-    return (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim()
+    return (await exec(`git describe ${previousTagSha}`)).stdout.trim()
 }
 
 async function fetchTags(){
@@ -78208,7 +78208,7 @@ async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
 }
 
 async function gitDescribe() {
-    return (await exec(`git describe --tags`)).stdout.trim();
+    return (await exec(`git describe`)).stdout.trim();
 }
 
 module.exports = {
@@ -78220,6 +78220,7 @@ module.exports = {
     getPreviousTagSha,
     gitDescribe
 }
+
 
 /***/ }),
 
