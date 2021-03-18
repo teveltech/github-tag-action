@@ -19,11 +19,10 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     let tag = dissect[0];
     const inc = dissect[1];
     const hash = dissect[2];
-    let prefix="";
-    while (!('0' <= tag[0] && tag[0] <= '9')) {
-      prefix += tag[0];
-      tag = tag.substring(1);
-    }
+    
+    let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
+    tag = tag.replace(/[a-zA-Z]+/, '')
+    
     newVersion = `${tag}-${branch}-${inc}`;
     newTag = `${prefix}${newVersion}`
     // newTag =`${tag}-${branch}-${inc}-${hash}`

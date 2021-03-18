@@ -98,6 +98,8 @@ async function run() {
       return;
     }
     const {newVersion, newTag} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
+    
+    core.debug(`New version: ${newVersion}, New Tag: ${newTag}`)
 
     core.setOutput("new_version", newVersion);
     core.setOutput("new_tag", newTag);
@@ -152,6 +154,7 @@ async function run() {
 }
 
 run()
+
 
 /***/ }),
 
@@ -78150,7 +78153,7 @@ async function getPreviousTagSha(tagPrefix) {
 }
 
 async function getTag(previousTagSha) {
-    return (await exec(`git describe --tags ${previousTagSha}`)).stdout.trim()
+    return (await exec(`git describe ${previousTagSha}`)).stdout.trim()
 }
 
 async function fetchTags(){
@@ -78208,7 +78211,7 @@ async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
 }
 
 async function gitDescribe() {
-    return (await exec(`git describe --tags`)).stdout.trim();
+    return (await exec(`git describe`)).stdout.trim();
 }
 
 module.exports = {
@@ -78220,6 +78223,7 @@ module.exports = {
     getPreviousTagSha,
     gitDescribe
 }
+
 
 /***/ }),
 
@@ -78247,11 +78251,10 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     let tag = dissect[0];
     const inc = dissect[1];
     const hash = dissect[2];
-    let prefix="";
-    while (!('0' <= tag[0] && tag[0] <= '9')) {
-      prefix += tag[0];
-      tag = tag.substring(1);
-    }
+    
+    let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
+    tag = tag.replace(/[a-zA-Z]+/, '')
+    
     newVersion = `${tag}-${branch}-${inc}`;
     newTag = `${prefix}${newVersion}`
     // newTag =`${tag}-${branch}-${inc}-${hash}`
@@ -78276,6 +78279,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
 }
 
 module.exports = { calculateVersion }
+
 
 /***/ }),
 
