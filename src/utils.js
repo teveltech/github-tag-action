@@ -16,12 +16,12 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     console.log(`Prerelease on branch ${branch}`);
     const describe = await gitDescribe();
     const dissect = describe.split('-');
-    let tag = dissect[0];
+    const prefixTag = dissect[0];
     const inc = dissect[1];
     const hash = dissect[2];
     
-    let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
-    tag = tag.replace(/[a-zA-Z]+/, '')
+    const prefix = prefixTag.slice(0, prefixTag.search(/[0-9]/));
+    const tag = prefixTag.slice(prefixTag.search(/[0-9]/));
     
     newVersion = `${tag}-${branch}-${inc}`;
     newTag = `${prefix}${newVersion}`
