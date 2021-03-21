@@ -99,7 +99,7 @@ async function createTag(github_token, GITHUB_SHA, tagName, annotated) {
 }
 
 async function gitDescribe() {
-    return (await exec(`git describe`)).stdout.trim();
+    return (await exec(`git describe --tags`)).stdout.trim();
 }
 
 module.exports = {
