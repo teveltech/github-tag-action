@@ -101,11 +101,6 @@ async function run() {
     
     core.debug(`New version: ${newVersion}, New Tag: ${newTag}`)
 
-    core.setOutput("new_version", newVersion);
-    core.setOutput("new_tag", newTag);
-
-    core.debug(`New tag: ${newTag}`);
-
     const changelog = await generateNotes(
       {},
       {
@@ -126,6 +121,11 @@ async function run() {
       return;
     }
 
+    core.setOutput("new_version", newVersion);
+    core.setOutput("new_tag", newTag);
+
+    core.debug(`New tag: ${newTag}`);
+    
     core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
     if (dryRun === "true") {
       core.setOutput("dry_run", "true");
