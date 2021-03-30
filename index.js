@@ -69,11 +69,6 @@ async function run() {
     bump = bump || defaultBump;
 
     core.info(`Effective bump type: ${bump}`);
-
-    if (!bump) {
-      core.setFailed(`Nothing to bump - not building release`);
-      return;
-    }
     const {newVersion, newTag} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
     
     core.debug(`New version: ${newVersion}, New Tag: ${newTag}`)
