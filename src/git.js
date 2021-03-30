@@ -56,7 +56,7 @@ async function getCommits(fromTag) {
     } else {
         logs = (await exec(`git log --pretty=format:%s%n%b${SEPARATOR} --abbrev-commit`)).stdout.trim();
     }
-    
+    console.log('\n');
     return logs.split(SEPARATOR)
       .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
       .filter(x => !!x.message);
