@@ -78230,10 +78230,10 @@ module.exports = {
 /***/ 1608:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const semver = __webpack_require__(5911);
+const { semver } = __webpack_require__(5911);
 const { gitDescribe } = __webpack_require__(109);
 
-const BranchePrefix  = {
+const BranchPrefix  = {
   master:'v',
   stage: 's',
   dev: 'd'
@@ -78259,7 +78259,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     newTag = `${prefix}${newVersion}`
     // newTag =`${tag}-${branch}-${inc}-${hash}`
   } else {
-    let prefix = (BranchePrefix[branch]) ? BranchePrefix[branch] : branch[0];
+    let prefix = (BranchPrefix[branch]) ? BranchPrefix[branch] : branch[0];
     
     const rawVersion = tag.replace(prefix, '');
     const incResult = semver.inc(rawVersion, bump || defaultBump);
