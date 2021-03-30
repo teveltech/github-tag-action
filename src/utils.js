@@ -43,7 +43,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
     
     if (!incResult) {
-      throw new Error("`SemVer inc rejected tag ${tag}`");
+      throw new Error(`SemVer inc rejected tag ${tag}`);
     }
     newVersion = `${incResult}`
     newTag = `${prefix}${newVersion}`
