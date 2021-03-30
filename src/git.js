@@ -59,7 +59,7 @@ async function getCommits(fromTag) {
 
     return logs.split(SEPARATOR)
       .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
-      .filter(x => !!x.message);
+      .filter(x => !!x.message)+"\n";
 }
 
 async function checkTagExists(tag) {
