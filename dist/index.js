@@ -78230,7 +78230,7 @@ module.exports = {
 /***/ 1608:
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
-const { semver } = __webpack_require__(5911);
+const semver = __webpack_require__(5911);
 const { gitDescribe } = __webpack_require__(109);
 
 const BranchPrefix  = {
@@ -78267,7 +78267,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
     
     if (!incResult) {
-      throw new Error("`SemVer inc rejected tag ${tag}`");
+      throw new Error(`SemVer inc rejected tag ${tag}`);
     }
     newVersion = `${incResult}`
     newTag = `${prefix}${newVersion}`
