@@ -106,7 +106,7 @@ async function run() {
     }
     
     core.info("preRelease: " + preRelease + ". createAnnotatedTag: " + createAnnotatedTag);
-    if (preRelease == "false" && createAnnotatedTag == "") {
+    if (preRelease == "false" && !createAnnotatedTag) {
       core.debug(
         "This branch is a release branch and no explicit createAnnotatedTag detected. Creating annotated tag."
       );
