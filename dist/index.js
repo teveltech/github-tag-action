@@ -121,13 +121,6 @@ async function run() {
 
     core.setOutput("changelog", changelog);
 
-    if (preRelease) {
-      core.debug(
-        "This branch is not a release branch. Skipping the tag creation."
-      );
-      return;
-    }
-
     if (await checkTagExists(newTag)) {
       core.debug("This tag already exists. Skipping the tag creation.");
       return;
