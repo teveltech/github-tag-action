@@ -29,8 +29,8 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
       // newTag =`${tag}-${branch}-${inc}-${hash}`
     }
     else {
-      newVersion = 0.0.0;
-      newTag = v0.0.0;
+      newVersion = `0.0.0`;
+      newTag = `v0.0.0`;
     }
   } else {
     let prefix = (BranchPrefix[branch]) ? BranchPrefix[branch] : branch[0];
