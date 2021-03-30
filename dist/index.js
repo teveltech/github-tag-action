@@ -21,10 +21,10 @@ module.exports = JSON.parse("{\"_args\":[[\"@octokit/rest@16.43.2\",\"/home/runn
 /***/ 2932:
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-const core = __webpack_require__(2186);
+const { core } = __webpack_require__(2186);
 const { analyzeCommits } = __webpack_require__(156);
 const { generateNotes } = __webpack_require__(4338);
-const utils = __webpack_require__(1608);
+const { utils } = __webpack_require__(1608);
 const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
 
 async function run() {
