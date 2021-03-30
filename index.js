@@ -1,7 +1,7 @@
-const { core } = require('@actions/core');
+const core = require('@actions/core');
 const { analyzeCommits } = require("@semantic-release/commit-analyzer");
 const { generateNotes } = require("@semantic-release/release-notes-generator");
-const { utils } = require('./src/utils');
+const utils = require('./src/utils');
 const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
 
 async function run() {
