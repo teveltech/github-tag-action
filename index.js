@@ -10,7 +10,7 @@ async function run() {
     const messageParserPreset = core.getInput("message_parser_preset");
     const tagPrefix = core.getInput("tag_prefix");
     const releaseBranches = core.getInput("release_branches");
-    const createAnnotatedTag = core.getInput("create_annotated_tag");
+    let createAnnotatedTag = core.getInput("create_annotated_tag");
     const dryRun = core.getInput("dry_run");
 
     const { GITHUB_REF, GITHUB_SHA } = process.env;
@@ -105,8 +105,8 @@ async function run() {
       return;
     }
     
-    core.info("preRelease: " + preRelease + ". createAnnotatedTag" + createAnnotatedTag);
-    if (preRelease != "true" && createAnnotatedTag != "false") {
+    core.info("preRelease: " + preRelease + ". createAnnotatedTag: " + createAnnotatedTag);
+    if (preRelease == "false" && createAnnotatedTag == "") {
       core.debug(
         "This branch is a release branch and no explicit createAnnotatedTag detected. Creating annotated tag."
       );
