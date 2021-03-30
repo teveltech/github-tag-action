@@ -78159,9 +78159,9 @@ async function fetchTags(){
 async function getCommits(fromTag) {
     let logs = ""
     if(fromTag){
-        logs = (await exec(`git log ${fromTag}..HEAD --pretty=format:%s%n%b${SEPARATOR} --abbrev-commit`)) + '\n'.stdout.trim();
+        logs = (await exec(`git log ${fromTag}..HEAD --pretty=format:%s%n%b${SEPARATOR} --abbrev-commit`)).stdout.trim();
     } else {
-        logs = (await exec(`git log --pretty=format:%s%n%b${SEPARATOR} --abbrev-commit`)) + '\n'.stdout.trim();
+        logs = (await exec(`git log --pretty=format:%s%n%b${SEPARATOR} --abbrev-commit`)).stdout.trim();
     }
     
     return logs.split(SEPARATOR)
