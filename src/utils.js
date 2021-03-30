@@ -1,4 +1,4 @@
-const { semver } = require("semver");
+const semver = require("semver");
 const { gitDescribe } = require("./git");
 
 const BranchPrefix  = {
@@ -35,7 +35,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
     
     if (!incResult) {
-      throw new Error("`SemVer inc rejected tag ${tag}`");
+      throw new Error(`SemVer inc rejected tag ${tag}`);
     }
     newVersion = `${incResult}`
     newTag = `${prefix}${newVersion}`
