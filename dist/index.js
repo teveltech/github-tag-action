@@ -128,11 +128,11 @@ async function run() {
       return;
     }
 
-    if (!preRelease && !createAnnotatedTag) {
+    if (!preRelease && createAnnotatedTag != "false") {
       core.debug(
         "This branch is a release branch and no explicit createAnnotatedTag detected. Creating annotated tag."
       );
-      createAnnotatedTag = "true"
+      createAnnotatedTag = "true";
     }
     
     if (createAnnotatedTag === "true") {
