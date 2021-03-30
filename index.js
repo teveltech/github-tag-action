@@ -45,6 +45,7 @@ async function run() {
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
+        console.log('\n');
         core.warning("No new commits since previous tag. Skipping version update");
         core.setOutput("previous_tag", tag);
         return;
