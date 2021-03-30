@@ -68,7 +68,6 @@ async function run() {
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
-        console.log('\n');
         core.warning("No new commits since previous tag. Skipping version update");
         core.setOutput("previous_tag", tag);
         return;
@@ -129,7 +128,7 @@ async function run() {
       return;
     }
 
-    if (!preRelease && createAnnotatedTag != "false") {
+    if (preRelease != "true" && createAnnotatedTag != "false") {
       core.debug(
         "This branch is a release branch and no explicit createAnnotatedTag detected. Creating annotated tag."
       );
