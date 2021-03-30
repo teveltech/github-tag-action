@@ -104,7 +104,8 @@ async function run() {
       core.info("Dry run: not performing tag action.");
       return;
     }
-
+    
+    core.info("preRelease: " + preRelease + ". createAnnotatedTag" + createAnnotatedTag);
     if (preRelease != "true" && createAnnotatedTag != "false") {
       core.debug(
         "This branch is a release branch and no explicit createAnnotatedTag detected. Creating annotated tag."
