@@ -1,4 +1,4 @@
-const { semver } = require("semver");
+const semver = require("semver");
 const { gitDescribe } = require("./git");
 
 const BranchPrefix  = {
@@ -16,29 +16,21 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     console.log(`Prerelease on branch ${branch}`);
     const describe = await gitDescribe();
     const dissect = describe.split('-');
-    if (dissect) {
-      let tag = dissect[0];
-      const inc = dissect[1];
-      const hash = dissect[2];
-
-      let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '');
-      tag = tag.replace(/[a-zA-Z]+/, '');
-
-      newVersion = `${tag}-${branch}-${inc}`;
-      newTag = `${prefix}${newVersion}`;
-      // newTag =`${tag}-${branch}-${inc}-${hash}`
-    }
-    else {
-      newVersion = `0.0.0`;
-      newTag = `v0.0.0`;
-    }
+    let tag = dissect[0];
+    const inc = dissect[1];
+    const hash = dissect[2];
+    
+    let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
+    tag = tag.replace(/[a-zA-Z]+/, '')
+    
+    newVersion = `${tag}-${branch}-${inc}`;
+    newTag = `${prefix}${newVersion}`
+    // newTag =`${tag}-${branch}-${inc}-${hash}`
   } else {
     let prefix = (BranchPrefix[branch]) ? BranchPrefix[branch] : branch[0];
     
     const rawVersion = tag.replace(prefix, '');
-    let incResult = `${tag}`;
-    if (semver)
-      incResult = semver.inc(rawVersion, bump || defaultBump);
+    const incResult = semver.inc(rawVersion, bump || defaultBump);
     
     console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
     
