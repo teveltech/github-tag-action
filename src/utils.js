@@ -36,7 +36,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     let prefix = (BranchPrefix[branch]) ? BranchPrefix[branch] : branch[0];
     
     const rawVersion = tag.replace(prefix, '');
-    let incResult = '';
+    let incResult = `${tag}`;
     if (semver)
       incResult = semver.inc(rawVersion, bump || defaultBump);
     
