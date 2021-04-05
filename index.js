@@ -43,10 +43,10 @@ async function run() {
       const previousTagSha = await getPreviousTagSha(tagPrefix);
       tag = await getTag(previousTagSha);
       commits = await getCommits(tag);
+      core.setOutput("previous_tag", tag);
 
       if (previousTagSha === GITHUB_SHA) {
         core.debug("No new commits since previous tag. Skipping...");
-        core.setOutput("previous_tag", tag);
         return;
       }
     } else {
