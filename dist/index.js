@@ -68,7 +68,7 @@ async function run() {
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
-        core.debug("No new commits since previous tag. Skipping...");
+        core.warning("No new commits since previous tag. Skipping...");
         core.setOutput("previous_tag", tag);
         return;
       }
@@ -130,7 +130,7 @@ async function run() {
     }
 
     if (await checkTagExists(newTag)) {
-      core.debug("This tag already exists. Skipping the tag creation.");
+      core.warning("This tag already exists. Skipping the tag creation.");
       return;
     }
 
@@ -78165,11 +78165,11 @@ async function fetchTags(){
 async function getCommits(fromTag) {
     let logs = ""
     if(fromTag){
-        logs = (await exec(`git log ${fromTag}..HEAD --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+        logs = (await exec(`git log ${fromTag}..HEAD --pretty=format:%s%n%b${SEPARATOR} --abbrev-commit`)).stdout.trim();
     } else {
-        logs = (await exec(`git log --pretty=format:'%s%n%b${SEPARATOR}' --abbrev-commit`)).stdout.trim();
+        logs = (await exec(`git log --pretty=format:%s%n%b${SEPARATOR} --abbrev-commit`)).stdout.trim();
     }
-
+    console.log('\n');
     return logs.split(SEPARATOR)
       .map(x => ({ message: x.trim().replace(/(^['\s]+)|(['\s]+$)/g, "") }))
       .filter(x => !!x.message);
