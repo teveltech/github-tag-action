@@ -56,6 +56,7 @@ async function run() {
     }
 
     console.info(`Current tag is ${tag}`);
+    core.setOutput("previous_tag", tag);
 
     core.debug(`Commits: ${commits}`);
 
