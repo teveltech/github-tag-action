@@ -45,7 +45,7 @@ async function run() {
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
-        core.debug("No new commits since previous tag. Skipping...");
+        core.warning("No new commits since previous tag. Skipping...");
         core.setOutput("previous_tag", tag);
         return;
       }
@@ -107,7 +107,7 @@ async function run() {
     }
 
     if (await checkTagExists(newTag)) {
-      core.debug("This tag already exists. Skipping the tag creation.");
+      core.warning("This tag already exists. Skipping the tag creation.");
       return;
     }
 
