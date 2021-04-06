@@ -25,7 +25,7 @@ const core = __webpack_require__(2186);
 const { analyzeCommits } = __webpack_require__(156);
 const { generateNotes } = __webpack_require__(4338);
 const utils = __webpack_require__(1608);
-const { getTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
+const { getTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
 
 async function run() {
   try {
@@ -78221,6 +78221,7 @@ module.exports = {
     getCommits,
     getTag,
     fetchTags,
+    getTagSha,
     gitDescribe
 }
 
