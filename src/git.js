@@ -36,12 +36,14 @@ async function exec(command, args) {
     }
 }
 
-async function getPreviousTagSha(tagPrefix) {
-    return (await exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim()
+// get hash by tag name
+async function getTagSha(tag) {
+    return (await exec(`git show-ref -s ${tag}`)).stdout.trim()
 }
 
-async function getTag(previousTagSha) {
-    return (await exec(`git describe ${previousTagSha}`)).stdout.trim()
+// get the last annotated tag
+async function getTag() {
+    return (await exec(`git describe --abbrev=0`)).stdout.trim()
 }
 
 async function fetchTags(){
@@ -108,6 +110,6 @@ module.exports = {
     getCommits,
     getTag,
     fetchTags,
-    getPreviousTagSha,
+    getTagSha,
     gitDescribe
 }
