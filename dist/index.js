@@ -25,7 +25,7 @@ const core = __webpack_require__(2186);
 const { analyzeCommits } = __webpack_require__(156);
 const { generateNotes } = __webpack_require__(4338);
 const utils = __webpack_require__(1608);
-const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
+const { getTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
 
 async function run() {
   try {
@@ -63,8 +63,8 @@ async function run() {
     let commits = [];
 
     if (hasTag) {
-      const previousTagSha = await getPreviousTagSha(tagPrefix);
-      tag = await getTag(previousTagSha);
+      tag = await getTag();
+      const previousTagSha = await getTagSha(tag);
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
@@ -78149,12 +78149,12 @@ async function exec(command, args) {
     }
 }
 
-async function getPreviousTagSha(tagPrefix) {
-    return (await exec(`git rev-list --tags=${tagPrefix}* --topo-order --max-count=1`)).stdout.trim()
+async function getTagSha(tag) {
+    return (await exec(`git show-ref -s ${tagPrefix}`)).stdout.trim()
 }
 
-async function getTag(previousTagSha) {
-    return (await exec(`git describe ${previousTagSha}`)).stdout.trim()
+async function getTag() {
+    return (await exec(`git describe --abbrev=0`)).stdout.trim()
 }
 
 async function fetchTags(){
@@ -78221,7 +78221,6 @@ module.exports = {
     getCommits,
     getTag,
     fetchTags,
-    getPreviousTagSha,
     gitDescribe
 }
 
