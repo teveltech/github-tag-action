@@ -108,5 +108,6 @@ module.exports = {
     getCommits,
     getTag,
     fetchTags,
+    getTagSha,
     gitDescribe
 }
