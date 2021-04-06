@@ -78150,7 +78150,7 @@ async function exec(command, args) {
 }
 
 async function getTagSha(tag) {
-    return (await exec(`git show-ref -s ${tagPrefix}`)).stdout.trim()
+    return (await exec(`git show-ref -s ${tag}`)).stdout.trim()
 }
 
 async function getTag() {
