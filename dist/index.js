@@ -35,7 +35,7 @@ async function run() {
     const releaseBranches = core.getInput("release_branches");
     const createAnnotatedTag = core.getInput("create_annotated_tag");
     const dryRun = core.getInput("dry_run");
-
+    
     const { GITHUB_REF, GITHUB_SHA } = process.env;
 
     if (!GITHUB_REF) {
