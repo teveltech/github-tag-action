@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const { analyzeCommits } = require("@semantic-release/commit-analyzer");
 const { generateNotes } = require("@semantic-release/release-notes-generator");
 const utils = require('./src/utils');
-const { getPreviousTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
+const { getTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
 
 async function run() {
   try {
@@ -40,8 +40,8 @@ async function run() {
     let commits = [];
 
     if (hasTag) {
-      const previousTagSha = await getPreviousTagSha(tagPrefix);
-      tag = await getTag(previousTagSha);
+      tag = await getTag();
+      const previousTagSha = await getTagSha(tag);
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
