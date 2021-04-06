@@ -78149,10 +78149,12 @@ async function exec(command, args) {
     }
 }
 
+// get hash by tag name
 async function getTagSha(tag) {
     return (await exec(`git show-ref -s ${tag}`)).stdout.trim()
 }
 
+// get the last annotated tag
 async function getTag() {
     return (await exec(`git describe --abbrev=0`)).stdout.trim()
 }
