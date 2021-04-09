@@ -77,7 +77,7 @@ async function run() {
     }
     const {newVersion, newTag} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
     
-    core.debug(`New version: ${newVersion}, New Tag: ${newTag}`)
+    core.info(`New version: ${newVersion}, New Tag: ${newTag}`)
 
     core.setOutput("new_version", newVersion);
     core.setOutput("new_tag", newTag);
