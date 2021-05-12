@@ -46,6 +46,11 @@ async function getTag() {
     return (await exec(`git describe --abbrev=0`)).stdout.trim()
 }
 
+// get the last lightweight tag
+async function getLightTag() {
+    return (await exec(`git describe --abbrev=0 --tags`)).stdout.trim()
+}
+
 async function fetchTags(){
     await exec("git fetch --tags");
     return await exec("git tag")
@@ -109,6 +114,7 @@ module.exports = {
     checkTagExists,
     getCommits,
     getTag,
+    getLightTag,
     fetchTags,
     getTagSha,
     gitDescribe

@@ -5,9 +5,11 @@ outputs:
   new_tag:
     description: "Generated tag"
   previous_tag:
-    description: "Previous tag (or `0.0.0`)"
+    description: "Previous annotated tag (or `0.0.0`)"
+  previous_light_tag:
+    description: "Previous lightweight tag (or `0.0.0`)"
   prerelease:
-    description: true is prerelease branch
+    description: "true if prerelease branch"
 inputs:
   github_token:
     description: "Required for permission to tag the repo."

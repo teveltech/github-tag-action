@@ -2,7 +2,7 @@ const core = require('@actions/core');
 const { analyzeCommits } = require("@semantic-release/commit-analyzer");
 const { generateNotes } = require("@semantic-release/release-notes-generator");
 const utils = require('./src/utils');
-const { getTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
+const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
 
 async function run() {
   try {
@@ -37,26 +37,32 @@ async function run() {
 
     const hasTag = !!(await fetchTags()).stdout.trim();
     let tag = "";
+    let light_tag = "";
     let commits = [];
 
     if (hasTag) {
       tag = await getTag();
+      light_tag = await getLightTag();
       const previousTagSha = await getTagSha(tag);
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
         core.warning("No new commits since previous tag. Skipping...");
         core.setOutput("previous_tag", tag);
+        core.setOutput("previous_light_tag", light_tag);
         return;
       }
     } else {
       tag = "0.0.0";
+      light_tag = "0.0.0";
       commits = await getCommits();
       core.setOutput("previous_tag", tag);
+      core.setOutput("previous_light_tag", light_tag);
     }
 
     console.info(`Current tag is ${tag}`);
     core.setOutput("previous_tag", tag);
+    core.setOutput("previous_light_tag", light_tag);
     
     core.debug(`Commits: ${commits}`);
 
