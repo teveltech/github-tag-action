@@ -25,7 +25,7 @@ const core = __webpack_require__(2186);
 const { analyzeCommits } = __webpack_require__(156);
 const { generateNotes } = __webpack_require__(4338);
 const utils = __webpack_require__(1608);
-const { getTagSha, getTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
+const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
 
 async function run() {
   try {
@@ -60,26 +60,32 @@ async function run() {
 
     const hasTag = !!(await fetchTags()).stdout.trim();
     let tag = "";
+    let light_tag = "";
     let commits = [];
 
     if (hasTag) {
       tag = await getTag();
+      light_tag = await getLightTag();
       const previousTagSha = await getTagSha(tag);
       commits = await getCommits(tag);
 
       if (previousTagSha === GITHUB_SHA) {
         core.warning("No new commits since previous tag. Skipping...");
         core.setOutput("previous_tag", tag);
+        core.setOutput("previous_light_tag", light_tag);
         return;
       }
     } else {
       tag = "0.0.0";
+      light_tag = "0.0.0";
       commits = await getCommits();
       core.setOutput("previous_tag", tag);
+      core.setOutput("previous_light_tag", light_tag);
     }
 
     console.info(`Current tag is ${tag}`);
     core.setOutput("previous_tag", tag);
+    core.setOutput("previous_light_tag", light_tag);
     
     core.debug(`Commits: ${commits}`);
 
@@ -78159,6 +78165,11 @@ async function getTag() {
     return (await exec(`git describe --abbrev=0`)).stdout.trim()
 }
 
+// get the last lightweight tag
+async function getLightTag() {
+    return (await exec(`git describe --abbrev=0 --tags`)).stdout.trim()
+}
+
 async function fetchTags(){
     await exec("git fetch --tags");
     return await exec("git tag")
@@ -78222,6 +78233,7 @@ module.exports = {
     checkTagExists,
     getCommits,
     getTag,
+    getLightTag,
     fetchTags,
     getTagSha,
     gitDescribe
