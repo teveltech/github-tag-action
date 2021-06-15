@@ -28,9 +28,9 @@ async function run() {
     const branch = GITHUB_REF.replace("refs/heads/", "")
     core.info(`Triggered on branch ${branch}`)
 
-    const preRelease = releaseBranches
+    const preRelease = !(releaseBranches
       .split(",")
-      .every(releaseBranch => !branch.match(releaseBranch));
+      .includes(branch));
 
     core.info(`Pre release branch: ${preRelease}`)
     core.setOutput('preRelease', preRelease);
