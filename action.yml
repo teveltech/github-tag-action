@@ -7,7 +7,9 @@ outputs:
   previous_tag:
     description: "Previous tag (or `0.0.0`)"
   prerelease:
-    description: true is prerelease branch
+    description: "true if on prerelease branch"
+  new_version:
+    description: "New version"
 inputs:
   github_token:
     description: "Required for permission to tag the repo."
