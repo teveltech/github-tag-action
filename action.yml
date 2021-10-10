@@ -9,7 +9,9 @@ outputs:
   previous_light_tag:
     description: "Previous lightweight tag (or `0.0.0`)"
   prerelease:
-    description: "true if prerelease branch"
+    description: "true if on prerelease branch"
+  new_version:
+    description: "New version"
 inputs:
   github_token:
     description: "Required for permission to tag the repo."
