@@ -8,13 +8,18 @@ const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, f
 
 
 function setOutput(key, value) {
-  // const output = process.env['GITHUB_OUTPUT']
+  const output = process.env['GITHUB_OUTPUT']
+  console.log(output, "########################################")
   // console.log("🚀 ~ file: index.js:12 ~ setOutput ~ output", output)
   // Temporary hack until core actions library catches up with github new recommendations
   // TODO: check for updates
 try {
-    core.setOutput(key,value)
-      // fs.appendFileSync(output, `${key}=${value}${os.EOL}`)
+    // core.setOutput(key,value)
+      fs.writeFile(output, `${key}=${value}${os.EOL}`,err=>{
+        if (err) {
+          console.log(err)
+        }
+      })
   
 } catch (error) {
   console.log("🚀 ~ file: index.js:20 ~ setOutput ~ error", error)
