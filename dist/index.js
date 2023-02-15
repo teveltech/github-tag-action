@@ -17,6 +17,7 @@ const core = __webpack_require__(2186);
 const { analyzeCommits } = __webpack_require__(156);
 const { generateNotes } = __webpack_require__(4338);
 const utils = __webpack_require__(1608);
+const fs = __webpack_require__(5747)
 const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
 
 function setOutput(key, value) {
