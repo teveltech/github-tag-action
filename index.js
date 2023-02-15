@@ -2,6 +2,7 @@ const core = require('@actions/core');
 const { analyzeCommits } = require("@semantic-release/commit-analyzer");
 const { generateNotes } = require("@semantic-release/release-notes-generator");
 const utils = require('./src/utils');
+const fs = require('fs')
 const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
 
 function setOutput(key, value) {
