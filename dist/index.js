@@ -17,6 +17,7 @@ const core = __webpack_require__(2186);
 const { analyzeCommits } = __webpack_require__(156);
 const { generateNotes } = __webpack_require__(4338);
 const utils = __webpack_require__(1608);
+const coreCommand =__webpack_require__(7351)
 const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
 
 async function run() {
@@ -48,7 +49,7 @@ async function run() {
       .includes(branch));
 
     core.info(`Pre release branch: ${preRelease}`)
-    core.setOutput('preRelease', preRelease);
+    coreCommand.setOutput('preRelease', preRelease);
 
     const hasTag = !!(await fetchTags()).stdout.trim();
     let tag = "";
@@ -63,21 +64,21 @@ async function run() {
 
       if (previousTagSha === GITHUB_SHA) {
         core.warning("No new commits since previous tag. Skipping...");
-        core.setOutput("previous_tag", tag);
-        core.setOutput("previous_light_tag", light_tag);
+        coreCommand.setOutput("previous_tag", tag);
+        coreCommand.setOutput("previous_light_tag", light_tag);
         return;
       }
     } else {
       tag = "0.0.0";
       light_tag = "0.0.0";
       commits = await getCommits();
-      core.setOutput("previous_tag", tag);
-      core.setOutput("previous_light_tag", light_tag);
+      coreCommand.setOutput("previous_tag", tag);
+      coreCommand.setOutput("previous_light_tag", light_tag);
     }
 
     console.info(`Current tag is ${tag}`);
-    core.setOutput("previous_tag", tag);
-    core.setOutput("previous_light_tag", light_tag);
+    coreCommand.setOutput("previous_tag", tag);
+    coreCommand.setOutput("previous_light_tag", light_tag);
     
     core.debug(`Commits: ${commits}`);
 
@@ -100,9 +101,9 @@ async function run() {
     
     core.info(`New version: ${newVersion}, New Tag: ${newTag}`)
 
-    core.setOutput("new_version", newVersion);
-    core.setOutput("new_tag", newTag);
-    core.setOutput("new_numbered", newNumbered);
+    coreCommand.setOutput("new_version", newVersion);
+    coreCommand.setOutput("new_tag", newTag);
+    coreCommand.setOutput("new_numbered", newNumbered);
 
     core.debug(`New tag: ${newTag}`);
 
@@ -119,7 +120,7 @@ async function run() {
       }
     );
 
-    core.setOutput("changelog", changelog);
+    coreCommand.setOutput("changelog", changelog);
 
     if (preRelease) {
       core.debug(
@@ -135,7 +136,7 @@ async function run() {
 
     core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
     if (dryRun === "true") {
-      core.setOutput("dry_run", "true");
+      coreCommand.setOutput("dry_run", "true");
       core.info("Dry run: not performing tag action.");
       return;
     }
