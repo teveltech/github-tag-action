@@ -50,7 +50,7 @@ async function run() {
       .includes(branch));
 
     core.info(`Pre release branch: ${preRelease}`)
-    coreCommand.issueCommand('set-output','preRelease', preRelease);
+    coreCommand.issueCommand('set-output',{name:'preRelease'}, preRelease);
 
     const hasTag = !!(await fetchTags()).stdout.trim();
     let tag = "";
@@ -65,21 +65,21 @@ async function run() {
 
       if (previousTagSha === GITHUB_SHA) {
         core.warning("No new commits since previous tag. Skipping...");
-        coreCommand.issueCommand('set-output',"previous_tag", tag);
-        coreCommand.issueCommand('set-output', light_tag);
+        coreCommand.issueCommand('set-output',{name:"previous_tag"}, tag);
+        coreCommand.issueCommand('set-output', {name:"light_tag"},light_tag);
         return;
       }
     } else {
       tag = "0.0.0";
       light_tag = "0.0.0";
       commits = await getCommits();
-      coreCommand.issueCommand('set-output',"previous_tag", tag);
-      coreCommand.issueCommand('set-output',"previous_light_tag", light_tag);
+      coreCommand.issueCommand('set-output',{name:"previous_tag"}, tag);
+      coreCommand.issueCommand('set-output',{name:"previous_light_tag"}, light_tag);
     }
 
     console.info(`Current tag is ${tag}`);
-    coreCommand.issueCommand('set-output',"previous_tag", tag);
-    coreCommand.issueCommand('set-output',"previous_light_tag", light_tag);
+    coreCommand.issueCommand('set-output',{name:"previous_tag"}, tag);
+    coreCommand.issueCommand('set-output',{name:"previous_light_tag"}, light_tag);
     
     core.debug(`Commits: ${commits}`);
 
@@ -102,9 +102,9 @@ async function run() {
     
     core.info(`New version: ${newVersion}, New Tag: ${newTag}`)
 
-    coreCommand.issueCommand('set-output',"new_version", newVersion);
-    coreCommand.issueCommand('set-output',"new_tag", newTag);
-    coreCommand.issueCommand('set-output',"new_numbered", newNumbered);
+    coreCommand.issueCommand('set-output',{name:"new_version"}, newVersion);
+    coreCommand.issueCommand('set-output',{name:"new_tag"}, newTag);
+    coreCommand.issueCommand('set-output',{name:"new_numbered"}, newNumbered);
 
     core.debug(`New tag: ${newTag}`);
 
@@ -121,7 +121,7 @@ async function run() {
       }
     );
 
-    coreCommand.issueCommand('set-output',"changelog", changelog);
+    coreCommand.issueCommand('set-output',{name:"changelog"}, changelog);
 
     if (preRelease) {
       core.debug(
@@ -137,7 +137,7 @@ async function run() {
 
     core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
     if (dryRun === "true") {
-      coreCommand.issueCommand('set-output',"dry_run", "true");
+      coreCommand.issueCommand('set-output',{name:"dry_run"}, "true");
       core.info("Dry run: not performing tag action.");
       return;
     }
