@@ -2,10 +2,14 @@ const core = require('@actions/core');
 const { analyzeCommits } = require("@semantic-release/commit-analyzer");
 const { generateNotes } = require("@semantic-release/release-notes-generator");
 const utils = require('./src/utils');
-const coreCommand =require ('@actions/core/lib/command')
-
 const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
 
+function setOutput(key, value) {
+  const output = process.env['GITHUB_OUTPUT']
+  // Temporary hack until core actions library catches up with github new recommendations
+  // TODO: check for updates
+    fs.appendFileSync(output, `${key}=${value}${os.EOL}`)
+}
 async function run() {
   try {
     const defaultBump = core.getInput("default_bump");
@@ -35,7 +39,7 @@ async function run() {
       .includes(branch));
 
     core.info(`Pre release branch: ${preRelease}`)
-    coreCommand.issueCommand('set-output',{name:'preRelease'}, preRelease);
+    setOutput('preRelease', preRelease);
 
     const hasTag = !!(await fetchTags()).stdout.trim();
     let tag = "";
@@ -50,21 +54,21 @@ async function run() {
 
       if (previousTagSha === GITHUB_SHA) {
         core.warning("No new commits since previous tag. Skipping...");
-        coreCommand.issueCommand('set-output',{name:"previous_tag"}, tag);
-        coreCommand.issueCommand('set-output', {name:"light_tag"},light_tag);
+        setOutput("previous_tag", tag);
+        setOutput("previous_light_tag", light_tag);
         return;
       }
     } else {
       tag = "0.0.0";
       light_tag = "0.0.0";
       commits = await getCommits();
-      coreCommand.issueCommand('set-output',{name:"previous_tag"}, tag);
-      coreCommand.issueCommand('set-output',{name:"previous_light_tag"}, light_tag);
+      setOutput("previous_tag", tag);
+      setOutput("previous_light_tag", light_tag);
     }
 
     console.info(`Current tag is ${tag}`);
-    coreCommand.issueCommand('set-output',{name:"previous_tag"}, tag);
-    coreCommand.issueCommand('set-output',{name:"previous_light_tag"}, light_tag);
+    setOutput("previous_tag", tag);
+    setOutput("previous_light_tag", light_tag);
     
     core.debug(`Commits: ${commits}`);
 
@@ -87,9 +91,9 @@ async function run() {
     
     core.info(`New version: ${newVersion}, New Tag: ${newTag}`)
 
-    coreCommand.issueCommand('set-output',{name:"new_version"}, newVersion);
-    coreCommand.issueCommand('set-output',{name:"new_tag"}, newTag);
-    coreCommand.issueCommand('set-output',{name:"new_numbered"}, newNumbered);
+    setOutput("new_version", newVersion);
+    setOutput("new_tag", newTag);
+    setOutput("new_numbered", newNumbered);
 
     core.debug(`New tag: ${newTag}`);
 
@@ -106,7 +110,7 @@ async function run() {
       }
     );
 
-    coreCommand.issueCommand('set-output',{name:"changelog"}, changelog);
+    setOutput("changelog", changelog);
 
     if (preRelease) {
       core.debug(
@@ -122,7 +126,7 @@ async function run() {
 
     core.info("dry_run: " + dryRun + " (" + typeof (dryRun) + ")");
     if (dryRun === "true") {
-      coreCommand.issueCommand('set-output',{name:"dry_run"}, "true");
+      setOutput("dry_run", "true");
       core.info("Dry run: not performing tag action.");
       return;
     }
@@ -139,6 +143,5 @@ async function run() {
     core.setFailed(error.message);
   }
 }
-
 
 run()
