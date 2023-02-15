@@ -6,6 +6,7 @@ const fs = require('fs')
 const os = require('os')
 const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = require('./src/git');
 
+
 function setOutput(key, value) {
   const output = process.env['GITHUB_OUTPUT']
   // Temporary hack until core actions library catches up with github new recommendations
