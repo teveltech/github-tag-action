@@ -9,10 +9,15 @@ const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, f
 
 function setOutput(key, value) {
   const output = process.env['GITHUB_OUTPUT']
+  console.log("🚀 ~ file: index.js:12 ~ setOutput ~ output", output)
   // Temporary hack until core actions library catches up with github new recommendations
   // TODO: check for updates
-    fs.appendFileSync(output, `${key}=${value}${os.EOL}`)
-}
+try {
+      fs.appendFileSync(output, `${key}=${value}${os.EOL}`)
+  
+} catch (error) {
+  
+}}
 async function run() {
   try {
     const defaultBump = core.getInput("default_bump");
