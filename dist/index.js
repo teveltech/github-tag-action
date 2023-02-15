@@ -21,6 +21,7 @@ const fs = __webpack_require__(5747)
 const os = __webpack_require__(2087)
 const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, fetchTags } = __webpack_require__(109);
 
+
 function setOutput(key, value) {
   const output = process.env['GITHUB_OUTPUT']
   // Temporary hack until core actions library catches up with github new recommendations
