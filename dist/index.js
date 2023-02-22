@@ -26,7 +26,7 @@ function setOutput(key, value) {
   const invalidChars = "#"
   
   if(typeof(value) === 'string' && value.includes(invalidChars)){
-    value = value.replace(invalidChars, "");
+    value = value.replaceAll(invalidChars, "");
   }
   // Temporary hack until core actions library catches up with github new recommendations
   // TODO: check for updates
