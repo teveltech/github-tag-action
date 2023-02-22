@@ -25,7 +25,7 @@ function setOutput(key, value) {
   const output = process.env['GITHUB_OUTPUT']
   const invalidChars = "##"
   
-  if(typeof(value) === string && value.includes(invalidChars)){
+  if(typeof(value) === 'string' && value.includes(invalidChars)){
     value = value.replace(invalidChars, "");
   }
   // Temporary hack until core actions library catches up with github new recommendations
