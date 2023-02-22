@@ -23,7 +23,7 @@ const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, f
 
 function setOutput(key, value) {
   const output = process.env['GITHUB_OUTPUT']
-  const invalidChars = "##"
+  const invalidChars = "#"
   
   if(typeof(value) === 'string' && value.includes(invalidChars)){
     value = value.replace(invalidChars, "");
