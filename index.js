@@ -9,7 +9,8 @@ const { getTagSha, getTag, getLightTag, getCommits, checkTagExists, createTag, f
 function setOutput(key, value) {
   const output = process.env['GITHUB_OUTPUT']
   const invalidChars = "##"
-  if(value.includes(invalidChars)){
+  
+  if(typeof(value) === string && value.includes(invalidChars)){
     value = value.replace(invalidChars, "");
   }
   // Temporary hack until core actions library catches up with github new recommendations
