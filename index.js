@@ -81,13 +81,12 @@ async function run() {
       core.setFailed(`Nothing to bump - not building release`);
       return;
     }
-    const {newVersion, newTag, newNumbered} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
+    const {newVersion, newTag} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
     
     core.info(`New version: ${newVersion}, New Tag: ${newTag}`)
 
     core.setOutput("new_version", newVersion);
     core.setOutput("new_tag", newTag);
-    core.setOutput("new_numbered", newNumbered);
 
     core.debug(`New tag: ${newTag}`);
 

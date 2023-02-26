@@ -43,8 +43,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
   
   newTag = newTag.replace(/_/g, '-');
   newVersion = newVersion.replace(/_/g, '-');
-  newNumbered = newTag.indexOf("-") > 0 ? newTag.substring(0, newTag.indexOf("-")) : newTag;
-  return {newVersion, newTag, newNumbered}
+  return {newVersion, newTag}
 }
 
 module.exports = { calculateVersion }

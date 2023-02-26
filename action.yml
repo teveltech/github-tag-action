@@ -12,8 +12,6 @@ outputs:
     description: "true if on prerelease branch"
   new_version:
     description: "New version"
-  new_numbered:
-    description: "New version withouth branch name and commit number"
 inputs:
   github_token:
     description: "Required for permission to tag the repo."
