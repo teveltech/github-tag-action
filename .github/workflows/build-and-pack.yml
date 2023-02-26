@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [12.x]
     steps:
-      - uses: actions/checkout@v3.3.0      
+      - uses: actions/checkout@v2      
         
       - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
       
       - name: Extract branch name
         id: extractBranch
         shell: bash
-        run: echo "##[branch;]$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
       
       - name: Install dependencies
         run: npm install
@@ -34,7 +34,7 @@ jobs:
       
       - name: Check packed js changes
         id: packedJsStatus
-        run: echo 'changes=$(git status ${{ env.PACKED_JS_PATH }} --porcelain)' >> $GITHUB_OUTPUT
+        run: echo ::set-output name=changes::$(git status ${{ env.PACKED_JS_PATH }} --porcelain)
       
       - name: Commit packed js
         id: commitPackedJs
