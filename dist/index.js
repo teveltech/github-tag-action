@@ -96,12 +96,13 @@ async function run() {
       core.setFailed(`Nothing to bump - not building release`);
       return;
     }
-    const {newVersion, newTag} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
+    const {newVersion, newTag, newNumbered} = await utils.calculateVersion(tag, branch, bump, preRelease, defaultBump)
     
     core.info(`New version: ${newVersion}, New Tag: ${newTag}`)
 
     core.setOutput("new_version", newVersion);
     core.setOutput("new_tag", newTag);
+    core.setOutput("new_numbered", newNumbered);
 
     core.debug(`New tag: ${newTag}`);
 
@@ -82073,7 +82074,8 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
   
   newTag = newTag.replace(/_/g, '-');
   newVersion = newVersion.replace(/_/g, '-');
-  return {newVersion, newTag}
+  newNumbered = newTag.indexOf("-") > 0 ? newTag.substring(0, newTag.indexOf("-")) : newTag;
+  return {newVersion, newTag, newNumbered}
 }
 
 module.exports = { calculateVersion }
