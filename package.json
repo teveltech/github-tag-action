@@ -21,7 +21,7 @@
   "author": "Mathieu Dutour",
   "license": "MIT",
   "dependencies": {
-    "@actions/core": "^1.2.6",
+    "@actions/core": "^1.10.0",
     "@actions/exec": "^1.0.1",
     "@actions/github": "^2.1.1",
     "@semantic-release/commit-analyzer": "^8.0.1",
