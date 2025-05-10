@@ -14,40 +14,34 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
   let newTag = '';
   if (preRelease) {
     console.log(`Prerelease on branch ${branch}`);
-    const describe = await gitDescribe(); // e.g., v2.0.1-12-gabc123
-    const [rawTag, inc, hash] = describe.split('-');
 
-    // Extract prefix (e.g., 'v') and version part (e.g., '2.0.1')
-    const prefixMatch = rawTag.match(/^[a-zA-Z]+/);
-    const prefix = prefixMatch ? prefixMatch[0] : '';
-    const versionPart = rawTag.replace(prefix, '');
+    // Find latest annotated or SemVer tag
+    let rawTag = execOutput(`git tag --sort=-creatordate | grep -E '^v?\\d+\\.\\d+\\.\\d+$' | head -n1`);
+    const versionPart = rawTag.replace(/^v/, '');
 
-    // Use semver.inc to bump the version (patch by default)
-    const bumpedVersion = semver.inc(versionPart, bump || defaultBump);
-    if (!bumpedVersion) {
-      throw new Error(`SemVer inc rejected tag ${rawTag}`);
-    }
+    // Get commit count since tag
+    const describe = execOutput(`git describe --tags --match "v[0-9]*"`);
+    const dissect = describe.split('-');
+    const inc = dissect.length >= 3 ? dissect[1] : '0';
 
-    newVersion = `${bumpedVersion}-${branch}-${inc}`;
-    newTag = `${prefix}${newVersion}`;
+    newVersion = `${versionPart}-${branch}-${inc}`;
+    newTag = `v${newVersion}`;
   } else {
-    const prefix = BranchPrefix[branch] || branch[0]; // fallback to first letter
-    const rawVersion = tag.replace(prefix, '');
-    const incResult = semver.inc(rawVersion, bump || defaultBump);
+    // Find latest SemVer tag and bump it
+    let rawTag = execOutput(`git tag --sort=-creatordate | grep -E '^v?\\d+\\.\\d+\\.\\d+$' | head -n1`);
+    const versionPart = rawTag.replace(/^v/, '');
+    const incResult = semver.inc(versionPart, bump || defaultBump);
 
     if (!incResult) {
-      throw new Error(`SemVer inc rejected tag ${tag}`);
+      throw new Error(`Could not increment SemVer from: ${versionPart}`);
     }
 
-    console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
-    newVersion = `${incResult}`;
-    newTag = `${prefix}${newVersion}`;
+    newVersion = incResult;
+    newTag = `v${newVersion}`;
   }
-  
-  newTag = newTag.replace(/_/g, '-');
-  newVersion = newVersion.replace(/_/g, '-');
-  newNumbered = newTag.indexOf("-") > 0 ? newTag.substring(0, newTag.indexOf("-")) : newTag;
-  return {newVersion, newTag, newNumbered}
+
+  const newNumbered = newTag.includes('-') ? newTag.split('-')[0] : newTag;
+  return { newVersion, newTag, newNumbered };
 }
 
 module.exports = { calculateVersion }
