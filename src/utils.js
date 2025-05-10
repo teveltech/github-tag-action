@@ -15,23 +15,20 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
   if (preRelease) {
     console.log(`Prerelease on branch ${branch}`);
     const describe = await gitDescribe();
-    const dissect = describe.split('-');
-    let tag = dissect[0];
-    const inc = dissect[1];
-    const hash = dissect[2];
-    
-    let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
-    tag = tag.replace(/[a-zA-Z]+/, '')
-    
-    newVersion = `${tag}-${branch}-${inc}`;
+    const [rawTag, inc, hash] = describe.split('-');
+
+    // Extract prefix (e.g., 'v') and clean tag number (e.g., '1.1.0')
+    const prefixMatch = rawTag.match(/^[a-zA-Z]+/);
+    const prefix = prefixMatch ? prefixMatch[0] : '';
+    const versionPart = rawTag.replace(prefix, '');
+
+    newVersion = `${versionPart}-${branch}-${inc}`;
     newTag = `${prefix}${newVersion}`
     // newTag =`${tag}-${branch}-${inc}-${hash}`
   } else {
-    let prefix = (BranchPrefix[branch]) ? BranchPrefix[branch] : branch[0];
-    
+    const prefix = BranchPrefix[branch] || branch[0]; // fallback to first letter
     const rawVersion = tag.replace(prefix, '');
     const incResult = semver.inc(rawVersion, bump || defaultBump);
-    
     console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
     
     if (!incResult) {
