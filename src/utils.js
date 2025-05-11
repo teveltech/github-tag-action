@@ -14,41 +14,42 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
   let newTag = '';
   if (preRelease) {
     console.log(`Prerelease on branch ${branch}`);
-
-    // Find latest SemVer tag and bump it first
-    let rawTag = execOutput(`git tag --sort=-creatordate | grep -E '^v?\\d+\\.\\d+\\.\\d+$' | head -n1`);
-    const versionPart = rawTag.replace(/^v/, '');
+    const describe = await gitDescribe();
+    const dissect = describe.split('-');
+    let tag = dissect[0];
+    const inc = dissect[1];
+    const hash = dissect[2];
     
-    // Bump version before adding prerelease suffix
+    let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
+    tag = tag.replace(/[a-zA-Z]+/, '')
     const bumpedVersion = semver.inc(versionPart, bump || defaultBump);
     if (!bumpedVersion) {
       throw new Error(`Could not bump SemVer for prerelease from: ${versionPart}`);
     }
-  
-    // Get commit count since latest SemVer tag
-    const describe = execOutput(`git describe --tags --match "v[0-9]*"`);
-    const dissect = describe.split('-');
-    const inc = dissect.length >= 3 ? dissect[1] : '0';
-  
-    // Construct prerelease version
+    console.log(`${bump}`)
+    console.log(`${bumpedVersion}`)
     newVersion = `${bumpedVersion}-${branch}-${inc}`;
-    newTag = `v${newVersion}`;
+    newTag = `${prefix}${newVersion}`
+    // newTag =`${tag}-${branch}-${inc}-${hash}`
   } else {
-    // Find latest SemVer tag and bump it
-    let rawTag = execOutput(`git tag --sort=-creatordate | grep -E '^v?\\d+\\.\\d+\\.\\d+$' | head -n1`);
-    const versionPart = rawTag.replace(/^v/, '');
-    const incResult = semver.inc(versionPart, bump || defaultBump);
-
+    let prefix = (BranchPrefix[branch]) ? BranchPrefix[branch] : branch[0];
+    
+    const rawVersion = tag.replace(prefix, '');
+    const incResult = semver.inc(rawVersion, bump || defaultBump);
+    
+    console.log(`SemVer.inc(${rawVersion}, ${bump || defaultBump}): ${incResult}`);
+    
     if (!incResult) {
-      throw new Error(`Could not increment SemVer from: ${versionPart}`);
+      throw new Error(`SemVer inc rejected tag ${tag}`);
     }
-
-    newVersion = incResult;
-    newTag = `v${newVersion}`;
+    newVersion = `${incResult}`
+    newTag = `${prefix}${newVersion}`
   }
-
-  const newNumbered = newTag.includes('-') ? newTag.split('-')[0] : newTag;
-  return { newVersion, newTag, newNumbered };
+  
+  newTag = newTag.replace(/_/g, '-');
+  newVersion = newVersion.replace(/_/g, '-');
+  newNumbered = newTag.indexOf("-") > 0 ? newTag.substring(0, newTag.indexOf("-")) : newTag;
+  return {newVersion, newTag, newNumbered}
 }
 
 module.exports = { calculateVersion }
