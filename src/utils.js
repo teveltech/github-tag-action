@@ -25,7 +25,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     console.log(`here`)
     const bumpedVersion = semver.inc(tag, bump || defaultBump);
     if (!bumpedVersion) {
-      throw new Error(`Could not bump SemVer for prerelease from: ${versionPart}`);
+      throw new Error(`Could not bump SemVer for prerelease from: ${tag}`);
     }
     console.log(`${bump}`)
     console.log(`${bumpedVersion}`)
