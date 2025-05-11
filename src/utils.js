@@ -22,7 +22,8 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     
     let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
     tag = tag.replace(/[a-zA-Z]+/, '')
-    const bumpedVersion = semver.inc(versionPart, bump || defaultBump);
+    console.log(`here`)
+    const bumpedVersion = semver.inc(tag, bump || defaultBump);
     if (!bumpedVersion) {
       throw new Error(`Could not bump SemVer for prerelease from: ${versionPart}`);
     }
