@@ -83809,7 +83809,7 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
 
     console.log(`${bump}`)
     console.log(`${bumpedVersion}`)
-    newVersion = `${tag}-${branch}-${inc}`;
+    newVersion = `${bumpedVersion}-${branch}-${inc}`;
     newTag = `${prefix}${newVersion}`
     // newTag =`${tag}-${branch}-${inc}-${hash}`
   } else {
