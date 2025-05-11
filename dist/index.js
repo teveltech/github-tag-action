@@ -83798,10 +83798,17 @@ async function calculateVersion(tag, branch, bump, preRelease, defaultBump = "pa
     let tag = dissect[0];
     const inc = dissect[1];
     const hash = dissect[2];
-    
+    console.log(`here`)
+    const bumpedVersion = semver.inc(tag, bump || defaultBump);
+    if (!bumpedVersion) {
+      throw new Error(`Could not bump SemVer for prerelease from: ${tag}`);
+    }
     let prefix = tag.replace(tag.replace(/[a-zA-Z]+/, ''), '')
     tag = tag.replace(/[a-zA-Z]+/, '')
     
+
+    console.log(`${bump}`)
+    console.log(`${bumpedVersion}`)
     newVersion = `${tag}-${branch}-${inc}`;
     newTag = `${prefix}${newVersion}`
     // newTag =`${tag}-${branch}-${inc}-${hash}`
